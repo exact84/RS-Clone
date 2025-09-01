@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "lint:fix": "eslint --fix",
-    "prettier": "npx prettier ./src --write"
+    "prettier": "npx prettier ./src --write",
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.ts": [
