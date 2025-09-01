@@ -11,6 +11,12 @@
     "lint:fix": "eslint --fix",
     "prettier": "npx prettier ./src --write"
   },
+  "lint-staged": {
+    "*.ts": [
+      "npm run prettier",
+      "npm run lint:fix"
+    ]
+  },
   "prettier": {
     "printWidth": 100,
     "singleQuote": true,
@@ -53,6 +59,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "lint-staged": "^16.1.6",
     "prettier": "^3.6.2",
     "prettier-eslint": "^16.4.2",
     "typescript": "~5.9.2",
