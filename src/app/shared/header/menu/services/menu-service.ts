@@ -6,11 +6,9 @@ import { MenuItem } from '../models/menu-item.interface';
 })
 export class MenuService {
   items: MenuItem[] = [];
-  isVertical = false;
   showVerticalMenu = false;
 
   toggleMenu(): void {
-    this.isVertical = true;
     this.showVerticalMenu = !this.showVerticalMenu;
   }
 }

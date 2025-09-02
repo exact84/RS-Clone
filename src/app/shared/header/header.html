@@ -6,9 +6,7 @@
   </div>
 
   <div *appScreenLargeDirective class="nav">
-    @if (!menuService.isVertical) {
-      <app-menu></app-menu>
-    }
+    <app-menu />
   </div>
 
   <div *appScreenSmallDirective>
@@ -16,7 +14,7 @@
       <img src="./menu.png" alt="menu burger" />
     </button>
     @if (menuService.showVerticalMenu) {
-      <app-menu class="vertical-menu"></app-menu>
+      <app-menu class="vertical-menu" />
     }
   </div>
 

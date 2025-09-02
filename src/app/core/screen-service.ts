@@ -1,10 +1,12 @@
 import { effect, Injectable, signal } from '@angular/core';
 
+const LARGE_SCREEN_BREAKPOINT = 768;
+
 @Injectable({
   providedIn: 'root',
 })
 export class ScreenService {
-  largeScreen = 768;
+  readonly largeScreen = LARGE_SCREEN_BREAKPOINT;
   readonly width = signal<number>(window.innerWidth);
   readonly height = signal<number>(window.innerHeight);
 
