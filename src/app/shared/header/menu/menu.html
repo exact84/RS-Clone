@@ -1,1 +1,9 @@
-<p>menu works!</p>
+<nav class="nav">
+  <ul>
+    @for (item of menuService.items; track $index) {
+      <li>
+        <a routerLink="{{ item.route }}" routerLinkActive="active">{{ item.text }}</a>
+      </li>
+    }
+  </ul>
+</nav>

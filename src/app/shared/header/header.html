@@ -1,1 +1,27 @@
-<p>header works!</p>
+<header class="header">
+  <div class="logo">
+    <a routerLink="./">
+      <img src="logo.svg" alt="move-app-logo" />
+    </a>
+  </div>
+
+  <div *appScreenLargeDirective class="nav">
+    @if (!menuService.isVertical) {
+      <app-menu></app-menu>
+    }
+  </div>
+
+  <div *appScreenSmallDirective>
+    <button (click)="menuService.toggleMenu()">
+      <img src="./menu.png" alt="menu burger" />
+    </button>
+    @if (menuService.showVerticalMenu) {
+      <app-menu class="vertical-menu"></app-menu>
+    }
+  </div>
+
+  <div class="auth">
+    <a routerLink="/login">Login</a>
+    <a routerLink="/signup">Register</a>
+  </div>
+</header>
