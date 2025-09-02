@@ -9,7 +9,6 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'movie', pathMatch: 'full' },
       { path: 'movie', component: Home },
-
       {
         path: 'movies',
         loadComponent: () => import('./pages/movies/movies').then((c) => c.Movies),

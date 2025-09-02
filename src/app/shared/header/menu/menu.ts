@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ScreenService } from '../../../core/screen-service';
 import { MenuService } from './services/menu-service';
-import { MenuItems } from './data/manu-data';
+import { MenuItems } from './data/menu-data';
 
 @Component({
   selector: 'app-menu',
