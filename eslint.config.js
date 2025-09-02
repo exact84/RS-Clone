@@ -1,10 +1,9 @@
-// @ts-check
 const eslint = require('@eslint/js');
 const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
 const eslintConfigPrettier = require('eslint-config-prettier');
 const unusedImports = require('eslint-plugin-unused-imports');
-const eslintPluginUnicorn = require('eslint-plugin-unicorn');
+const unicorn = require('eslint-plugin-unicorn').default;
 const typescriptEslintParser = require('@typescript-eslint/parser');
 
 module.exports = tseslint.config(
@@ -15,11 +14,17 @@ module.exports = tseslint.config(
       ...tseslint.configs.recommended,
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
+      {
+        plugins: {
+          unicorn,
+        },
+        rules: unicorn.configs.recommended.rules,
+      },
       eslintConfigPrettier,
     ],
     plugins: {
       'unused-imports': unusedImports,
-      unicorn: eslintPluginUnicorn,
+      unicorn,
     },
     languageOptions: {
       parser: typescriptEslintParser,
