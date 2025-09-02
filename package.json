@@ -16,6 +16,9 @@
     "*.ts": [
       "npm run prettier",
       "npm run lint:fix"
+    ],
+    "*.{html,css,scss}": [
+      "npm run prettier"
     ]
   },
   "prettier": {
