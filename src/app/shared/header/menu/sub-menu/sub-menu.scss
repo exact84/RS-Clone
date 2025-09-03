@@ -1,0 +1,38 @@
+:host {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 200px;
+  z-index: 1;
+  background-color: rgba(3, 37, 65, 0.95);
+  padding-block: 2rem;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+
+    li a {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+    }
+
+    li:hover a {
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
+  }
+}
+
+:host(.vertical-menu) {
+  position: static;
+  display: flex;
+  flex-direction: column;
+  width: 10rem;
+  background-color: transparent;
+}
