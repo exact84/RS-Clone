@@ -1,7 +1,10 @@
 <ul>
   @for (item of menu(); track $index) {
     <li>
-      <a routerLink="{{ parentRoute() }}/{{ item.route }}" routerLinkActive="active"
+      <a
+        (click)="navigate.emit()"
+        routerLink="{{ parentRoute() }}/{{ item.route }}"
+        routerLinkActive="active"
         >{{ item.text }}
       </a>
     </li>

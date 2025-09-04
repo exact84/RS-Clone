@@ -14,15 +14,15 @@ export class MenuClickDirective {
   private screenService = inject(ScreenService);
 
   index = input.required<number>();
-  submenu = input<MenuItem[] | undefined>();
+  submenu = input.required<MenuItem[] | []>();
 
   onClick(event: Event) {
     if (this.screenService.isLarge()) return;
+    if (!this.menuService.showVerticalMenu) return;
 
     event.preventDefault();
-    this.menuService.hoveredIndex.set(this.index());
+    this.menuService.clickedIndex.set(this.index());
     this.menuService.hoveredSubmenu.set(this.submenu()?.length ? this.submenu() : undefined);
-    this.menuService.mouseInItem.set(true);
-    this.menuService.mouseInPopup.set(true);
+    console.log('MenuClickDirective click, index:', this.index());
   }
 }

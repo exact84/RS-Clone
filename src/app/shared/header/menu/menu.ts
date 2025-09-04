@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ScreenService } from '../../../core/screen-service';
 import { MenuService } from './services/menu-service';
@@ -8,7 +8,6 @@ import { MenuHoverDirective } from './directives/menu-hover-directive';
 import { ScreenLargeDirective } from '../directives/screen-large-directive';
 import { ScreenSmallDirective } from '../directives/screen-small-directive';
 import { MenuClickDirective } from './directives/menu-click-directive';
-import { MenuItem } from './models/menu-item.interface';
 
 @Component({
   selector: 'app-menu',
@@ -22,6 +21,7 @@ import { MenuItem } from './models/menu-item.interface';
   ],
   templateUrl: './menu.html',
   styleUrl: './menu.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Menu {
   screenService = inject(ScreenService);
@@ -32,27 +32,18 @@ export class Menu {
   }
 
   onNavigate() {
-    this.menuService.hoveredIndex.set(undefined);
-    this.menuService.hoveredSubmenu.set(undefined);
-    this.menuService.mouseInItem.set(false);
-    this.menuService.mouseInPopup.set(false);
+    console.log('onNavigate triggered');
+    this.menuService.resetSubmenu();
     this.menuService.showVerticalMenu = false;
+    this.menuService.hoveredIndex.set(undefined);
+    this.menuService.clickedIndex.set(undefined);
   }
 
-  onMenuItemClick(index: number, item: MenuItem) {
-    if (this.screenService.isLarge()) {
-      this.menuService.showVerticalMenu = false;
-      // переход по маршруту — ничего не мешает
-    } else {
-      if (item.submenu?.length) {
-        // Открываем сабменю, не скрываем вертикальное меню
-        const isOpen = this.menuService.hoveredIndex() === index;
-        this.menuService.hoveredIndex.set(isOpen ? undefined : index);
-        this.menuService.hoveredSubmenu.set(isOpen ? undefined : item.submenu);
-      } else {
-        // Нет сабменю — можно закрыть вертикальное меню
-        this.menuService.showVerticalMenu = false;
-      }
+  resetIndex() {
+    console.log('resetIndex called');
+    if (!this.menuService.showVerticalMenu) {
+      this.menuService.clickedIndex.set(undefined);
+      console.log('clickedIndex after reset:', this.menuService.clickedIndex());
     }
   }
 }

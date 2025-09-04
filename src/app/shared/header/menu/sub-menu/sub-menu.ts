@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { MenuService } from '../services/menu-service';
 import { MenuItem } from '../models/menu-item.interface';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -8,9 +8,11 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './sub-menu.html',
   styleUrl: './sub-menu.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubMenu {
   menuService = inject(MenuService);
   menu = input.required<MenuItem[]>();
   parentRoute = input.required<string>();
+  readonly navigate = output<void>();
 }
