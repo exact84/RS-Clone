@@ -25,8 +25,6 @@ export class MenuHoverDirective {
     this.menuService.mouseInPopup.set(true);
     this.menuService.hoveredIndex.set(this.index());
     this.menuService.hoveredSubmenu.set(this.submenu()?.length ? this.submenu() : undefined);
-    console.log('mouse-enter');
-    console.log('menuService instance', this.menuService);
   }
 
   onLeave() {

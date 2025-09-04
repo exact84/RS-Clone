@@ -1,27 +1,42 @@
 <nav class="nav">
   <ul>
     @for (item of menuService.items; track $index; let index = $index) {
-      <li appMenuHoverDirective [index]="index" [submenu]="item.submenu ?? undefined">
+      <li
+        appMenuHoverDirective
+        appMenuClickDirective
+        [index]="index"
+        [submenu]="item.submenu ?? undefined"
+      >
         <a
           routerLink="{{ item.route }}"
           routerLinkActive="active"
-          (click)="menuService.showVerticalMenu = false"
+          (click)="onMenuItemClick(index, item)"
           >{{ item.text }}</a
         >
-        @if (
-          item.submenu &&
-          menuService.hoveredIndex() === index &&
-          (menuService.mouseInItem() || menuService.mouseInPopup())
-        ) {
-          <app-sub-menu
-            [menu]="item.submenu"
-            [parentRoute]="item.route"
-            [class]="menuService.showVerticalMenu ? 'vertical-menu' : ''"
-            (pointerenter)="menuService.mouseInPopup.set(true)"
-            (pointerleave)="menuService.mouseInPopup.set(false)"
-            (click)="onNavigate()"
-            (keydown.escape)="onNavigate()"
-          ></app-sub-menu>
+        @if (item.submenu) {
+          @if (
+            menuService.hoveredIndex() === index &&
+            (menuService.mouseInItem() || menuService.mouseInPopup())
+          ) {
+            <ng-template appScreenLargeDirective>
+              <app-sub-menu
+                [menu]="item.submenu"
+                [parentRoute]="item.route"
+                [class]="menuService.showVerticalMenu ? 'vertical-menu' : ''"
+                (pointerenter)="menuService.mouseInPopup.set(true)"
+                (pointerleave)="menuService.mouseInPopup.set(false)"
+                (click)="onNavigate()"
+                (keydown.escape)="onNavigate()"
+              ></app-sub-menu>
+            </ng-template>
+            <ng-template appScreenSmallDirective>
+              <app-sub-menu
+                [menu]="item.submenu"
+                [parentRoute]="item.route"
+                (click)="onNavigate()"
+              ></app-sub-menu>
+            </ng-template>
+          }
         }
       </li>
     }
