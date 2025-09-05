@@ -21,10 +21,12 @@ export class MenuClickDirective {
     if (!this.menuService.showVerticalMenu) return;
     const hasSubmenu = this.submenu()?.length > 0;
 
+    const isOpen = this.menuService.clickedIndex() === this.index();
+
     if (hasSubmenu) {
       event.preventDefault();
-      this.menuService.clickedIndex.set(this.index());
-      this.menuService.hoveredSubmenu.set(this.submenu()?.length ? this.submenu() : undefined);
+      this.menuService.clickedIndex.set(isOpen ? undefined : this.index());
+      this.menuService.hoveredSubmenu.set(isOpen ? undefined : this.submenu());
     }
   }
 }
