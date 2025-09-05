@@ -24,6 +24,10 @@
     color: colors.$link-color;
     transition: color 0.25s;
 
+    &.to-home {
+      margin-top: 10px;
+    }
+
     &::after {
       position: absolute;
       content: '';
@@ -54,6 +58,9 @@
 
 .auth-page {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  min-height: 528px;
+  min-height: 560px;
 }
