@@ -7,7 +7,7 @@ export const routes: Routes = [
     path: '',
     component: MainLayout,
     children: [
-      { path: '', redirectTo: 'movie', pathMatch: 'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: Home },
       {
         path: 'movies',
