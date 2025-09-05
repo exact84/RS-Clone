@@ -5,21 +5,31 @@
     </a>
   </div>
 
-  <div *appScreenLargeDirective class="nav">
-    <app-menu />
-  </div>
-
-  <div *appScreenSmallDirective>
+  @if (isMobile()) {
     <button (click)="menuService.toggleMenu()">
       <img src="./menu.png" alt="menu burger" />
     </button>
     @if (menuService.showVerticalMenu) {
       <app-menu class="vertical-menu" />
     }
-  </div>
+  } @else {
+    <app-menu />
+  }
 
   <div class="auth">
-    <a routerLink="/auth/signup">Register</a>
-    <a routerLink="/auth/login">Login</a>
+    <a routerLink="/auth/signup">
+      @if (isMobile()) {
+        <app-auth-icon icon="signup" />
+      } @else {
+        Register
+      }
+    </a>
+    <a routerLink="/auth/login">
+      @if (isMobile()) {
+        <app-auth-icon icon="login" />
+      } @else {
+        Login
+      }
+    </a>
   </div>
 </header>
