@@ -1,22 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { isMatchPasswords } from '../utils/validators';
-import { FormField } from '../../shared/ui/form-field/form-field';
-import { PasswordIcon } from '../../shared/ui/password-icon/password-icon';
-
-interface SignupFormInterface {
-  login: FormControl<string>;
-  firstName: FormControl<string>;
-  lastName: FormControl<string>;
-  password: FormControl<string>;
-  confirmPassword: FormControl<string>;
-}
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SignupFormInterface } from '../models/forms.model';
+import { FormField } from '../../../shared/ui/form-field/form-field';
+import { PasswordIcon } from '../../../shared/ui/password-icon/password-icon';
+import { isMatchPasswords } from '../../utils/validators';
 
 @Component({
   selector: 'app-signup-form',

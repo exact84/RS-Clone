@@ -1,18 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { FormField } from '../../shared/ui/form-field/form-field';
-import { PasswordIcon } from '../../shared/ui/password-icon/password-icon';
-
-interface LoginFormInterface {
-  login: FormControl<string>;
-  password: FormControl<string>;
-}
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LoginFormInterface } from '../models/forms.model';
+import { FormField } from '../../../shared/ui/form-field/form-field';
+import { PasswordIcon } from '../../../shared/ui/password-icon/password-icon';
 
 @Component({
   selector: 'app-login-form',
