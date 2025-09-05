@@ -1,0 +1,39 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <app-form-field inputId="login" label="Login">
+    <ng-container slot="input">
+      <input type="text" id="login" formControlName="login" />
+    </ng-container>
+    <ng-container slot="validation-errors">
+      @if (login.dirty && login.invalid) {
+        @if (login.hasError('required')) {
+          <span class="validation-error">Please enter login</span>
+        }
+      }
+    </ng-container>
+  </app-form-field>
+  <app-form-field inputId="password" label="Password">
+    <ng-container slot="input">
+      <input
+        [type]="showPassword() ? 'text' : 'password'"
+        id="password"
+        formControlName="password"
+        autocomplete="false"
+      />
+    </ng-container>
+    <button slot="input-icon" type="button" (click)="togglePassword()" class="password-visibility">
+      <img
+        [ngSrc]="showPassword() ? 'visibility.svg' : 'visibility_off.svg'"
+        alt="visibility"
+        fill
+      />
+    </button>
+    <ng-container slot="validation-errors">
+      @if (password.dirty && password.invalid) {
+        @if (password.hasError('required')) {
+          <span class="validation-error">Please enter password</span>
+        }
+      }
+    </ng-container>
+  </app-form-field>
+  <button class="form-submit" type="submit" [disabled]="loginForm.invalid">Login</button>
+</form>

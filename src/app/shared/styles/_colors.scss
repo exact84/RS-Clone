@@ -1,0 +1,15 @@
+//form
+$form-border-color: #000;
+$input-color: #000;
+$input-border-color: #000;
+$input-border-color-hover: rgba($input-border-color, 0.5);
+$input-outline-color: rgba($input-border-color, 0.75);
+$submit-button-background-color: skyblue;
+$submit-button-background-color-disabled: rgba($submit-button-background-color, 0.3);
+$submit-button-background-color-hover: rgba($submit-button-background-color, 0.8);
+$validation-error-color: red;
+
+//auth-links
+$link-color: lightgreen;
+$link-color-hover: rgba($link-color, 0.8);
+$link-color-active: green;

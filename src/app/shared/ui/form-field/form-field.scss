@@ -1,0 +1,24 @@
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-label {
+  margin-bottom: 8px;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.form-field__error {
+  display: flex;
+  align-items: center;
+  min-height: 18px;
+  padding: 4px 20px;
+  font-size: 14px;
+  color: red;
+}

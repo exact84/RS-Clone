@@ -1,0 +1,59 @@
+@use '../../shared/styles/colors' as colors;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 0 auto;
+  max-width: 350px;
+  width: 100%;
+  height: 100vh;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+
+  &-link {
+    position: relative;
+    font-size: 24px;
+    text-decoration: none;
+    color: colors.$link-color;
+    transition: color 0.25s;
+
+    &::after {
+      position: absolute;
+      content: '';
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      transition: width 0.25s;
+    }
+
+    &:hover {
+      color: colors.$link-color-hover;
+      &::after {
+        width: 100%;
+        background-color: colors.$link-color-hover;
+      }
+    }
+
+    &__active {
+      color: colors.$link-color-active;
+      &::after {
+        background-color: colors.$link-color-active;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.auth-page {
+  position: relative;
+  width: 100%;
+  min-height: 528px;
+}
