@@ -36,6 +36,7 @@
             item.submenu && menuService.clickedIndex() === index && menuService.showVerticalMenu
           ) {
             <app-sub-menu
+              class="vertical-menu__submenu"
               [menu]="item.submenu"
               [parentRoute]="item.route"
               (navigate)="onNavigate()"

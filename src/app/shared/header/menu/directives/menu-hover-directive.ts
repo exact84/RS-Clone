@@ -17,28 +17,18 @@ export class MenuHoverDirective {
   private screenService = inject(ScreenService);
 
   index = input.required<number>();
-  submenu = input<MenuItem[] | undefined>([]);
+  submenu = input<MenuItem[]>([]);
 
   onEnter() {
     if (!this.screenService.isLarge()) return;
     this.menuService.mouseInItem.set(true);
     this.menuService.mouseInPopup.set(true);
     this.menuService.hoveredIndex.set(this.index());
-    this.menuService.hoveredSubmenu.set(this.submenu()?.length ? this.submenu() : undefined);
+    this.menuService.hoveredSubmenu.set(this.submenu()?.length ? this.submenu() : []);
   }
 
   onLeave() {
     if (!this.screenService.isLarge()) return;
     this.menuService.mouseInItem.set(false);
-    this.scheduleClose();
-  }
-
-  private scheduleClose() {
-    setTimeout(() => {
-      if (!this.menuService.mouseInItem() && !this.menuService.mouseInPopup()) {
-        this.menuService.hoveredIndex.set(undefined);
-        this.menuService.hoveredSubmenu.set(undefined);
-      }
-    }, 5000);
   }
 }

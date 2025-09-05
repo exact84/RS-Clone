@@ -51,6 +51,12 @@
       display: block;
       cursor: pointer;
     }
+
+    .vertical-menu__submenu {
+      position: absolute;
+      top: 0;
+      left: 100px;
+    }
   }
 
   a {
