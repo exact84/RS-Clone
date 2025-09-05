@@ -48,11 +48,7 @@
       />
     </ng-container>
     <button slot="input-icon" type="button" (click)="togglePassword()" class="password-visibility">
-      <img
-        [ngSrc]="showPassword() ? 'visibility.svg' : 'visibility_off.svg'"
-        alt="visibility"
-        fill
-      />
+      <app-password-icon [showPassword]="showPassword()" />
     </button>
     <ng-container slot="validation-errors">
       @if (password.dirty && password.invalid) {
@@ -77,11 +73,7 @@
       (click)="toggleConfirmPassword()"
       class="password-visibility"
     >
-      <img
-        [ngSrc]="showConfirmPassword() ? 'visibility.svg' : 'visibility_off.svg'"
-        alt="visibility"
-        fill
-      />
+      <app-password-icon [showPassword]="showConfirmPassword()" />
     </button>
     <ng-container slot="validation-errors">
       @if (confirmPassword.dirty && confirmPassword.invalid) {

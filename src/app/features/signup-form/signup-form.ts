@@ -7,8 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { isMatchPasswords } from '../utils/validators';
-import { NgOptimizedImage } from '@angular/common';
 import { FormField } from '../../shared/ui/form-field/form-field';
+import { PasswordIcon } from '../../shared/ui/password-icon/password-icon';
 
 interface SignupFormInterface {
   login: FormControl<string>;
@@ -20,7 +20,7 @@ interface SignupFormInterface {
 
 @Component({
   selector: 'app-signup-form',
-  imports: [ReactiveFormsModule, NgOptimizedImage, FormField],
+  imports: [ReactiveFormsModule, FormField, PasswordIcon],
   templateUrl: './signup-form.html',
   styleUrl: './signup-form.scss',
 })

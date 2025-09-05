@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { FormField } from '../../shared/ui/form-field/form-field';
-import { NgOptimizedImage } from '@angular/common';
+import { PasswordIcon } from '../../shared/ui/password-icon/password-icon';
 
 interface LoginFormInterface {
   login: FormControl<string>;
@@ -16,7 +16,7 @@ interface LoginFormInterface {
 
 @Component({
   selector: 'app-login-form',
-  imports: [ReactiveFormsModule, NgOptimizedImage, FormField],
+  imports: [ReactiveFormsModule, FormField, PasswordIcon],
   templateUrl: './login-form.html',
   styleUrl: '../login-form/login-form.scss',
 })
