@@ -39,11 +39,13 @@ export const routes: Routes = [
       { path: '', redirectTo: 'signup', pathMatch: 'full' },
       {
         path: 'signup',
-        loadComponent: () => import('./pages/auth/signup/signup').then((c) => c.Signup),
+        loadComponent: () =>
+          import('./features/forms/signup-form/signup-form').then((c) => c.SignupForm),
       },
       {
         path: 'login',
-        loadComponent: () => import('./pages/auth/login/login').then((c) => c.Login),
+        loadComponent: () =>
+          import('./features/forms/login-form/login-form').then((c) => c.LoginForm),
       },
     ],
   },
