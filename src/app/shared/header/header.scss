@@ -22,6 +22,11 @@
   margin-left: auto;
   display: flex;
   align-items: center;
+  gap: 1rem;
+
+  a {
+    color: #fff;
+  }
 }
 
 .auth-btn {

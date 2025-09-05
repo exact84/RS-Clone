@@ -1,6 +1,5 @@
 import { effect, Injectable, signal } from '@angular/core';
-
-const LARGE_SCREEN_BREAKPOINT = 768;
+import { LARGE_SCREEN_BREAKPOINT } from '../shared/constants/constants';
 
 @Injectable({
   providedIn: 'root',

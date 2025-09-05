@@ -8,7 +8,7 @@ export const routes: Routes = [
     component: MainLayout,
     children: [
       { path: '', redirectTo: 'movie', pathMatch: 'full' },
-      { path: 'movie', component: Home },
+      { path: 'home', component: Home },
       {
         path: 'movies',
         loadComponent: () => import('./pages/movies/movies').then((c) => c.Movies),
@@ -16,6 +16,14 @@ export const routes: Routes = [
       {
         path: 'movies/:id',
         loadComponent: () => import('./pages/movie/movie').then((c) => c.Movie),
+      },
+      {
+        path: 'people',
+        loadComponent: () => import('./pages/people/people').then((c) => c.People),
+      },
+      {
+        path: 'people/:id',
+        loadComponent: () => import('./pages/people/people').then((c) => c.People),
       },
 
       {

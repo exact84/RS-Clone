@@ -1,9 +1,49 @@
 <nav class="nav">
   <ul>
-    @for (item of menuService.items; track $index) {
-      <li>
-        <a routerLink="{{ item.route }}" routerLinkActive="active">{{ item.text }}</a>
-      </li>
-    }
+    <ng-template appScreenLargeDirective>
+      @for (item of menuService.items; track $index; let index = $index) {
+        <li appMenuHoverDirective [index]="index" [submenu]="item.submenu ?? []">
+          <a routerLink="{{ item.route }}" routerLinkActive="active" (click)="onNavigate()">
+            {{ item.text }}
+          </a>
+
+          @if (
+            item.submenu &&
+            menuService.hoveredIndex() === index &&
+            (menuService.mouseInItem() || menuService.mouseInPopup())
+          ) {
+            <app-sub-menu
+              [menu]="item.submenu"
+              [parentRoute]="item.route"
+              (click)="onNavigate()"
+              (keydown.escape)="onNavigate()"
+              (pointerenter)="menuService.mouseInPopup.set(true)"
+              (pointerleave)="menuService.mouseInPopup.set(false)"
+            ></app-sub-menu>
+          }
+        </li>
+      }
+    </ng-template>
+
+    <ng-template appScreenSmallDirective>
+      @for (item of menuService.items; track $index; let index = $index) {
+        <li appMenuClickDirective [index]="index" [submenu]="item.submenu ?? []">
+          <a routerLink="{{ item.route }}" routerLinkActive="active">
+            {{ item.text }}
+          </a>
+
+          @if (
+            item.submenu && menuService.clickedIndex() === index && menuService.showVerticalMenu
+          ) {
+            <app-sub-menu
+              class="vertical-menu__submenu"
+              [menu]="item.submenu"
+              [parentRoute]="item.route"
+              (navigate)="onNavigate()"
+            ></app-sub-menu>
+          }
+        </li>
+      }
+    </ng-template>
   </ul>
 </nav>
