@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -7,10 +7,4 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
   templateUrl: './auth.html',
   styleUrl: './auth.scss',
 })
-export class Auth {
-  router = inject(Router);
-
-  constructor() {
-    this.router.navigate(['auth', 'signup']);
-  }
-}
+export class Auth {}

@@ -36,6 +36,7 @@ export const routes: Routes = [
     path: 'auth',
     loadComponent: () => import('./pages/auth/auth').then((c) => c.Auth),
     children: [
+      { path: '', redirectTo: 'signup', pathMatch: 'full' },
       {
         path: 'signup',
         loadComponent: () => import('./pages/auth/signup/signup').then((c) => c.Signup),
