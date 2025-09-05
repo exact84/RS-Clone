@@ -18,7 +18,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/movie/movie').then((c) => c.Movie),
       },
       {
-        path: 'people/people',
+        path: 'people',
+        loadComponent: () => import('./pages/people/people').then((c) => c.People),
+      },
+      {
+        path: 'people/:id',
         loadComponent: () => import('./pages/people/people').then((c) => c.People),
       },
 

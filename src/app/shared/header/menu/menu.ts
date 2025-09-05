@@ -32,18 +32,6 @@ export class Menu {
   }
 
   onNavigate() {
-    console.log('onNavigate triggered');
     this.menuService.resetSubmenu();
-    this.menuService.showVerticalMenu = false;
-    this.menuService.hoveredIndex.set(undefined);
-    this.menuService.clickedIndex.set(undefined);
-  }
-
-  resetIndex() {
-    console.log('resetIndex called');
-    if (!this.menuService.showVerticalMenu) {
-      this.menuService.clickedIndex.set(undefined);
-      console.log('clickedIndex after reset:', this.menuService.clickedIndex());
-    }
   }
 }

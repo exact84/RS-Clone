@@ -11,5 +11,5 @@ export const MenuItems: MenuItem[] = [
       { text: 'Top Rated', route: '/top-rated', submenu: undefined },
     ],
   },
-  { text: 'People', route: '/people', submenu: [{ text: 'People', route: '/people' }] },
+  { text: 'People', route: '/people', submenu: [{ text: 'People', route: '/person' }] },
 ];

@@ -19,10 +19,12 @@ export class MenuClickDirective {
   onClick(event: Event) {
     if (this.screenService.isLarge()) return;
     if (!this.menuService.showVerticalMenu) return;
+    const hasSubmenu = this.submenu()?.length > 0;
 
-    event.preventDefault();
-    this.menuService.clickedIndex.set(this.index());
-    this.menuService.hoveredSubmenu.set(this.submenu()?.length ? this.submenu() : undefined);
-    console.log('MenuClickDirective click, index:', this.index());
+    if (hasSubmenu) {
+      event.preventDefault();
+      this.menuService.clickedIndex.set(this.index());
+      this.menuService.hoveredSubmenu.set(this.submenu()?.length ? this.submenu() : undefined);
+    }
   }
 }

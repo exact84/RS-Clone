@@ -28,9 +28,4 @@ export class MenuService {
     this.mouseInPopup.set(false);
     this.showVerticalMenu = false;
   }
-
-  resetAll(): void {
-    this.resetSubmenu();
-    this.showVerticalMenu = false;
-  }
 }
