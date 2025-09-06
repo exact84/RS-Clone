@@ -25,20 +25,10 @@ export const hasDigit: ValidatorFn = (control: AbstractControl): ValidationError
   return /\d/g.test(control.value) ? null : { hasDigit: { message: 'at least 1 digit' } };
 };
 
-export const hasLowercaseLetter: ValidatorFn = (
-  control: AbstractControl,
-): ValidationErrors | null => {
-  return /[a-zа-я]/g.test(control.value)
+export const hasLetter: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  return /[a-zA-Zа-яА-Я]/g.test(control.value)
     ? null
-    : { hasLowercaseLetter: { message: 'at least one lowercase letter' } };
-};
-
-export const hasUppercaseLetter: ValidatorFn = (
-  control: AbstractControl,
-): ValidationErrors | null => {
-  return /[A-ZА-Я]/g.test(control.value)
-    ? null
-    : { hasUppercaseLetter: { message: 'at least one uppercase letter' } };
+    : { hasLetter: { message: 'at least one letter' } };
 };
 
 export const isTakenLogin: AsyncValidatorFn = (

@@ -5,8 +5,7 @@ import { FormField } from '../../../shared/ui/form-field/form-field';
 import { PasswordIcon } from '../../../shared/ui/password-icon/password-icon';
 import {
   hasDigit,
-  hasLowercaseLetter,
-  hasUppercaseLetter,
+  hasLetter,
   isMatchPasswords,
   isPasswordToShort,
   isTakenLogin,
@@ -34,10 +33,7 @@ export class SignupForm {
       login: ['', [Validators.required, Validators.minLength(5)], [isTakenLogin]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      password: [
-        '',
-        [Validators.required, isPasswordToShort, hasUppercaseLetter, hasLowercaseLetter, hasDigit],
-      ],
+      password: ['', [Validators.required, isPasswordToShort, hasLetter, hasDigit]],
       confirmPassword: ['', [Validators.required]],
     },
     { validators: [isMatchPasswords] },
