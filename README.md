@@ -94,6 +94,13 @@ CD (Continuous Deployment):
 
 ### Changelog pipeline
 
+The workflow updates the changelog and version in package.json 
+based on pull request metadata (title, description, labels). 
+It also automatically updates the PR title with the new version.
+
+In the repository settings, you need to enable the parameter:
+Settings → Actions → General → Workflow permissions → “Read and write permissions”
+
 ```mermaid
 graph TD;
     A[Create/Edit PR] -->|Trigger GitHub Action| B[Checkout PR Branch];
