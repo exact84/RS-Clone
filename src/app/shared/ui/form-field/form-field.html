@@ -1,0 +1,12 @@
+<div class="form-field">
+  @if (label()) {
+    <label class="input-label" [for]="inputId()">{{ label() }}</label>
+  }
+  <div class="input-wrapper">
+    <ng-content select="[slot='input']"></ng-content>
+    <ng-content select="[slot='input-icon']"></ng-content>
+  </div>
+  <div class="form-field__error">
+    <ng-content select="[slot='validation-errors']"></ng-content>
+  </div>
+</div>

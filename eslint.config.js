@@ -58,6 +58,7 @@ module.exports = tseslint.config(
           argsIgnorePattern: '^_',
         },
       ],
+      'unicorn/no-null': ['off'],
     },
   },
   {

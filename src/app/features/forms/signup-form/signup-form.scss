@@ -1,0 +1,67 @@
+@use './app/shared/styles/colors' as colors;
+
+:host {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid colors.$form-border-color;
+}
+
+input {
+  padding: 10px;
+  border-radius: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid colors.$input-border-color;
+  color: colors.$input-color;
+  transition: border-color 0.25s;
+  outline-color: colors.$input-outline-color;
+
+  &:hover {
+    border: 1px solid colors.$input-border-color-hover;
+  }
+}
+
+.password-visibility {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: colors.$input-password-icon;
+  transition: transform 0.25s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.form-submit {
+  border: none;
+  background-color: colors.$submit-button-background-color;
+  border-radius: 20px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:disabled {
+    background-color: colors.$submit-button-background-color-disabled;
+  }
+
+  &:not(:disabled):hover {
+    background-color: colors.$submit-button-background-color-hover;
+  }
+}

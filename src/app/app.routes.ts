@@ -7,7 +7,7 @@ export const routes: Routes = [
     path: '',
     component: MainLayout,
     children: [
-      { path: '', redirectTo: 'movie', pathMatch: 'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: Home },
       {
         path: 'movies',
@@ -36,13 +36,16 @@ export const routes: Routes = [
     path: 'auth',
     loadComponent: () => import('./pages/auth/auth').then((c) => c.Auth),
     children: [
+      { path: '', redirectTo: 'signup', pathMatch: 'full' },
       {
         path: 'signup',
-        loadComponent: () => import('./pages/auth/signup/signup').then((c) => c.Signup),
+        loadComponent: () =>
+          import('./features/forms/signup-form/signup-form').then((c) => c.SignupForm),
       },
       {
         path: 'login',
-        loadComponent: () => import('./pages/auth/login/login').then((c) => c.Login),
+        loadComponent: () =>
+          import('./features/forms/login-form/login-form').then((c) => c.LoginForm),
       },
     ],
   },
