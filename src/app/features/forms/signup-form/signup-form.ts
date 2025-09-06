@@ -3,7 +3,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { SignupFormInterface } from '../models/forms.model';
 import { FormField } from '../../../shared/ui/form-field/form-field';
 import { PasswordIcon } from '../../../shared/ui/password-icon/password-icon';
-import { isMatchPasswords } from '../../utils/validators';
+import {
+  hasDigit,
+  hasLowercaseLetter,
+  hasUppercaseLetter,
+  isMatchPasswords,
+  isPasswordToShort,
+} from '../../utils/validators';
 import { SIGNUP_LS_KEY } from '../../../shared/constants/constants';
 
 @Component({
@@ -27,7 +33,10 @@ export class SignupForm {
       login: ['', [Validators.required, Validators.minLength(5)]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      password: [
+        '',
+        [Validators.required, isPasswordToShort, hasUppercaseLetter, hasLowercaseLetter, hasDigit],
+      ],
       confirmPassword: ['', [Validators.required]],
     },
     { validators: [isMatchPasswords] },
@@ -62,6 +71,16 @@ export class SignupForm {
 
   toggleConfirmPassword() {
     this.showConfirmPassword.update((value) => !value);
+  }
+
+  generatePasswordValidationErrors() {
+    const { errors } = this.password;
+    if (!errors) return '';
+    const passwordRequirements = Object.entries(errors)
+      .map((error) => error[1].message)
+      .filter(Boolean)
+      .join(', ');
+    return `Password should contains ${passwordRequirements}.`;
   }
 
   onChange() {

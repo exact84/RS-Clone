@@ -54,6 +54,8 @@
       @if (password.dirty && password.invalid) {
         @if (password.hasError('required')) {
           <span class="validation-error">Please enter password</span>
+        } @else {
+          {{ generatePasswordValidationErrors() }}
         }
       }
     </ng-container>
