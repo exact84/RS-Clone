@@ -1,5 +1,5 @@
 import { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { PASSWORD_MIN_LENGTH } from '../../shared/constants/constants';
+import { PASSWORD_MIN_LENGTH, REQUEST_DELAY_MS } from '../../shared/constants/constants';
 import { EMPTY, map, Observable, of, switchMap, timer } from 'rxjs';
 
 export const isMatchPasswords: ValidatorFn = (
@@ -44,7 +44,7 @@ export const hasUppercaseLetter: ValidatorFn = (
 export const isTakenLogin: AsyncValidatorFn = (
   control: AbstractControl,
 ): Observable<ValidationErrors | null> => {
-  return timer(500).pipe(
+  return timer(REQUEST_DELAY_MS).pipe(
     switchMap(() =>
       EMPTY.pipe(
         map(() => {
