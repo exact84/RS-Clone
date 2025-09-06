@@ -1,4 +1,4 @@
-<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" (change)="onChange()">
   <app-form-field inputId="login" label="Login">
     <ng-container slot="input">
       <input type="text" id="login" formControlName="login" />
@@ -44,7 +44,7 @@
         [type]="showPassword() ? 'text' : 'password'"
         id="password"
         formControlName="password"
-        autocomplete="false"
+        autocomplete="off"
       />
     </ng-container>
     <button slot="input-icon" type="button" (click)="togglePassword()" class="password-visibility">
@@ -64,7 +64,7 @@
         [type]="showConfirmPassword() ? 'text' : 'password'"
         id="confirm-password"
         formControlName="confirmPassword"
-        autocomplete="false"
+        autocomplete="off"
       />
     </ng-container>
     <button
@@ -78,7 +78,7 @@
     <ng-container slot="validation-errors">
       @if (confirmPassword.dirty && confirmPassword.invalid) {
         @if (confirmPassword.hasError('required')) {
-          <span class="validation-error">Please enter login</span>
+          <span class="validation-error">Please confirm password</span>
         }
       }
       @if (confirmPassword.dirty && signupForm.invalid && signupForm.hasError('isMatchPasswords')) {
