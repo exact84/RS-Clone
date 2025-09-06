@@ -1,5 +1,6 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { PASSWORD_MIN_LENGTH } from '../../shared/constants/constants';
+import { EMPTY, map, Observable, of, switchMap, timer } from 'rxjs';
 
 export const isMatchPasswords: ValidatorFn = (
   control: AbstractControl,

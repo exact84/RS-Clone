@@ -9,6 +9,7 @@ import {
   hasUppercaseLetter,
   isMatchPasswords,
   isPasswordToShort,
+  isTakenLogin,
 } from '../../utils/validators';
 import { SIGNUP_LS_KEY } from '../../../shared/constants/constants';
 
@@ -30,7 +31,7 @@ export class SignupForm {
 
   signupForm: FormGroup<SignupFormInterface> = this.fb.nonNullable.group(
     {
-      login: ['', [Validators.required, Validators.minLength(5)]],
+      login: ['', [Validators.required, Validators.minLength(5)], [isTakenLogin]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       password: [
