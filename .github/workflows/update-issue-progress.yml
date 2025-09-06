@@ -1,8 +1,6 @@
 name: Update Checklist Progress
 
 on:
-  push:
-    branches: [chore/automation, dev]
   issues:
     types: [opened, edited]
   workflow_dispatch:
