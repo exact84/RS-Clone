@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test --source-map",
     "lint": "ng lint",
     "lint:fix": "eslint --fix",
     "prettier": "npx prettier ./src --write",
