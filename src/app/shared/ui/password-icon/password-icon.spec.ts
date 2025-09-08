@@ -1,9 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PasswordIcon } from './password-icon';
 
 describe('PasswordIcon', () => {
-  let component: PasswordIcon;
   let fixture: ComponentFixture<PasswordIcon>;
 
   beforeEach(async () => {
@@ -12,11 +10,13 @@ describe('PasswordIcon', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(PasswordIcon);
-    component = fixture.componentInstance;
+
+    fixture.componentRef.setInput('showPassword', true);
+
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });
