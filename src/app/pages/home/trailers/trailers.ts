@@ -1,12 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { MoviesTrailersService } from './services/movies-trailers-service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { TitleCasePipe } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { TrailerCard } from './trailer-card/trailer-card';
 
 @Component({
   selector: 'app-trailers',
-  imports: [TitleCasePipe, TrailerCard],
+  imports: [TitleCasePipe, TrailerCard, CommonModule],
   templateUrl: './trailers.html',
   styleUrls: ['./trailers.scss', '../home.scss'],
 })
@@ -54,4 +54,11 @@ export class Trailers {
   openTrailer(key: string): void {
     window.open(`https://www.youtube.com/watch?v=${key}`, '_blank');
   }
+
+  backgroundUrl = computed(() => {
+    const trailers = this.selectedTrailers();
+    const first = trailers.length > 0 ? trailers[0] : null;
+
+    return first?.poster_path ? `https://image.tmdb.org/t/p/w1280${first.poster_path}` : null;
+  });
 }

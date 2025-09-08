@@ -55,11 +55,11 @@ section {
 
 .category-toggle {
   display: flex;
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 25px;
 
   &.toggle-trailers {
-    border: 1px solid rgb(70, 229, 70);
+    border: 2px solid rgb(70, 229, 70);
   }
 
   button {

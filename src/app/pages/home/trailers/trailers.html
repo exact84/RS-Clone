@@ -1,4 +1,7 @@
-<section class="trailers">
+<section
+  class="trailers"
+  [style.backgroundImage]="backgroundUrl() ? 'url(' + backgroundUrl() + ')' : ''"
+>
   <div class="trailers__header">
     <h2>Latest Trailers</h2>
     <div class="category-toggle toggle-trailers">

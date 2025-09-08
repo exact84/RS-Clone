@@ -29,6 +29,11 @@ export class TrailerCard {
     return path ? `https://image.tmdb.org/t/p/w500${path}` : 'assets/placeholder.jpg';
   }
 
+  get description(): string {
+    const value = this.data();
+    return value.overview?.trim() || '';
+  }
+
   emitTrailerClick(): void {
     const value = this.data();
     if (value.trailerKey) {
