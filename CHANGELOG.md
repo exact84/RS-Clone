@@ -1,3 +1,10 @@
+## v0.5.0 (2025-09-08)
+
+### Changes
+- [v0.5.0] Feature/http interceptors
+Add interceptors for http requests
+
+
 ## v0.4.0 (2025-09-08)
 
 ### Changes
