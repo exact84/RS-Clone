@@ -1,8 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { forkJoin, map, Observable, switchMap } from 'rxjs';
-import { API_KEY } from '../../../../core/constants/key';
 import { MovieWithTrailer } from '../../../models/movie-with-trailer';
 import { MovieCard } from '../../../models/movie-card';
 import { TVCard } from '../../../models/tv-card';
@@ -14,8 +12,6 @@ import { TrailerResponse } from '../../../models/trailer-response';
 })
 export class MoviesTrailersService {
   http = inject(HttpClient);
-  private baseUrl = environment.BASE_URL;
-  private apiKey = API_KEY;
 
   getDateRange = (monthsAgo: number): { from: string; to: string } => {
     const today = new Date();
@@ -34,10 +30,9 @@ export class MoviesTrailersService {
   };
 
   private getMovieTrailer(id: number): Observable<string | null> {
-    const parameters = new HttpParams().set('api_key', this.apiKey);
-    const url = `${this.baseUrl}/movie/${id}/videos`;
+    const url = `/movie/${id}/videos`;
 
-    return this.http.get<TrailerResponse>(url, { params: parameters }).pipe(
+    return this.http.get<TrailerResponse>(url).pipe(
       map((response) => {
         const trailer = response.results.find(
           (video) => video.type === 'Trailer' && video.site === 'YouTube',
@@ -48,10 +43,9 @@ export class MoviesTrailersService {
   }
 
   private getTVTrailer(id: number): Observable<string | null> {
-    const parameters = new HttpParams().set('api_key', this.apiKey);
-    const url = `${this.baseUrl}/tv/${id}/videos`;
+    const url = `/tv/${id}/videos`;
 
-    return this.http.get<TrailerResponse>(url, { params: parameters }).pipe(
+    return this.http.get<TrailerResponse>(url).pipe(
       map((response) => {
         const trailer = response.results.find(
           (video) => video.type === 'Trailer' && video.site === 'YouTube',
@@ -64,12 +58,11 @@ export class MoviesTrailersService {
   getPopularTrailers(): Observable<MovieWithTrailer[]> {
     const { from, to } = this.getDateRange(6);
     const parameters = new HttpParams()
-      .set('api_key', this.apiKey)
       .set('sort_by', 'popularity.desc')
       .set('primary_release_date.gte', from)
       .set('primary_release_date.lte', to);
 
-    const url = `${this.baseUrl}/discover/movie`;
+    const url = `/discover/movie`;
 
     return this.http.get<{ results: MovieCard[] }>(url, { params: parameters }).pipe(
       switchMap((response) => {
@@ -85,14 +78,13 @@ export class MoviesTrailersService {
   getStreamingTrailers(): Observable<MovieWithTrailer[]> {
     const { from, to } = this.getDateRange(3);
     const parameters = new HttpParams()
-      .set('api_key', this.apiKey)
       .set('with_watch_providers', '8')
       .set('watch_region', 'US')
       .set('with_watch_monetization_types', 'flatrate')
       .set('primary_release_date.gte', from)
       .set('primary_release_date.lte', to);
 
-    const url = `${this.baseUrl}/discover/movie`;
+    const url = `/discover/movie`;
 
     return this.http.get<{ results: MovieCard[] }>(url, { params: parameters }).pipe(
       switchMap((response) => {
@@ -108,14 +100,13 @@ export class MoviesTrailersService {
   getTVTrailers(): Observable<TVWithTrailer[]> {
     const { from, to } = this.getDateRange(3);
     const parameters = new HttpParams()
-      .set('api_key', this.apiKey)
       .set('sort_by', 'popularity.desc')
       .set('with_original_language', 'en')
       .set('vote_count.gte', '50')
       .set('first_air_date.gte', from)
       .set('first_air_date.lte', to);
 
-    const url = `${this.baseUrl}/discover/tv`;
+    const url = `/discover/tv`;
 
     return this.http.get<{ results: TVCard[] }>(url, { params: parameters }).pipe(
       switchMap((response) => {
@@ -131,14 +122,13 @@ export class MoviesTrailersService {
   getForRentTrailers(): Observable<MovieWithTrailer[]> {
     const { from, to } = this.getDateRange(3);
     const parameters = new HttpParams()
-      .set('api_key', this.apiKey)
       .set('with_watch_monetization_types', 'rent')
       .set('watch_region', 'US')
       .set('sort_by', 'primary_release_date.desc')
       .set('primary_release_date.gte', from)
       .set('primary_release_date.lte', to);
 
-    const url = `${this.baseUrl}/discover/movie`;
+    const url = `/discover/movie`;
 
     return this.http.get<{ results: MovieCard[] }>(url, { params: parameters }).pipe(
       switchMap((response) => {
