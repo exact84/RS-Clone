@@ -1,3 +1,10 @@
+## v0.5.0 (2025-09-08)
+
+### Changes
+- [v0.5.0] feat: add trailers section
+Briefly describe what has been changed and why.
+
+
 ## v0.4.0 (2025-09-06)
 
 ### Changes
