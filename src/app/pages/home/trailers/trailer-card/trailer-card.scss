@@ -1,0 +1,56 @@
+:host {
+  display: block;
+}
+
+.movie-card {
+  width: 300px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  flex-shrink: 0;
+}
+
+.movie-card__poster {
+  position: relative;
+}
+
+.movie-card__poster img:not(.play-btn__icon) {
+  width: 100%;
+  height: calc(300px / 1.78);
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgb(200, 197, 197);
+  position: relative;
+}
+
+h3 {
+  margin: 0;
+  margin-top: auto;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.play-btn {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: transparent;
+}
+
+.play-btn__icon {
+  display: block;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
