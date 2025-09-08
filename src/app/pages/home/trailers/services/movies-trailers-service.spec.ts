@@ -1,16 +1,21 @@
 import { TestBed } from '@angular/core/testing';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { MoviesTrailersService } from './movies-trailers-service';
+import { headersInterceptor } from '../../../../core/interceptors/headers-interceptor';
+import { httpInterceptor } from '../../../../core/interceptors/http-interceptor';
 
 describe('MoviesService', () => {
   let service: MoviesTrailersService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()],
+      providers: [
+        provideHttpClient(withInterceptors([httpInterceptor, headersInterceptor])),
+        provideHttpClientTesting(),
+      ],
     });
 
     service = TestBed.inject(MoviesTrailersService);
