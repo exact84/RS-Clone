@@ -15,6 +15,7 @@ describe('MoviesService', () => {
       providers: [
         provideHttpClient(withInterceptors([httpInterceptor, headersInterceptor])),
         provideHttpClientTesting(),
+        MoviesTrailersService,
       ],
     });
 
