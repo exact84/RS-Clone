@@ -1,8 +1,14 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, Signal, effect } from '@angular/core';
 import { MoviesTrailersService } from './services/movies-trailers-service';
-import { toSignal } from '@angular/core/rxjs-interop';
+
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { TrailerCard } from './trailer-card/trailer-card';
+
+import { MovieWithTrailer } from '../../models/movie-with-trailer';
+import { TrailerItem } from '../../types/trailer-item';
+
+import { Category } from '../../types/category';
+import { TVWithTrailer } from '../../models/tv-with-trailer';
 
 @Component({
   selector: 'app-trailers',
@@ -14,51 +20,47 @@ export class Trailers {
   trailersService = inject(MoviesTrailersService);
 
   categories = signal([
-    { label: 'Popular', value: 'popular' as const },
-    { label: 'Streaming', value: 'streaming' as const },
-    { label: 'On TV', value: 'on-tv' as const },
-    { label: 'For Rent', value: 'for-rent' as const },
-  ]);
+    { label: 'Popular', value: 'popular' },
+    { label: 'Streaming', value: 'streaming' },
+    { label: 'On TV', value: 'on-tv' },
+    { label: 'For Rent', value: 'for-rent' },
+  ] as const);
 
-  selectedCategory = signal<'popular' | 'streaming' | 'on-tv' | 'for-rent'>('popular');
+  readonly selectedCategory = signal<Category>('popular');
+  readonly selectedTrailers = signal<TrailerItem[]>([]);
+  readonly posterURL = 'https://image.tmdb.org/t/p/w1280';
 
-  popularMovies = toSignal(this.trailersService.getPopularTrailers(), { initialValue: [] });
-  streamingMovies = toSignal(this.trailersService.getStreamingTrailers(), { initialValue: [] });
-  tvShows = toSignal(this.trailersService.getTVTrailers(), { initialValue: [] });
-  forRentMovies = toSignal(this.trailersService.getForRentTrailers(), { initialValue: [] });
+  readonly backgroundUrl = computed(() => {
+    const firstItem = this.selectedTrailers()[0];
+    const posterPath = firstItem?.poster_path;
 
-  selectedTrailers = computed(() => {
-    switch (this.selectedCategory()) {
-      case 'popular': {
-        return this.popularMovies();
-      }
-      case 'streaming': {
-        return this.streamingMovies();
-      }
-      case 'on-tv': {
-        return this.tvShows();
-      }
-      case 'for-rent': {
-        return this.forRentMovies();
-      }
-      default: {
-        return [];
-      }
-    }
+    return posterPath ? `${this.posterURL}${posterPath}` : null;
   });
 
-  switchCategory(value: 'popular' | 'streaming' | 'on-tv' | 'for-rent') {
-    this.selectedCategory.set(value);
+  constructor() {
+    effect(() => {
+      const category = this.selectedCategory();
+      this.trailersService.getTrailersByCategory(category).subscribe((items) => {
+        this.selectedTrailers.set(items);
+      });
+    });
+  }
+
+  switchCategory(category: Category) {
+    this.selectedCategory.set(category);
+  }
+
+  readonly trailersByCategory: Partial<Record<Category, Signal<TrailerItem[]>>> = {};
+
+  isMovie(item: TrailerItem): item is MovieWithTrailer {
+    return 'movie' in item && item.movie !== undefined;
+  }
+
+  isTV(item: TrailerItem): item is TVWithTrailer {
+    return 'tv' in item && item.tv !== undefined;
   }
 
   openTrailer(key: string): void {
     window.open(`https://www.youtube.com/watch?v=${key}`, '_blank');
   }
-
-  backgroundUrl = computed(() => {
-    const trailers = this.selectedTrailers();
-    const first = trailers.length > 0 ? trailers[0] : null;
-
-    return first?.poster_path ? `https://image.tmdb.org/t/p/w1280${first.poster_path}` : null;
-  });
 }

@@ -1,11 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { forkJoin, map, Observable, switchMap } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { MovieWithTrailer } from '../../../models/movie-with-trailer';
 import { MovieCard } from '../../../models/movie-card';
 import { TVCard } from '../../../models/tv-card';
 import { TVWithTrailer } from '../../../models/tv-with-trailer';
 import { TrailerResponse } from '../../../models/trailer-response';
+import { Category } from '../../../types/category';
+import { TrailerItem } from '../../../types/trailer-item';
 
 @Injectable({
   providedIn: 'root',
@@ -139,5 +141,25 @@ export class MoviesTrailersService {
       }),
       map((movies) => movies.filter((m) => m.trailerKey)),
     );
+  }
+
+  getTrailersByCategory(category: Category): Observable<TrailerItem[]> {
+    switch (category) {
+      case 'popular': {
+        return this.getPopularTrailers();
+      }
+      case 'streaming': {
+        return this.getStreamingTrailers();
+      }
+      case 'on-tv': {
+        return this.getTVTrailers();
+      }
+      case 'for-rent': {
+        return this.getForRentTrailers();
+      }
+      default: {
+        return of([]);
+      }
+    }
   }
 }
