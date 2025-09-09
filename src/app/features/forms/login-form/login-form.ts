@@ -11,7 +11,7 @@ import { PasswordIcon } from '../../../shared/ui/password-icon/password-icon';
   styleUrl: '../login-form/login-form.scss',
 })
 export class LoginForm {
-  fb = inject(FormBuilder);
+  private readonly fb = inject(FormBuilder);
 
   loginForm: FormGroup<LoginFormInterface> = this.fb.nonNullable.group({
     login: ['', [Validators.required]],
