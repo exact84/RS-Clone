@@ -1,6 +1,6 @@
 {
   "name": "rs-clone",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,6 +8,7 @@
     "build:prod": "ng build --configuration=production",
     "lint": "ng lint",
     "lint:fix": "eslint --fix",
+    "release": "semantic-release",
     "test": "ng test --source-map",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
     "prettier": "npx prettier ./src --write",
@@ -51,6 +52,9 @@
     "@angular/cli": "^20.2.1",
     "@angular/compiler-cli": "^20.2.0",
     "@eslint/js": "^9.34.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.5",
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/parser": "^8.41.0",
     "angular-eslint": "20.2.0",
@@ -69,6 +73,7 @@
     "lint-staged": "^16.1.6",
     "prettier": "^3.6.2",
     "prettier-eslint": "^16.4.2",
+    "semantic-release": "^24.2.7",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.40.0"
   }
