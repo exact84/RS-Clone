@@ -1,0 +1,44 @@
+.trailer-btn.active {
+  color: black;
+  background: linear-gradient(to right, #c0fecf, #1ed5a9);
+}
+
+.trailers__header h2 {
+  color: white;
+}
+
+.trailers {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.error-message,
+.empty-message {
+  color: white;
+  margin: auto;
+}
+
+.spinner-wrapper {
+  margin: auto;
+
+  .spinner {
+    width: 56px;
+    height: 56px;
+  }
+}

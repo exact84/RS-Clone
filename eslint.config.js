@@ -57,8 +57,9 @@ module.exports = tseslint.config(
           args: 'after-used',
           argsIgnorePattern: '^_',
         },
-      ],
+      ],      
       'unicorn/no-null': ['off'],
+      "unicorn/consistent-function-scoping": "off"
     },
   },
   {

@@ -1,0 +1,41 @@
+<section
+  class="trailers"
+  [style.backgroundImage]="backgroundUrl() ? 'url(' + backgroundUrl() + ')' : ''"
+>
+  <div class="trailers__header">
+    <h2>Latest Trailers</h2>
+    <div class="category-toggle toggle-trailers">
+      @for (category of categories(); track $index) {
+        <button
+          class="trailer-btn"
+          [class.active]="selectedCategory() === category.value"
+          (click)="switchCategory(category.value)"
+        >
+          <span>{{ category.label | titlecase }}</span>
+        </button>
+      } @empty {
+        <div class="category-toggle toggle-trailers">There is no categories</div>
+      }
+    </div>
+  </div>
+
+  <div class="slider">
+    <div class="slider-track">
+      @if (loadingState()) {
+        <div class="spinner-wrapper">
+          <img src="spinner.png" alt="Loading..." class="spinner" />
+        </div>
+      } @else if (errorState()) {
+        <div class="error-message">Failed to load trailers. Please try again later.</div>
+      } @else if (selectedTrailers().length === 0) {
+        <div class="empty-message">There are no trailers for this category.</div>
+      } @else {
+        @for (movie of selectedTrailers(); track movie.id) {
+          @if (movie.trailerKey) {
+            <app-trailer-card [data]="movie" (trailerClick)="openTrailer($event)" />
+          }
+        }
+      }
+    </div>
+  </div>
+</section>

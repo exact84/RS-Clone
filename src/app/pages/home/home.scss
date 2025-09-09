@@ -1,0 +1,92 @@
+section {
+  padding: 10px 20px;
+
+  &.trending {
+    background-image: url('../../assets/trending-bg.svg');
+    background-position: bottom center;
+    background-size: 200% 60%;
+    background-repeat: no-repeat;
+  }
+
+  &.trailers {
+    background: linear-gradient(to right, rgba(50, 152, 235, 0.75) 0%, rgba(4, 48, 84, 0.75) 100%);
+  }
+
+  .slider {
+    overflow-x: auto;
+    white-space: nowrap;
+    position: relative;
+    scrollbar-width: thin;
+    scrollbar-color: #cac8c8 #f1f1f1;
+  }
+  .slider::-webkit-scrollbar {
+    height: 2.5rem;
+  }
+
+  .slider::-webkit-scrollbar-thumb {
+    background: #e9e7e7;
+    border-radius: 5px;
+  }
+
+  .slider::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  .slider-track {
+    display: flex;
+    gap: 15px;
+    padding-block-end: 1rem;
+    min-height: 100px;
+  }
+
+  .popular__header,
+  .trending__header,
+  .trailers__header,
+  .free-to-watch__header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 20px;
+  }
+
+  .popular__header {
+    margin-top: 20px;
+  }
+}
+
+.category-toggle {
+  display: flex;
+  border: 2px solid black;
+  border-radius: 25px;
+
+  &.toggle-trailers {
+    border: 2px solid rgb(70, 229, 70);
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    transition: all 0.5s ease-out;
+
+    &.trailer-btn {
+      color: #fff;
+      transition: all 0.5s ease-out;
+    }
+
+    &.active {
+      background-color: black;
+
+      .gradient-text {
+        background-image: linear-gradient(to right, #c0fecf, #1ed5a9);
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+  }
+}

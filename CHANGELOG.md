@@ -1,4 +1,11 @@
-## v0.5.0 (2025-09-08)
+## v0.6.0 (2025-09-08)
+
+### Changes
+- [v0.6.0] feat: add trailers section
+Briefly describe what has been changed and why.
+
+
+## v0.5.0 (2025-09-06)
 
 ### Changes
 - [v0.5.0] Feature/http interceptors
