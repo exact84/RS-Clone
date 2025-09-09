@@ -14,6 +14,7 @@ import { TrailerCard } from './trailer-card/trailer-card';
 import { TrailerItem } from '../../types/trailer-item';
 
 import { Category } from '../../types/category';
+import { posterURL, youtubeWatchUrl } from '../../../shared/constants/constants';
 
 @Component({
   selector: 'app-trailers',
@@ -36,8 +37,8 @@ export class Trailers {
 
   readonly selectedCategory = signal<Category>('popular');
   readonly selectedTrailers = signal<TrailerItem[]>([]);
-  readonly posterURL = 'https://image.tmdb.org/t/p/w1280';
-  readonly youtubeWatchUrl = 'https://www.youtube.com/watch?v=';
+  // readonly posterURL = 'https://image.tmdb.org/t/p/w1280';
+  // readonly youtubeWatchUrl = 'https://www.youtube.com/watch?v=';
 
   readonly trailersCache = signal<Map<Category, TrailerItem[]>>(new Map());
 
@@ -45,7 +46,7 @@ export class Trailers {
     const firstItem = this.selectedTrailers()[0];
     const posterPath = firstItem?.poster_path;
 
-    return posterPath ? `${this.posterURL}${posterPath}` : null;
+    return posterPath ? `${posterURL}${posterPath}` : null;
   });
 
   constructor() {
@@ -90,7 +91,7 @@ export class Trailers {
 
   openTrailer(key: string): void {
     if (key) {
-      window.open(`${this.youtubeWatchUrl}${key}`, '_blank');
+      window.open(`${youtubeWatchUrl}${key}`, '_blank');
     }
   }
 }

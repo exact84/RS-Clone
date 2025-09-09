@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
 import { MovieWithTrailer } from '../../../models/movie-with-trailer';
 import { TVWithTrailer } from '../../../models/tv-with-trailer';
+import { cardTrailerURL } from '../../../../shared/constants/constants';
 
 @Component({
   selector: 'app-trailer-card',
@@ -13,7 +14,6 @@ export class TrailerCard {
   data = input.required<MovieWithTrailer | TVWithTrailer>();
   trailerClick = output<string>();
 
-  url = 'https://image.tmdb.org/t/p/w500';
   isMovie(data: MovieWithTrailer | TVWithTrailer): data is MovieWithTrailer {
     return 'title' in data;
   }
@@ -31,7 +31,7 @@ export class TrailerCard {
 
     const path = this.isMovie(value) ? value.poster_path : (value.poster_path ?? '');
 
-    return path?.trim().length ? `${this.url}${path}` : 'assets/placeholder-movie.png';
+    return path?.trim().length ? `${cardTrailerURL}${path}` : 'assets/placeholder-movie.png';
   }
 
   get description(): string {

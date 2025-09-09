@@ -4,3 +4,6 @@ export const SIGNUP_LS_KEY = 'sign-up-form';
 export const AUTHORIZATION_KEY = 'authorization-token';
 export const PASSWORD_MIN_LENGTH = 8;
 export const REQUEST_DELAY_MS = 500;
+export const posterURL = 'https://image.tmdb.org/t/p/w1280';
+export const youtubeWatchUrl = 'https://www.youtube.com/watch?v=';
+export const cardTrailerURL = 'https://image.tmdb.org/t/p/w500';
