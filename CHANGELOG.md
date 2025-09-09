@@ -1,3 +1,11 @@
+# 1.0.0 (2025-09-09)
+
+
+### Features
+
+* environments setup ([#21](https://github.com/exact84/RS-Clone/issues/21)) ([33135e5](https://github.com/exact84/RS-Clone/commit/33135e5c84dda41589c59c12a8c3a586d58f4629))
+* replace current custom version & changelog workflow ([#33](https://github.com/exact84/RS-Clone/issues/33)) ([e8f2971](https://github.com/exact84/RS-Clone/commit/e8f29719ac0c6274d90b95a49a7eb5979a439d5a))
+
 ## v0.6.0 (2025-09-08)
 
 ### Changes
