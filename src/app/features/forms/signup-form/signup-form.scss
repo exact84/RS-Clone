@@ -65,3 +65,7 @@ input {
     background-color: colors.$submit-button-background-color-hover;
   }
 }
+
+.validation-error.submit {
+  margin: 0 auto;
+}

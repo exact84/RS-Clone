@@ -1,8 +1,12 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginFormInterface } from '../models/forms.model';
 import { FormField } from '../../../shared/ui/form-field/form-field';
 import { PasswordIcon } from '../../../shared/ui/password-icon/password-icon';
+import { AuthService } from '../../../pages/auth/services/auth.service';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-form',
@@ -10,8 +14,12 @@ import { PasswordIcon } from '../../../shared/ui/password-icon/password-icon';
   templateUrl: './login-form.html',
   styleUrl: '../login-form/login-form.scss',
 })
-export class LoginForm {
+export class LoginForm implements OnDestroy {
   private readonly fb = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+
+  private subscribtion!: Subscription;
 
   loginForm: FormGroup<LoginFormInterface> = this.fb.nonNullable.group({
     login: ['', [Validators.required]],
@@ -33,6 +41,20 @@ export class LoginForm {
   }
 
   onSubmit() {
-    console.log(this.loginForm.getRawValue());
+    this.subscribtion = this.authService.login(this.loginForm.getRawValue()).subscribe({
+      next: (response) => {
+        if (response.ok && response.body) {
+          this.authService.saveToken(response.body.token);
+          this.router.navigate(['']);
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loginForm.setErrors({ loginError: { message: error.error.message } });
+      },
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscribtion.unsubscribe();
   }
 }
