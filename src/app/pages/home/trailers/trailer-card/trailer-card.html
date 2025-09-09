@@ -1,6 +1,6 @@
 <div class="movie-card">
   <div class="movie-card__poster">
-    <img [src]="'https://image.tmdb.org/t/p/w500' + posterUrl" [alt]="title" />
+    <img [src]="url + posterUrl" [alt]="title" />
 
     <button class="play-btn" (click)="emitTrailerClick()">
       <img src="icon-play.png" alt="play" class="play-btn__icon" />

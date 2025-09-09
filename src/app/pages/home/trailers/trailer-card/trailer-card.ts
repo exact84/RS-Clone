@@ -12,6 +12,7 @@ export class TrailerCard {
   data = input.required<MovieWithTrailer | TVWithTrailer>();
   trailerClick = output<string>();
 
+  url = 'https://image.tmdb.org/t/p/w500';
   isMovie(data: MovieWithTrailer | TVWithTrailer): data is MovieWithTrailer {
     return 'title' in data;
   }
@@ -24,9 +25,9 @@ export class TrailerCard {
   get posterUrl(): string {
     const value = this.data();
 
-    const path = this.isMovie(value) ? value.poster_path : (value.poster_path ?? ''); // если TVWithTrailer тоже имеет poster_path
+    const path = this.isMovie(value) ? value.poster_path : (value.poster_path ?? '');
 
-    return path ? `https://image.tmdb.org/t/p/w500${path}` : 'assets/placeholder.jpg';
+    return path ? `${this.url}${path}` : 'assets/placeholder.jpg';
   }
 
   get description(): string {
