@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SignupFormInterface } from '../models/forms.model';
 import { FormField } from '../../../shared/ui/form-field/form-field';
@@ -11,6 +11,10 @@ import {
   isTakenLogin,
 } from '../../utils/validators';
 import { SIGNUP_LS_KEY } from '../../../shared/constants/constants';
+import { AuthService } from '../../../pages/auth/services/auth.service';
+import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup-form',
@@ -18,8 +22,10 @@ import { SIGNUP_LS_KEY } from '../../../shared/constants/constants';
   templateUrl: './signup-form.html',
   styleUrl: './signup-form.scss',
 })
-export class SignupForm {
+export class SignupForm implements OnDestroy {
   private readonly fb = inject(FormBuilder);
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
 
   constructor() {
     const lsFormData = localStorage.getItem(SIGNUP_LS_KEY);
@@ -27,6 +33,8 @@ export class SignupForm {
       this.signupForm.setValue(JSON.parse(lsFormData));
     }
   }
+
+  private subscription!: Subscription;
 
   signupForm: FormGroup<SignupFormInterface> = this.fb.nonNullable.group(
     {
@@ -85,7 +93,20 @@ export class SignupForm {
   }
 
   onSubmit() {
-    console.log(this.signupForm.getRawValue());
-    localStorage.removeItem(SIGNUP_LS_KEY);
+    this.subscription = this.authService.signup(this.signupForm.getRawValue()).subscribe({
+      next: (response) => {
+        if (response.status === 201) {
+          localStorage.removeItem(SIGNUP_LS_KEY);
+          this.router.navigate(['auth', 'login']);
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        this.signupForm.setErrors({ signUpError: { message: error.error.message } });
+      },
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

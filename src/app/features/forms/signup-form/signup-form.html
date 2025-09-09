@@ -89,4 +89,13 @@
     </ng-container>
   </app-form-field>
   <button class="form-submit" type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+  <app-form-field inputId="submit-error">
+    <ng-container slot="validation-errors">
+      @if (signupForm.invalid && signupForm.hasError('signUpError')) {
+        <span class="validation-error submit">{{
+          signupForm.getError('signUpError').message
+        }}</span>
+      }
+    </ng-container>
+  </app-form-field>
 </form>
