@@ -1,20 +1,26 @@
-import { Component, computed, inject, signal, Signal, effect } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  signal,
+  effect,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { MoviesTrailersService } from './services/movies-trailers-service';
 
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { TrailerCard } from './trailer-card/trailer-card';
 
-import { MovieWithTrailer } from '../../models/movie-with-trailer';
 import { TrailerItem } from '../../types/trailer-item';
 
 import { Category } from '../../types/category';
-import { TVWithTrailer } from '../../models/tv-with-trailer';
 
 @Component({
   selector: 'app-trailers',
   imports: [TitleCasePipe, TrailerCard, CommonModule],
   templateUrl: './trailers.html',
   styleUrls: ['./trailers.scss', '../home.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Trailers {
   trailersService = inject(MoviesTrailersService);
@@ -48,16 +54,6 @@ export class Trailers {
 
   switchCategory(category: Category) {
     this.selectedCategory.set(category);
-  }
-
-  readonly trailersByCategory: Partial<Record<Category, Signal<TrailerItem[]>>> = {};
-
-  isMovie(item: TrailerItem): item is MovieWithTrailer {
-    return 'movie' in item && item.movie !== undefined;
-  }
-
-  isTV(item: TrailerItem): item is TVWithTrailer {
-    return 'tv' in item && item.tv !== undefined;
   }
 
   openTrailer(key: string): void {
