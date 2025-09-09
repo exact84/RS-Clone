@@ -3,7 +3,7 @@ import { AUTHORIZATION_KEY } from '../../shared/constants/constants';
 
 const BACKEND_ENDPOINTS = ['/auth', '/user', '/favourites'];
 
-const PUBLIC_ENDPOINTS = ['/auth', '/user/check'];
+const PUBLIC_ENDPOINTS = ['/auth/login', '/auth/signup', '/user/check'];
 
 export const headersInterceptor: HttpInterceptorFn = (request, next) => {
   if (BACKEND_ENDPOINTS.some((endpoint) => request.url.startsWith(endpoint))) {
