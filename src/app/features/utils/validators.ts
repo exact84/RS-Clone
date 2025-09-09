@@ -16,7 +16,7 @@ export const isMatchPasswords: ValidatorFn = (
 export const isPasswordToShort: ValidatorFn = (
   control: AbstractControl,
 ): ValidationErrors | null => {
-  return control.value.length <= PASSWORD_MIN_LENGTH
+  return control.value.length < PASSWORD_MIN_LENGTH
     ? { isPasswordToShort: { message: `at least ${PASSWORD_MIN_LENGTH} characters` } }
     : null;
 };
