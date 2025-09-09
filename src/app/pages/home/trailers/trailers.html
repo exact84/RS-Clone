@@ -21,12 +21,20 @@
 
   <div class="slider">
     <div class="slider-track">
-      @for (movie of selectedTrailers(); track movie.id) {
-        @if (movie.trailerKey) {
-          <app-trailer-card [data]="movie" (trailerClick)="openTrailer($event)" />
+      @if (loadingState()) {
+        <div class="spinner-wrapper">
+          <img src="spinner.png" alt="Loading..." class="spinner" />
+        </div>
+      } @else if (errorState()) {
+        <div class="error-message">Failed to load trailers. Please try again later.</div>
+      } @else if (selectedTrailers().length === 0) {
+        <div class="empty-message">There are no trailers for this category.</div>
+      } @else {
+        @for (movie of selectedTrailers(); track movie.id) {
+          @if (movie.trailerKey) {
+            <app-trailer-card [data]="movie" (trailerClick)="openTrailer($event)" />
+          }
         }
-      } @empty {
-        <div>The is no trailers on your request</div>
       }
     </div>
   </div>

@@ -24,6 +24,8 @@ import { Category } from '../../types/category';
 })
 export class Trailers {
   trailersService = inject(MoviesTrailersService);
+  readonly loadingState = signal<boolean>(false);
+  readonly errorState = signal<boolean>(false);
 
   categories = signal([
     { label: 'Popular', value: 'popular' },
@@ -35,6 +37,7 @@ export class Trailers {
   readonly selectedCategory = signal<Category>('popular');
   readonly selectedTrailers = signal<TrailerItem[]>([]);
   readonly posterURL = 'https://image.tmdb.org/t/p/w1280';
+  readonly youtubeWatchUrl = 'https://www.youtube.com/watch?v=';
 
   readonly backgroundUrl = computed(() => {
     const firstItem = this.selectedTrailers()[0];
@@ -46,17 +49,32 @@ export class Trailers {
   constructor() {
     effect(() => {
       const category = this.selectedCategory();
-      this.trailersService.getTrailersByCategory(category).subscribe((items) => {
-        this.selectedTrailers.set(items);
+      this.loadingState.set(true);
+      this.errorState.set(false);
+
+      this.trailersService.getTrailersByCategory(category).subscribe({
+        next: (items) => {
+          this.selectedTrailers.set(items);
+          this.loadingState.set(false);
+        },
+        error: () => {
+          this.selectedTrailers.set([]);
+          this.loadingState.set(false);
+          this.errorState.set(true);
+        },
       });
     });
   }
 
   switchCategory(category: Category) {
-    this.selectedCategory.set(category);
+    if (this.selectedCategory() !== category) {
+      this.selectedCategory.set(category);
+    }
   }
 
   openTrailer(key: string): void {
-    window.open(`https://www.youtube.com/watch?v=${key}`, '_blank');
+    if (key) {
+      window.open(`${this.youtubeWatchUrl}${key}`, '_blank');
+    }
   }
 }

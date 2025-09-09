@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
 import { MovieWithTrailer } from '../../../models/movie-with-trailer';
 import { TVWithTrailer } from '../../../models/tv-with-trailer';
 
@@ -18,6 +18,9 @@ export class TrailerCard {
     return 'title' in data;
   }
 
+  readonly loadingState = signal<boolean>(false);
+  readonly errorState = signal<boolean>(false);
+
   get title(): string {
     const value = this.data();
     return this.isMovie(value) ? (value.title ?? 'Untitled') : (value.name ?? 'Untitled');
@@ -28,7 +31,7 @@ export class TrailerCard {
 
     const path = this.isMovie(value) ? value.poster_path : (value.poster_path ?? '');
 
-    return path ? `${this.url}${path}` : 'assets/placeholder.jpg';
+    return path?.trim().length ? `${this.url}${path}` : 'assets/placeholder-movie.png';
   }
 
   get description(): string {

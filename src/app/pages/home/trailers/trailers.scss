@@ -27,3 +27,18 @@
     z-index: 1;
   }
 }
+
+.error-message,
+.empty-message {
+  color: white;
+  margin: auto;
+}
+
+.spinner-wrapper {
+  margin: auto;
+
+  .spinner {
+    width: 56px;
+    height: 56px;
+  }
+}
