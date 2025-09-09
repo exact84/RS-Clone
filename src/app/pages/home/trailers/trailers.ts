@@ -39,6 +39,8 @@ export class Trailers {
   readonly posterURL = 'https://image.tmdb.org/t/p/w1280';
   readonly youtubeWatchUrl = 'https://www.youtube.com/watch?v=';
 
+  readonly trailersCache = signal<Map<Category, TrailerItem[]>>(new Map());
+
   readonly backgroundUrl = computed(() => {
     const firstItem = this.selectedTrailers()[0];
     const posterPath = firstItem?.poster_path;
@@ -49,11 +51,23 @@ export class Trailers {
   constructor() {
     effect(() => {
       const category = this.selectedCategory();
+      const cached = this.trailersCache().get(category);
+
+      if (cached) {
+        this.selectedTrailers.set(cached);
+        this.loadingState.set(false);
+        return;
+      }
+
       this.loadingState.set(true);
       this.errorState.set(false);
 
       this.trailersService.getTrailersByCategory(category).subscribe({
         next: (items) => {
+          const updated = new Map(this.trailersCache());
+          updated.set(category, items);
+          this.trailersCache.set(updated);
+
           this.selectedTrailers.set(items);
           this.loadingState.set(false);
         },
@@ -69,6 +83,8 @@ export class Trailers {
   switchCategory(category: Category) {
     if (this.selectedCategory() !== category) {
       this.selectedCategory.set(category);
+      this.loadingState.set(true);
+      this.errorState.set(false);
     }
   }
 

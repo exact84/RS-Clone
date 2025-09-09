@@ -1,5 +1,5 @@
 import { ScreenSmallDirective } from './directives/screen-small-directive';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ScreenService } from '../../core/screen-service';
 import { MenuService } from './menu/services/menu-service';
 import { MenuItems } from './menu/data/menu-data';
@@ -12,6 +12,7 @@ import { RouterLink } from '@angular/router';
   imports: [Menu, ScreenLargeDirective, ScreenSmallDirective, RouterLink],
   templateUrl: './header.html',
   styleUrl: './header.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
   protected screenService = inject(ScreenService);
