@@ -37,8 +37,6 @@ export class Trailers {
 
   readonly selectedCategory = signal<Category>('popular');
   readonly selectedTrailers = signal<TrailerItem[]>([]);
-  // readonly posterURL = 'https://image.tmdb.org/t/p/w1280';
-  // readonly youtubeWatchUrl = 'https://www.youtube.com/watch?v=';
 
   readonly trailersCache = signal<Map<Category, TrailerItem[]>>(new Map());
 
