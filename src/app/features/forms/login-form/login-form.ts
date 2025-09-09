@@ -19,7 +19,7 @@ export class LoginForm implements OnDestroy {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  private subscribtion!: Subscription;
+  private subscription!: Subscription;
 
   loginForm: FormGroup<LoginFormInterface> = this.fb.nonNullable.group({
     login: ['', [Validators.required]],
@@ -41,7 +41,7 @@ export class LoginForm implements OnDestroy {
   }
 
   onSubmit() {
-    this.subscribtion = this.authService.login(this.loginForm.getRawValue()).subscribe({
+    this.subscription = this.authService.login(this.loginForm.getRawValue()).subscribe({
       next: (response) => {
         if (response.ok && response.body) {
           this.authService.saveToken(response.body.token);
@@ -55,6 +55,6 @@ export class LoginForm implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscribtion.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 }
