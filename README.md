@@ -94,30 +94,27 @@ CD (Continuous Deployment):
 
 ### Changelog pipeline
 
-The workflow updates the changelog and version in package.json 
-based on pull request metadata (title, description, labels). 
-It also automatically updates the PR title with the new version.
+The workflow updates the changelog, version in package.json and git tag
+based on commit messages and previous tag.
 
 In the repository settings, you need to enable the parameter:
 Settings → Actions → General → Workflow permissions → “Read and write permissions”
+Add the token to GitHub Secrets as `NPM_TOKEN`.
 
 ```mermaid
-graph TD;
-    A[Create/Edit PR] -->|Trigger GitHub Action| B[Checkout PR Branch];
-    B --> C[Setup Node.js and jq];
-    C --> D[Detect Bump Type from Labels];
-    D -->|major/minor/patch| E{Is PR Opened?};
-    E -->|Yes| F[Bump Version in package.json];
-    E -->|No| G[Skip Version Bump];
-    F --> H[Update CHANGELOG.md with PR Title/Body];
-    G --> H;
-    H --> I[Pull with Rebase from PR Branch];
-    I --> J{Are There Changes to Commit?};
-    J -->|Yes| K[Commit Changes to PR];
-    J -->|No| L[Skip Commit and Push];
-    K --> M[Update PR Title with Version];
-    L --> M;
-    M --> N[Push to PR Branch];
+flowchart TD
+    A[Commit to dev or main] --> B[Push to GitHub]
+    B --> C[GitHub Actions workflow triggers]
+    C --> D[Checkout repository with fetch-depth 0]
+    D --> E[Install Node.js and dependencies - npm ci]
+    E --> F[Run semantic-release via npm run release]
+    
+    F --> G[Analyze commits and determine release type: patch / minor / major]
+    G --> I[Generate release notes]
+    I --> J[Update CHANGELOG.md and package.json]
+    J --> L[Commit changes to package.json and CHANGELOG.md]
+    L --> M[Create Git version tag]
+    M --> N[Push changes and tags back to repository]
 ```
 
 ## Short rationale:
