@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/prevent-abbreviations */
+// eslint-disable-next-line unicorn/prevent-abbreviations
 interface ImportMetaEnvironment {
   readonly NG_APP_TMDB_API_KEY: string;
 }
