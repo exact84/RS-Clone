@@ -5,17 +5,6 @@
   <div class="trailers__header">
     <h2>Latest Trailers</h2>
     <div class="category-toggle toggle-trailers">
-      <!-- @for (category of categories(); track $index) {
-        <button
-          class="trailer-btn"
-          [class.active]="selectedCategory() === category.value"
-          (click)="switchCategory(category.value)"
-        >
-          <span>{{ category.label | titlecase }}</span>
-        </button>
-      } @empty {
-        <div class="category-toggle toggle-trailers">There is no categories</div>
-      } -->
       <app-home-tabs
         [categories]="categories()"
         [selected]="selectedCategory()"
