@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { ContentCard } from '../../types/content-card';
 import { MovieCard } from '../../models/movie-card';
 import { cardTrailerURL } from '../../../shared/constants/constants';
@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
   imports: [DatePipe],
   templateUrl: './slider-card.html',
   styleUrl: './slider-card.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SliderCard {
   data = input.required<ContentCard>();

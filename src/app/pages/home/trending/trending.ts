@@ -1,4 +1,11 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { TrendingService } from './services/trending-service';
 import { ContentCard } from '../../types/content-card';
 import { HomeTabs } from '../home-tabs/home-tabs';
@@ -9,6 +16,7 @@ import { SliderCard } from '../slider-card/slider-card';
   imports: [HomeTabs, SliderCard],
   templateUrl: './trending.html',
   styleUrls: ['./trending.scss', '../home.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Trending {
   trendingService = inject(TrendingService);
