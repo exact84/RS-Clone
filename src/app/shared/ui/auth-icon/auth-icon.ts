@@ -7,5 +7,5 @@ import { Component, input } from '@angular/core';
   styleUrl: './auth-icon.scss',
 })
 export class AuthIcon {
-  icon = input.required<'signup' | 'login' | 'logout'>();
+  icon = input.required<'signup' | 'login' | 'logout' | 'profile'>();
 }

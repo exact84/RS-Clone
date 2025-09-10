@@ -17,27 +17,34 @@
   }
 
   <div class="auth">
-    @if (!isAuth) {
-      <a routerLink="/auth/signup">
+    @if (!isAuth()) {
+      <a class="auth-control" routerLink="/auth/signup">
         @if (isMobile()) {
-          <app-auth-icon icon="signup" />
+          <app-auth-icon icon="signup" title="Sign Up" />
         } @else {
           Register
         }
       </a>
-      <a routerLink="/auth/login">
+      <a class="auth-control" routerLink="/auth/login">
         @if (isMobile()) {
-          <app-auth-icon icon="login" />
+          <app-auth-icon icon="login" title="Log In" />
         } @else {
-          Login
+          Log In
         }
       </a>
     } @else {
-      <button class="auth-btn" type="button" (click)="logout()">
+      <a class="auth-control" routerLink="/profile">
         @if (isMobile()) {
-          <app-auth-icon icon="logout" />
+          <app-auth-icon icon="profile" title="Profile" />
         } @else {
-          Logout
+          Profile
+        }
+      </a>
+      <button class="auth-control" type="button" (click)="logout()">
+        @if (isMobile()) {
+          <app-auth-icon icon="logout" title="Log Out" />
+        } @else {
+          Log Out
         }
       </button>
     }
