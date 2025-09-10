@@ -38,3 +38,5 @@ jobs:
 
       - name: Build (production)
         run: npm run build:prod
+        env:
+          NG_APP_TMDB_API_KEY: ${{ secrets.NG_APP_TMDB_API_KEY }}
