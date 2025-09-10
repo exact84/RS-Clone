@@ -30,20 +30,15 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      # - name: Lint
-      #   run: npm run lint
+      - name: Lint
+        run: npm run lint
 
-      # - name: Unit tests
-      #   run: npm run test:ci
-
-      - name: Show environments folder
-        run: ls -R src/environments
+      - name: Unit tests
+        run: npm run test:ci
 
       - name: Build with secret
         run: |
           echo "export const environment = { production: true, BASE_URL: \"https://api.themoviedb.org/3\", BASE_URL_BACKEND: \"https://movie-db-backend.up.railway.app/api\", API_KEY: '${{ secrets.NG_APP_TMDB_API_KEY }}' };" > src/environments/environment.production.ts
-          echo "✅ environment.production.ts generated"
-          cat src/environments/environment.production.ts
           npm run build:prod
 
       - name: Upload build artifact
