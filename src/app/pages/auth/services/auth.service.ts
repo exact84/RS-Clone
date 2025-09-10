@@ -13,7 +13,7 @@ export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
 
-  private isAuth = signal(!!localStorage.getItem(AUTHORIZATION_KEY));
+  private isAuth = signal(false);
 
   signup(signup: SignupRequest) {
     return this.http.post<User>('/auth/signup', signup, { observe: 'response' });
@@ -33,8 +33,15 @@ export class AuthService {
 
   checkAuth() {
     return this.http.get('/auth/check', { observe: 'response' }).pipe(
-      map((response) => response.ok),
-      tap((result) => this.isAuth.set(result)),
+      map((response) => {
+        if (response.ok) {
+          this.isAuth.set(true);
+          return true;
+        } else {
+          this.logout();
+          return false;
+        }
+      }),
     );
   }
 
