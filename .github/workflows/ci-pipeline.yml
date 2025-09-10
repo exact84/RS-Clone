@@ -40,3 +40,6 @@ jobs:
         run: npm run build:prod
         env:
           NG_APP_TMDB_API_KEY: ${{ secrets.NG_APP_TMDB_API_KEY }}
+
+      - name: Dump env before build
+        run: printenv | grep NG_APP
