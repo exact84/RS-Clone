@@ -8,17 +8,14 @@ import {
 } from '@angular/core';
 import { MoviesTrailersService } from './services/movies-trailers-service';
 
-import { CommonModule, TitleCasePipe } from '@angular/common';
 import { TrailerCard } from './trailer-card/trailer-card';
-
 import { TrailerItem } from '../../types/trailer-item';
-
-import { Category } from '../../types/category';
 import { posterURL, youtubeWatchUrl } from '../../../shared/constants/constants';
+import { HomeTabs } from '../home-tabs/home-tabs';
 
 @Component({
   selector: 'app-trailers',
-  imports: [TitleCasePipe, TrailerCard, CommonModule],
+  imports: [TrailerCard, HomeTabs],
   templateUrl: './trailers.html',
   styleUrls: ['./trailers.scss', '../home.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,10 +32,12 @@ export class Trailers {
     { label: 'For Rent', value: 'for-rent' },
   ] as const);
 
-  readonly selectedCategory = signal<Category>('popular');
+  readonly selectedCategory = signal<string>('popular');
   readonly selectedTrailers = signal<TrailerItem[]>([]);
+  readonly categoryClick = signal<string>('popular');
+  readonly selectedKey = computed(() => this.selectedCategory());
 
-  readonly trailersCache = signal<Map<Category, TrailerItem[]>>(new Map());
+  readonly trailersCache = signal<Map<string, TrailerItem[]>>(new Map());
 
   readonly backgroundUrl = computed(() => {
     const firstItem = this.selectedTrailers()[0];
@@ -79,7 +78,7 @@ export class Trailers {
     });
   }
 
-  switchCategory(category: Category) {
+  switchCategory(category: string) {
     if (this.selectedCategory() !== category) {
       this.selectedCategory.set(category);
       this.loadingState.set(true);

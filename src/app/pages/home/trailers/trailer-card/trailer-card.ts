@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { MovieWithTrailer } from '../../../models/movie-with-trailer';
 import { TVWithTrailer } from '../../../models/tv-with-trailer';
 import { cardTrailerURL } from '../../../../shared/constants/constants';
@@ -17,9 +17,6 @@ export class TrailerCard {
   isMovie(data: MovieWithTrailer | TVWithTrailer): data is MovieWithTrailer {
     return 'title' in data;
   }
-
-  readonly loadingState = signal<boolean>(false);
-  readonly errorState = signal<boolean>(false);
 
   get title(): string {
     const value = this.data();

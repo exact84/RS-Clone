@@ -1,0 +1,30 @@
+<section class="trending">
+  <div class="trending__header">
+    <h2>Trending</h2>
+    <div class="category-toggle">
+      <app-home-tabs
+        [categories]="categories()"
+        [selected]="selectedCategory()"
+        (categoryClick)="switchCategory($event)"
+      ></app-home-tabs>
+    </div>
+  </div>
+
+  <div class="slider slider__trending">
+    <div class="slider-track">
+      @if (loadingState()) {
+        <div class="spinner-wrapper">
+          <img src="spinner.png" alt="Loading..." class="spinner" />
+        </div>
+      } @else if (errorState()) {
+        <div class="error-message">Failed to load trailers. Please try again later.</div>
+      } @else if (trendingItems().length === 0) {
+        <div class="empty-message">There are no trailers for this category.</div>
+      } @else {
+        @for (item of trendingItems(); track $index) {
+          <app-slider-card [data]="item" />
+        }
+      }
+    </div>
+  </div>
+</section>

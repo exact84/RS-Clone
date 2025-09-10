@@ -5,7 +5,7 @@
   <div class="trailers__header">
     <h2>Latest Trailers</h2>
     <div class="category-toggle toggle-trailers">
-      @for (category of categories(); track $index) {
+      <!-- @for (category of categories(); track $index) {
         <button
           class="trailer-btn"
           [class.active]="selectedCategory() === category.value"
@@ -15,7 +15,12 @@
         </button>
       } @empty {
         <div class="category-toggle toggle-trailers">There is no categories</div>
-      }
+      } -->
+      <app-home-tabs
+        [categories]="categories()"
+        [selected]="selectedCategory()"
+        (categoryClick)="switchCategory($event)"
+      />
     </div>
   </div>
 

@@ -6,7 +6,6 @@ import { MovieCard } from '../../../models/movie-card';
 import { TVCard } from '../../../models/tv-card';
 import { TVWithTrailer } from '../../../models/tv-with-trailer';
 import { TrailerResponse } from '../../../models/trailer-response';
-import { Category } from '../../../types/category';
 import { TrailerItem } from '../../../types/trailer-item';
 
 @Injectable({
@@ -143,7 +142,7 @@ export class MoviesTrailersService {
     );
   }
 
-  getTrailersByCategory(category: Category): Observable<TrailerItem[]> {
+  getTrailersByCategory(category: string): Observable<TrailerItem[]> {
     switch (category) {
       case 'popular': {
         return this.getPopularTrailers();
