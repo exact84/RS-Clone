@@ -1,19 +1,16 @@
-<section
-  class="trailers"
-  [style.backgroundImage]="backgroundUrl() ? 'url(' + backgroundUrl() + ')' : ''"
->
-  <div class="trailers__header">
-    <h2>Latest Trailers</h2>
-    <div class="category-toggle toggle-trailers">
+<section class="trending">
+  <div class="trending__header">
+    <h2>Trending</h2>
+    <div class="category-toggle">
       <app-home-tabs
         [categories]="categories()"
         [selected]="selectedCategory()"
         (categoryClick)="switchCategory($event)"
-      />
+      ></app-home-tabs>
     </div>
   </div>
 
-  <div class="slider">
+  <div class="slider slider__trending">
     <div class="slider-track">
       @if (loadingState()) {
         <div class="spinner-wrapper">
@@ -21,13 +18,11 @@
         </div>
       } @else if (errorState()) {
         <div class="error-message">Failed to load trailers. Please try again later.</div>
-      } @else if (selectedTrailers().length === 0) {
+      } @else if (trendingItems().length === 0) {
         <div class="empty-message">There are no trailers for this category.</div>
       } @else {
-        @for (movie of selectedTrailers(); track movie.id) {
-          @if (movie.trailerKey) {
-            <app-trailer-card [data]="movie" (trailerClick)="openTrailer($event)" />
-          }
+        @for (item of trendingItems(); track $index) {
+          <app-slider-card [data]="item" />
         }
       }
     </div>

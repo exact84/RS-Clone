@@ -1,0 +1,14 @@
+.error-message,
+.empty-message {
+  color: black;
+  margin: auto;
+}
+
+.spinner-wrapper {
+  margin: auto;
+
+  .spinner {
+    width: 56px;
+    height: 56px;
+  }
+}

@@ -1,0 +1,9 @@
+<div class="movie-card">
+  <div class="movie-card__poster">
+    <img [src]="posterUrl" [alt]="title" />
+  </div>
+  <div class="movie-card__info">
+    <h3 class="movie-card__title">{{ title }}</h3>
+    <h3 class="movie-card__release">{{ date | date: 'MMM dd, yyyy' }}</h3>
+  </div>
+</div>
