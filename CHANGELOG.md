@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/exact84/RS-Clone/compare/v1.0.1...v1.1.0) (2025-09-11)
+
+
+### Features
+
+* add trending component ([#39](https://github.com/exact84/RS-Clone/issues/39)) ([4214941](https://github.com/exact84/RS-Clone/commit/4214941a441e6ce4e0f737e967fbdb62644459fe))
+
 ## [1.0.1](https://github.com/exact84/RS-Clone/compare/v1.0.0...v1.0.1) (2025-09-11)
 
 # 1.0.0 (2025-09-09)
