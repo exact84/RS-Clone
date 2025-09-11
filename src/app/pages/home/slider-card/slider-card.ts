@@ -1,0 +1,45 @@
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ContentCard } from '../../types/content-card';
+import { MovieCard } from '../../models/movie-card';
+import {
+  cardTrailerURL,
+  FALLBACK_DATE,
+  FALLBACK_TITLE,
+  FALLBACK_POSTER,
+} from '../../../shared/constants/constants';
+import { DatePipe } from '@angular/common';
+
+@Component({
+  selector: 'app-slider-card',
+  imports: [DatePipe],
+  templateUrl: './slider-card.html',
+  styleUrl: './slider-card.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class SliderCard {
+  data = input.required<ContentCard>();
+
+  isMovie(data: ContentCard): data is MovieCard {
+    return 'title' in data;
+  }
+
+  get posterUrl(): string {
+    const value = this.data();
+
+    const path = this.isMovie(value) ? value.poster_path : (value.poster_path ?? '');
+
+    return path?.trim().length ? `${cardTrailerURL}${path}` : FALLBACK_POSTER;
+  }
+
+  get title(): string {
+    const value = this.data();
+    return this.isMovie(value) ? (value.title ?? FALLBACK_TITLE) : (value.name ?? FALLBACK_TITLE);
+  }
+
+  get date(): string {
+    const value = this.data();
+    return this.isMovie(value)
+      ? (value.release_date ?? FALLBACK_DATE)
+      : (value.first_air_date ?? FALLBACK_DATE);
+  }
+}
