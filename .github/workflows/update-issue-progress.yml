@@ -14,6 +14,7 @@ permissions:
 
 jobs:
   update-progress:
+    name: Update Issue Progress
     runs-on: ubuntu-latest
     steps:
       - name: Update checklist progress in sections and overall
