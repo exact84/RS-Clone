@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { PopularService } from './services/popular-service';
 import { SPINNER_PATH } from '../../../shared/constants/constants';
 import { ContentCard } from '../../types/content-card';
@@ -10,6 +10,7 @@ import { SliderCard } from '../slider-card/slider-card';
   imports: [HomeTabs, SliderCard],
   templateUrl: './popular.html',
   styleUrls: ['./popular.scss', '../home.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Popular {
   private popularService = inject(PopularService);
