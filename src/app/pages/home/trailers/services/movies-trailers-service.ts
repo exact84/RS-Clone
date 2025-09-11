@@ -7,28 +7,13 @@ import { TVCard } from '../../../models/tv-card';
 import { TVWithTrailer } from '../../../models/tv-with-trailer';
 import { TrailerResponse } from '../../../models/trailer-response';
 import { TrailerItem } from '../../../types/trailer-item';
+import { getDateRange } from '../../../../shared/utils/date-range';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoviesTrailersService {
   http = inject(HttpClient);
-
-  getDateRange = (monthsAgo: number): { from: string; to: string } => {
-    const today = new Date();
-    const past = new Date(today);
-
-    past.setMonth(today.getMonth() - monthsAgo);
-
-    if (past > today) {
-      past.setFullYear(today.getFullYear() - 1);
-    }
-
-    const to = today.toISOString().split('T')[0];
-    const from = past.toISOString().split('T')[0];
-
-    return { from, to };
-  };
 
   private getMovieTrailer(id: number): Observable<string | null> {
     const url = `/movie/${id}/videos`;
@@ -57,7 +42,7 @@ export class MoviesTrailersService {
   }
 
   getPopularTrailers(): Observable<MovieWithTrailer[]> {
-    const { from, to } = this.getDateRange(6);
+    const { from, to } = getDateRange(6);
     const parameters = new HttpParams()
       .set('sort_by', 'popularity.desc')
       .set('primary_release_date.gte', from)
@@ -81,7 +66,7 @@ export class MoviesTrailersService {
   }
 
   getStreamingTrailers(): Observable<MovieWithTrailer[]> {
-    const { from, to } = this.getDateRange(3);
+    const { from, to } = getDateRange(3);
     const parameters = new HttpParams()
       .set('with_watch_providers', '8')
       .set('watch_region', 'US')
@@ -107,7 +92,7 @@ export class MoviesTrailersService {
   }
 
   getTVTrailers(): Observable<TVWithTrailer[]> {
-    const { from, to } = this.getDateRange(3);
+    const { from, to } = getDateRange(3);
     const parameters = new HttpParams()
       .set('sort_by', 'popularity.desc')
       .set('with_original_language', 'en')
@@ -133,7 +118,7 @@ export class MoviesTrailersService {
   }
 
   getForRentTrailers(): Observable<MovieWithTrailer[]> {
-    const { from, to } = this.getDateRange(3);
+    const { from, to } = getDateRange(3);
     const parameters = new HttpParams()
       .set('with_watch_monetization_types', 'rent')
       .set('watch_region', 'US')
