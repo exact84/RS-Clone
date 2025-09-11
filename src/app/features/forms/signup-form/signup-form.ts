@@ -50,6 +50,8 @@ export class SignupForm implements OnDestroy {
   showPassword = signal(false);
   showConfirmPassword = signal(false);
 
+  isPendingRequest = signal(false);
+
   get login() {
     return this.signupForm.controls.login;
   }
@@ -93,6 +95,7 @@ export class SignupForm implements OnDestroy {
   }
 
   onSubmit() {
+    this.isPendingRequest.set(true);
     this.subscription = this.authService.signup(this.signupForm.getRawValue()).subscribe({
       next: (response) => {
         if (response.status === 201) {
@@ -100,8 +103,13 @@ export class SignupForm implements OnDestroy {
           this.router.navigate(['auth', 'login']);
         }
       },
-      error: (error: HttpErrorResponse) => {
-        this.signupForm.setErrors({ signUpError: { message: error.error.message } });
+      error: (error) => {
+        if (error instanceof HttpErrorResponse)
+          this.signupForm.setErrors({ signUpError: { message: error.error.message } });
+        else if (error instanceof Error)
+          this.signupForm.setErrors({ signUpError: { message: error.message } });
+        else this.signupForm.setErrors({ signUpError: { message: 'Unknown error' } });
+        this.isPendingRequest.set(false);
       },
     });
   }

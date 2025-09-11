@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { SignupRequest, User } from '../models/signup';
 import { LoginRequest, LoginResponse } from '../models/login';
 import { AUTHORIZATION_KEY } from '../../../shared/constants/constants';
-import { map, tap } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -41,6 +41,10 @@ export class AuthService {
           this.logout();
           return false;
         }
+      }),
+      catchError(() => {
+        this.logout();
+        return of(false);
       }),
     );
   }
