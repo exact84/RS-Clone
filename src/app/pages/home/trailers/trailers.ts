@@ -51,7 +51,6 @@ export class Trailers {
     effect(() => {
       const category = this.selectedCategory();
       const cached = this.trailersCache().get(category);
-      console.log('Cached value:', cached);
 
       if (cached) {
         this.selectedTrailers.set(cached);
