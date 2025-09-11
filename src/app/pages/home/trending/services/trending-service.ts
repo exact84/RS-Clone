@@ -14,7 +14,10 @@ export class TrendingService {
     const url = `/trending/${mediaType}/${timeWindow}`;
     return this.http.get<{ results: MovieCard[] }>(url).pipe(
       map((response) => response.results),
-      catchError(() => of([])),
+      catchError((error) => {
+        console.error('TrendingService error:', error);
+        return of([]);
+      }),
     );
   }
 }

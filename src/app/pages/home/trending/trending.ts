@@ -10,6 +10,7 @@ import { TrendingService } from './services/trending-service';
 import { ContentCard } from '../../types/content-card';
 import { HomeTabs } from '../home-tabs/home-tabs';
 import { SliderCard } from '../slider-card/slider-card';
+import { SPINNER_PATH } from '../../../shared/constants/constants';
 
 @Component({
   selector: 'app-trending',
@@ -34,6 +35,7 @@ export class Trending {
   readonly trendingCache = signal<Map<string, ContentCard[]>>(new Map());
   readonly categoryClick = signal<string>('day');
   readonly mediaType = signal<'movie' | 'tv'>('movie');
+  readonly spinnerPath = SPINNER_PATH;
 
   readonly selectedKey = computed(() => `${this.mediaType()}-${this.selectedCategory()}`);
 
@@ -71,8 +73,6 @@ export class Trending {
   switchCategory(category: string) {
     if (this.selectedCategory() !== category) {
       this.selectedCategory.set(category);
-      this.loadingState.set(true);
-      this.errorState.set(false);
     }
   }
 }

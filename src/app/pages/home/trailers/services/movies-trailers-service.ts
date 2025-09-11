@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
+import { catchError, forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { MovieWithTrailer } from '../../../models/movie-with-trailer';
 import { MovieCard } from '../../../models/movie-card';
 import { TVCard } from '../../../models/tv-card';
@@ -73,6 +73,10 @@ export class MoviesTrailersService {
         return forkJoin(requests);
       }),
       map((movies) => movies.filter((m) => m.trailerKey)),
+      catchError((error) => {
+        console.error('TrailerService error:', error);
+        return of([]);
+      }),
     );
   }
 
@@ -95,6 +99,10 @@ export class MoviesTrailersService {
         return forkJoin(requests);
       }),
       map((movies) => movies.filter((m) => m.trailerKey)),
+      catchError((error) => {
+        console.error('TrailerService error:', error);
+        return of([]);
+      }),
     );
   }
 
@@ -117,6 +125,10 @@ export class MoviesTrailersService {
         return forkJoin(requests);
       }),
       map((tvShows) => tvShows.filter((tv) => tv.trailerKey)),
+      catchError((error) => {
+        console.error('TrailersService error:', error);
+        return of([]);
+      }),
     );
   }
 
@@ -139,6 +151,10 @@ export class MoviesTrailersService {
         return forkJoin(requests);
       }),
       map((movies) => movies.filter((m) => m.trailerKey)),
+      catchError((error) => {
+        console.error('TrailerService error:', error);
+        return of([]);
+      }),
     );
   }
 

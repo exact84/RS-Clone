@@ -12,6 +12,7 @@ import { TrailerCard } from './trailer-card/trailer-card';
 import { TrailerItem } from '../../types/trailer-item';
 import { posterURL, youtubeWatchUrl } from '../../../shared/constants/constants';
 import { HomeTabs } from '../home-tabs/home-tabs';
+import { SPINNER_PATH } from '../../../shared/constants/constants';
 
 @Component({
   selector: 'app-trailers',
@@ -21,9 +22,7 @@ import { HomeTabs } from '../home-tabs/home-tabs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Trailers {
-  trailersService = inject(MoviesTrailersService);
-  readonly loadingState = signal<boolean>(false);
-  readonly errorState = signal<boolean>(false);
+  private trailersService = inject(MoviesTrailersService);
 
   categories = signal([
     { label: 'Popular', value: 'popular' },
@@ -32,10 +31,12 @@ export class Trailers {
     { label: 'For Rent', value: 'for-rent' },
   ] as const);
 
+  readonly loadingState = signal<boolean>(false);
+  readonly errorState = signal<boolean>(false);
+  readonly spinnerPath = SPINNER_PATH;
+
   readonly selectedCategory = signal<string>('popular');
   readonly selectedTrailers = signal<TrailerItem[]>([]);
-  readonly categoryClick = signal<string>('popular');
-  readonly selectedKey = computed(() => this.selectedCategory());
 
   readonly trailersCache = signal<Map<string, TrailerItem[]>>(new Map());
 
@@ -50,6 +51,7 @@ export class Trailers {
     effect(() => {
       const category = this.selectedCategory();
       const cached = this.trailersCache().get(category);
+      console.log('Cached value:', cached);
 
       if (cached) {
         this.selectedTrailers.set(cached);
@@ -65,7 +67,6 @@ export class Trailers {
           const updated = new Map(this.trailersCache());
           updated.set(category, items);
           this.trailersCache.set(updated);
-
           this.selectedTrailers.set(items);
           this.loadingState.set(false);
         },
@@ -81,8 +82,6 @@ export class Trailers {
   switchCategory(category: string) {
     if (this.selectedCategory() !== category) {
       this.selectedCategory.set(category);
-      this.loadingState.set(true);
-      this.errorState.set(false);
     }
   }
 
