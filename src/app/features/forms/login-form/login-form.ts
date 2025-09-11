@@ -28,6 +28,8 @@ export class LoginForm implements OnDestroy {
 
   showPassword = signal(false);
 
+  isPendingRequest = signal(false);
+
   get login() {
     return this.loginForm.controls.login;
   }
@@ -41,6 +43,7 @@ export class LoginForm implements OnDestroy {
   }
 
   onSubmit() {
+    this.isPendingRequest.set(true);
     this.subscription = this.authService.login(this.loginForm.getRawValue()).subscribe({
       next: (response) => {
         if (response.ok && response.body) {
@@ -48,8 +51,13 @@ export class LoginForm implements OnDestroy {
           this.router.navigate(['']);
         }
       },
-      error: (error: HttpErrorResponse) => {
-        this.loginForm.setErrors({ loginError: { message: error.error.message } });
+      error: (error) => {
+        if (error instanceof HttpErrorResponse)
+          this.loginForm.setErrors({ loginError: { message: error.error.message } });
+        else if (error instanceof Error)
+          this.loginForm.setErrors({ loginError: { message: error.message } });
+        else this.loginForm.setErrors({ loginError: { message: 'Unknown error' } });
+        this.isPendingRequest.set(false);
       },
     });
   }

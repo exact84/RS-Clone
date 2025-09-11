@@ -31,7 +31,9 @@
       }
     </ng-container>
   </app-form-field>
-  <button class="form-submit" type="submit" [disabled]="loginForm.invalid">Login</button>
+  <button class="form-submit" type="submit" [disabled]="loginForm.invalid || isPendingRequest()">
+    Login
+  </button>
   <app-form-field inputId="login-submit">
     <ng-container slot="validation-errors">
       @if (loginForm.invalid && loginForm.hasError('loginError')) {
