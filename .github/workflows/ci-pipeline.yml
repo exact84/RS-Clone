@@ -15,6 +15,7 @@ concurrency:
 
 jobs:
   build-test:
+    name: Build & Test
     runs-on: ubuntu-latest
 
     steps:
