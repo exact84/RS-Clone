@@ -1,3 +1,5 @@
+## [1.0.1](https://github.com/exact84/RS-Clone/compare/v1.0.0...v1.0.1) (2025-09-11)
+
 # 1.0.0 (2025-09-09)
 
 
