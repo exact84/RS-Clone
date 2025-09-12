@@ -1,3 +1,18 @@
+## [1.4.0](https://github.com/exact84/RS-Clone/compare/v1.3.0...v1.4.0) (2025-09-12)
+
+### Features
+
+* add rating-badge component ([5e8bf31](https://github.com/exact84/RS-Clone/commit/5e8bf3172b145bad2a3567b913ee1f4d96cacb55))
+
+### Bug Fixes
+
+* remove redundant code ([1127934](https://github.com/exact84/RS-Clone/commit/1127934bc352ef41c5ec4cbcab5009fbec532692))
+* remove redundant code ([52159a2](https://github.com/exact84/RS-Clone/commit/52159a29c71bdf0523369d19cbdea8398f5b04ad))
+
+### Refactoring
+
+* declare magic number as const stroke_dasharray_total, move to constants ([54bb726](https://github.com/exact84/RS-Clone/commit/54bb726df96b78731186f2e6eb97ceb7328b07d0))
+
 ## [1.3.0](https://github.com/exact84/RS-Clone/compare/v1.2.0...v1.3.0) (2025-09-12)
 
 ### Features
