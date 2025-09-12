@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { catchError, forkJoin, map, Observable, of, switchMap } from 'rxjs';
+import { catchError, forkJoin, map, Observable, switchMap, throwError } from 'rxjs';
 import { MovieWithTrailer } from '../../../models/movie-with-trailer';
 import { MovieCard } from '../../../models/movie-card';
 import { TVCard } from '../../../models/tv-card';
@@ -60,7 +60,7 @@ export class MoviesTrailersService {
       map((movies) => movies.filter((m) => m.trailerKey)),
       catchError((error) => {
         console.error('TrailerService error:', error);
-        return of([]);
+        return throwError(() => error);
       }),
     );
   }
@@ -86,7 +86,7 @@ export class MoviesTrailersService {
       map((movies) => movies.filter((m) => m.trailerKey)),
       catchError((error) => {
         console.error('TrailerService error:', error);
-        return of([]);
+        return throwError(() => error);
       }),
     );
   }
@@ -112,7 +112,7 @@ export class MoviesTrailersService {
       map((tvShows) => tvShows.filter((tv) => tv.trailerKey)),
       catchError((error) => {
         console.error('TrailersService error:', error);
-        return of([]);
+        return throwError(() => error);
       }),
     );
   }
@@ -138,7 +138,7 @@ export class MoviesTrailersService {
       map((movies) => movies.filter((m) => m.trailerKey)),
       catchError((error) => {
         console.error('TrailerService error:', error);
-        return of([]);
+        return throwError(() => error);
       }),
     );
   }
@@ -158,7 +158,7 @@ export class MoviesTrailersService {
         return this.getForRentTrailers();
       }
       default: {
-        return of([]);
+        return throwError(() => new Error(`Unknown category: ${category}`));
       }
     }
   }

@@ -10,7 +10,7 @@ import { TrendingService } from './services/trending-service';
 import { ContentCard } from '../../types/content-card';
 import { HomeTabs } from '../home-tabs/home-tabs';
 import { SliderCard } from '../slider-card/slider-card';
-import { SPINNER_PATH } from '../../../shared/constants/constants';
+import { CATEGORY_TRENDING, SPINNER_PATH } from '../../../shared/constants/constants';
 
 @Component({
   selector: 'app-trending',
@@ -25,10 +25,7 @@ export class Trending {
   readonly loadingState = signal<boolean>(false);
   readonly errorState = signal<boolean>(false);
 
-  readonly categories = signal([
-    { label: 'Today', value: 'day' },
-    { label: 'This Week', value: 'week' },
-  ] as const);
+  readonly categories = signal(CATEGORY_TRENDING);
 
   readonly selectedCategory = signal<string>('day');
   readonly trendingItems = signal<ContentCard[]>([]);

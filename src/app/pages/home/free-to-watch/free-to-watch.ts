@@ -1,28 +1,28 @@
+import { CATEGORY_FREE } from './../../../shared/constants/constants';
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
-import { PopularService } from './services/popular-service';
+import { FreeToWatchService } from './services/free-to-watch-service';
 import { SPINNER_PATH } from '../../../shared/constants/constants';
 import { ContentCard } from '../../types/content-card';
 import { HomeTabs } from '../home-tabs/home-tabs';
 import { SliderCard } from '../slider-card/slider-card';
-import { CATEGORY_POPULAR } from '../../../shared/constants/constants';
 
 @Component({
-  selector: 'app-popular',
+  selector: 'app-free-to-watch',
   imports: [HomeTabs, SliderCard],
-  templateUrl: './popular.html',
-  styleUrls: ['./popular.scss', '../home.scss'],
+  templateUrl: './free-to-watch.html',
+  styleUrls: ['./free-to-watch.scss', '../home.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Popular {
-  private popularService = inject(PopularService);
+export class FreeToWatch {
+  private freeToWatchService = inject(FreeToWatchService);
 
-  categories = signal(CATEGORY_POPULAR);
+  categories = signal(CATEGORY_FREE);
 
   readonly loadingState = signal<boolean>(false);
   readonly errorState = signal<boolean>(false);
   readonly spinnerPath = SPINNER_PATH;
 
-  readonly selectedCategory = signal<string>('streaming');
+  readonly selectedCategory = signal<string>('movies');
   readonly selectedMovies = signal<ContentCard[]>([]);
 
   readonly moviesCache = signal<Map<string, ContentCard[]>>(new Map());
@@ -41,7 +41,7 @@ export class Popular {
       this.loadingState.set(true);
       this.errorState.set(false);
 
-      this.popularService.getPopularByCategory(category).subscribe({
+      this.freeToWatchService.getFreeToWatchByCategory(category).subscribe({
         next: (items) => {
           const updated = new Map(this.moviesCache());
           updated.set(category, items);

@@ -1,3 +1,5 @@
+@use '../../shared/styles/colors' as colors;
+
 section {
   padding: 10px 20px;
   padding-top: 30px;
@@ -10,7 +12,7 @@ section {
   }
 
   &.trailers {
-    background: linear-gradient(to right, rgba(50, 152, 235, 0.75) 0%, rgba(4, 48, 84, 0.75) 100%);
+    background: colors.$trailers-background-gradient;
   }
 
   .slider {
@@ -18,7 +20,7 @@ section {
     white-space: nowrap;
     position: relative;
     scrollbar-width: thin;
-    scrollbar-color: #cac8c8 #f1f1f1;
+    scrollbar-color: colors.$middle-grey-color colors.$light-grey-color;
     min-height: 325px;
   }
   .slider::-webkit-scrollbar {
@@ -26,12 +28,12 @@ section {
   }
 
   .slider::-webkit-scrollbar-thumb {
-    background: #e9e7e7;
+    background: colors.$middle-grey-color;
     border-radius: 5px;
   }
 
   .slider::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: colors.$light-grey-color;
   }
 
   .slider-track {
@@ -39,6 +41,27 @@ section {
     gap: 15px;
     padding-block-end: 1rem;
     min-height: 100px;
+
+    .error-message,
+    .empty-message {
+      color: colors.$dark-color;
+      margin: auto;
+    }
+
+    .spinner-wrapper {
+      margin: auto;
+
+      .spinner {
+        width: 56px;
+        height: 56px;
+      }
+    }
+    &.trailers-track {
+      .error-message,
+      .empty-message {
+        color: colors.$light-color;
+      }
+    }
   }
 
   .popular__header,
@@ -58,11 +81,11 @@ section {
 
 .category-toggle {
   display: flex;
-  border: 2px solid black;
+  border: 2px solid colors.$dark-color;
   border-radius: 25px;
 
   &.toggle-trailers {
-    border: 2px solid rgb(70, 229, 70);
+    border: 2px solid colors.$toggle-trailers-border-color;
   }
 
   button {
@@ -75,15 +98,15 @@ section {
     transition: all 0.5s ease-out;
 
     &.trailer-btn {
-      color: #fff;
+      color: colors.$light-color;
       transition: all 0.5s ease-out;
     }
 
     &.active {
-      background-color: black;
+      background-color: colors.$dark-color;
 
       .gradient-text {
-        background-image: linear-gradient(to right, #c0fecf, #1ed5a9);
+        background-image: colors.$accent-gradient;
         color: transparent;
         -webkit-background-clip: text;
         background-clip: text;
