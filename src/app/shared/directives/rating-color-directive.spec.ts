@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RatingColorDirective } from './rating-color-directive';
 import { TestHostComponent } from './test-host';
-import { HIGHT_VOTE_COLOR, LOW_VOTE_COLOR } from '../constants/constants';
+import { HIGH_VOTE_COLOR, LOW_VOTE_COLOR } from '../constants/constants';
 
 describe('RatingColorDirective', () => {
   let fixture: ComponentFixture<TestHostComponent>;
@@ -18,7 +18,7 @@ describe('RatingColorDirective', () => {
   });
 
   it('should set correct stroke color and offset for rating 7.5', () => {
-    const expectedColor = HIGHT_VOTE_COLOR;
+    const expectedColor = HIGH_VOTE_COLOR;
     const expectedOffset = 251.2 - (75 / 100) * 251.2;
 
     expect(circle.getAttribute('stroke')).toBe(expectedColor);
