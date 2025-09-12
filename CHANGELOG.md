@@ -1,3 +1,13 @@
+## [1.2.0](https://github.com/exact84/RS-Clone/compare/v1.1.0...v1.2.0) (2025-09-12)
+
+### Features
+
+* free to watch ([#46](https://github.com/exact84/RS-Clone/issues/46)) ([ebff7d9](https://github.com/exact84/RS-Clone/commit/ebff7d96c1d9588c213c5406b24c31632afe780f))
+
+### Chores
+
+* add workflow names ([#43](https://github.com/exact84/RS-Clone/issues/43)) ([f322281](https://github.com/exact84/RS-Clone/commit/f32228144fc85507cccc1000a3119dfcfb1daad9))
+
 # [1.1.0](https://github.com/exact84/RS-Clone/compare/v1.0.1...v1.1.0) (2025-09-11)
 
 
