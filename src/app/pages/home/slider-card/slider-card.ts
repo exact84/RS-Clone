@@ -8,10 +8,11 @@ import {
   FALLBACK_POSTER,
 } from '../../../shared/constants/constants';
 import { DatePipe } from '@angular/common';
+import { RatingBadge } from '../../../shared/ui/rating-badge/rating-badge';
 
 @Component({
   selector: 'app-slider-card',
-  imports: [DatePipe],
+  imports: [DatePipe, RatingBadge],
   templateUrl: './slider-card.html',
   styleUrl: './slider-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,6 +35,11 @@ export class SliderCard {
   get title(): string {
     const value = this.data();
     return this.isMovie(value) ? (value.title ?? FALLBACK_TITLE) : (value.name ?? FALLBACK_TITLE);
+  }
+
+  get vote_average(): number {
+    const value = this.data();
+    return value.vote_average;
   }
 
   get date(): string {
