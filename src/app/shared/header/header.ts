@@ -12,6 +12,9 @@ import { RouterLink } from '@angular/router';
   imports: [Menu, ScreenLargeDirective, ScreenSmallDirective, RouterLink],
   templateUrl: './header.html',
   styleUrl: './header.scss',
+  host: {
+    '(mouseleave)': 'mouseLeave()',
+  },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
@@ -20,5 +23,9 @@ export class Header {
 
   constructor() {
     this.menuService.items = MenuItems;
+  }
+
+  mouseLeave() {
+    if (!this.menuService.menuIsHovered()) this.menuService.resetSubmenu();
   }
 }

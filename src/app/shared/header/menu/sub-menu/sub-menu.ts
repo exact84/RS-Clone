@@ -8,6 +8,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './sub-menu.html',
   styleUrl: './sub-menu.scss',
+  host: {
+    '(mouseenter)': 'mouseEnter()',
+    '(mouseleave)': 'mouseLeave()',
+  },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubMenu {
@@ -15,4 +19,12 @@ export class SubMenu {
   menu = input.required<MenuItem[]>();
   parentRoute = input.required<string>();
   readonly navigate = output<void>();
+
+  mouseEnter() {
+    this.menuService.menuIsHovered.set(true);
+  }
+
+  mouseLeave() {
+    this.menuService.menuIsHovered.set(false);
+  }
 }
