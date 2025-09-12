@@ -37,6 +37,7 @@ export const CATEGORY_TRAILERS: readonly CategoryOption[] = [
   { label: 'For Rent', value: 'for-rent' },
 ] as const;
 
-export const HIGHT_VOTE_COLOR = '#4caf50';
+export const HIGH_VOTE_COLOR = '#4caf50';
 export const MIDDLE_VOTE_COLOR = '#ffeb3b';
 export const LOW_VOTE_COLOR = '#f44336';
+export const STROKE_DASHARRAY_TOTAL = 251.2;
