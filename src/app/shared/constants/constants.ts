@@ -32,5 +32,7 @@ export const CATEGORY_TRENDING: readonly CategoryOption[] = [
 
 export const CATEGORY_TRAILERS: readonly CategoryOption[] = [
   { label: 'Popular', value: 'popular' },
-  ...CATEGORY_POPULAR,
+  { label: 'Streaming', value: 'streaming' },
+  { label: 'On TV', value: 'on-tv' },
+  { label: 'For Rent', value: 'for-rent' },
 ] as const;
