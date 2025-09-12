@@ -1,3 +1,23 @@
+## [1.3.0](https://github.com/exact84/RS-Clone/compare/v1.2.0...v1.3.0) (2025-09-12)
+
+### Features
+
+* add auth guard ([13af4f5](https://github.com/exact84/RS-Clone/commit/13af4f5ded4d095a9a1ad48769967c1d9b36f772))
+* implement authorization ([cf9ef98](https://github.com/exact84/RS-Clone/commit/cf9ef98a90b09c60999cb8cffe46811d2b8c786b))
+
+### Bug Fixes
+
+* add private key for form builder ([71d2c5f](https://github.com/exact84/RS-Clone/commit/71d2c5fb61e466dd32e6568c74e7da8a3b7e3cd8))
+* change sequence of interceptors ([3242115](https://github.com/exact84/RS-Clone/commit/3242115b9ff3b501d2427f52ecb548964b9dfc56))
+* fix auth guard ([28e675f](https://github.com/exact84/RS-Clone/commit/28e675feb82926b574174aa14f43215379998af8))
+* fix password length check ([b9c9ceb](https://github.com/exact84/RS-Clone/commit/b9c9ceb544c38828e5190122f940a3087b555973))
+* fix tests ([4560b2f](https://github.com/exact84/RS-Clone/commit/4560b2f4b8f732dfa19e66db8f433db09aae73ab))
+
+### Refactoring
+
+* update error handling; add disable submit button while pending request ([2da4c3c](https://github.com/exact84/RS-Clone/commit/2da4c3c608ec03d0aead843ad4a21f4b47088ffc))
+* update public endpoints in backend ([39e1a6d](https://github.com/exact84/RS-Clone/commit/39e1a6d5841f216822b91915f260cefeed5e27d2))
+
 ## [1.2.0](https://github.com/exact84/RS-Clone/compare/v1.1.0...v1.2.0) (2025-09-12)
 
 ### Features
