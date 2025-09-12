@@ -10,7 +10,7 @@ import { MoviesTrailersService } from './services/movies-trailers-service';
 
 import { TrailerCard } from './trailer-card/trailer-card';
 import { TrailerItem } from '../../types/trailer-item';
-import { posterURL, youtubeWatchUrl } from '../../../shared/constants/constants';
+import { CATEGORY_TRAILERS, posterURL, youtubeWatchUrl } from '../../../shared/constants/constants';
 import { HomeTabs } from '../home-tabs/home-tabs';
 import { SPINNER_PATH } from '../../../shared/constants/constants';
 
@@ -24,12 +24,7 @@ import { SPINNER_PATH } from '../../../shared/constants/constants';
 export class Trailers {
   private trailersService = inject(MoviesTrailersService);
 
-  categories = signal([
-    { label: 'Popular', value: 'popular' },
-    { label: 'Streaming', value: 'streaming' },
-    { label: 'On TV', value: 'on-tv' },
-    { label: 'For Rent', value: 'for-rent' },
-  ] as const);
+  categories = signal(CATEGORY_TRAILERS);
 
   readonly loadingState = signal<boolean>(false);
   readonly errorState = signal<boolean>(false);
@@ -70,7 +65,6 @@ export class Trailers {
           this.loadingState.set(false);
         },
         error: () => {
-          this.selectedTrailers.set([]);
           this.loadingState.set(false);
           this.errorState.set(true);
         },

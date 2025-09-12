@@ -1,3 +1,5 @@
+import { CategoryOption } from '../../pages/models/category-option';
+
 export const NO_INDEX = -1;
 export const LARGE_SCREEN_BREAKPOINT = 768;
 export const SIGNUP_LS_KEY = 'sign-up-form';
@@ -11,3 +13,24 @@ export const SPINNER_PATH = 'spinner.png';
 export const FALLBACK_TITLE = 'Untitled';
 export const FALLBACK_DATE = 'No date';
 export const FALLBACK_POSTER = 'assets/placeholder-movie.png';
+
+export const CATEGORY_POPULAR: readonly CategoryOption[] = [
+  { label: 'Streaming', value: 'streaming' },
+  { label: 'On TV', value: 'on-tv' },
+  { label: 'For Rent', value: 'for-rent' },
+] as const;
+
+export const CATEGORY_FREE: readonly CategoryOption[] = [
+  { label: 'Movies', value: 'movies' },
+  { label: 'TV', value: 'tv' },
+] as const;
+
+export const CATEGORY_TRENDING: readonly CategoryOption[] = [
+  { label: 'Today', value: 'day' },
+  { label: 'This Week', value: 'week' },
+] as const;
+
+export const CATEGORY_TRAILERS: readonly CategoryOption[] = [
+  { label: 'Popular', value: 'popular' },
+  ...CATEGORY_POPULAR,
+] as const;

@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, map, catchError, of } from 'rxjs';
+import { Observable, map, catchError, throwError } from 'rxjs';
 import { ContentCard } from '../../../types/content-card';
 import { getDateRange } from '../../../../shared/utils/date-range';
 
@@ -38,7 +38,7 @@ export class PopularService {
       map((response) => response.results),
       catchError((error) => {
         console.error('PopularMoviesService error:', error);
-        return of([]);
+        return throwError(() => error);
       }),
     );
   }

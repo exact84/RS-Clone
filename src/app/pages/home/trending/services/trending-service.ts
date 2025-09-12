@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { MovieCard } from '../../../models/movie-card';
 import { ContentCard } from '../../../types/content-card';
 
@@ -16,7 +16,7 @@ export class TrendingService {
       map((response) => response.results),
       catchError((error) => {
         console.error('TrendingService error:', error);
-        return of([]);
+        return throwError(() => error);
       }),
     );
   }

@@ -14,3 +14,17 @@ $validation-error-color: red;
 $link-color: lightgreen;
 $link-color-hover: rgba($link-color, 0.8);
 $link-color-active: green;
+
+// home
+
+$dark-color: #000;
+$light-color: #fff;
+$middle-grey-color: #878686;
+$light-grey-color: #f1f1f1;
+$toggle-trailers-border-color: #1ed5a9;
+$accent-gradient: linear-gradient(to right, #c0fecf, #1ed5a9);
+$trailers-background-gradient: linear-gradient(
+  to right,
+  rgba(50, 152, 235, 0.75) 0%,
+  rgba(4, 48, 84, 0.75) 100%
+);

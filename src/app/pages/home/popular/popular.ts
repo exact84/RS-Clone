@@ -4,6 +4,7 @@ import { SPINNER_PATH } from '../../../shared/constants/constants';
 import { ContentCard } from '../../types/content-card';
 import { HomeTabs } from '../home-tabs/home-tabs';
 import { SliderCard } from '../slider-card/slider-card';
+import { CATEGORY_POPULAR } from '../../../shared/constants/constants';
 
 @Component({
   selector: 'app-popular',
@@ -15,11 +16,7 @@ import { SliderCard } from '../slider-card/slider-card';
 export class Popular {
   private popularService = inject(PopularService);
 
-  categories = signal([
-    { label: 'Streaming', value: 'streaming' },
-    { label: 'On TV', value: 'on-tv' },
-    { label: 'For Rent', value: 'for-rent' },
-  ] as const);
+  categories = signal(CATEGORY_POPULAR);
 
   readonly loadingState = signal<boolean>(false);
   readonly errorState = signal<boolean>(false);

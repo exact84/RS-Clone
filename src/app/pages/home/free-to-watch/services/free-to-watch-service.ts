@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, map, catchError, of } from 'rxjs';
+import { Observable, map, catchError, throwError } from 'rxjs';
 import { ContentCard } from '../../../types/content-card';
 
 @Injectable({
@@ -38,7 +38,7 @@ export class FreeToWatchService {
       map((response) => response.results),
       catchError((error) => {
         console.error('FreeToWatchService error:', error);
-        return of([]);
+        return throwError(() => error);
       }),
     );
   }

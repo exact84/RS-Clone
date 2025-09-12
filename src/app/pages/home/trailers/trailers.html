@@ -14,7 +14,7 @@
   </div>
 
   <div class="slider">
-    <div class="slider-track">
+    <div class="slider-track trailers-track">
       @if (loadingState()) {
         <div class="spinner-wrapper">
           <img [src]="spinnerPath" alt="Loading..." class="spinner" />
@@ -23,6 +23,7 @@
         <div class="error-message">Failed to load trailers. Please try again later.</div>
       } @else if (selectedTrailers().length === 0) {
         <div class="empty-message">There are no trailers for this category.</div>
+        <div class="debug">error: {{ errorState() }} trailers: {{ selectedTrailers().length }}</div>
       } @else {
         @for (movie of selectedTrailers(); track movie.id) {
           @if (movie.trailerKey) {
