@@ -36,3 +36,7 @@ export const CATEGORY_TRAILERS: readonly CategoryOption[] = [
   { label: 'On TV', value: 'on-tv' },
   { label: 'For Rent', value: 'for-rent' },
 ] as const;
+
+export const HIGHT_VOTE_COLOR = '#4caf50';
+export const MIDDLE_VOTE_COLOR = '#ffeb3b';
+export const LOW_VOTE_COLOR = '#f44336';
