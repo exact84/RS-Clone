@@ -13,6 +13,7 @@ export class MenuService {
   readonly mouseInItem = signal(false);
   readonly mouseInPopup = signal(false);
   readonly clickedIndex = signal<number>(NO_INDEX);
+  menuIsHovered = signal(false);
 
   toggleMenu(): void {
     if (!this.showVerticalMenu) {
