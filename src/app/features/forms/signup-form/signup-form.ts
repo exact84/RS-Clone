@@ -9,7 +9,7 @@ import {
   isMatchPasswords,
   isPasswordToShort,
   isTakenLogin,
-} from '../../utils/validators';
+} from '../../../shared/utils/validators';
 import { SIGNUP_LS_KEY } from '../../../shared/constants/constants';
 import { AuthService } from '../../../pages/auth/services/auth.service';
 import { Subscription } from 'rxjs';
