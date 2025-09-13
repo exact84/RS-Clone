@@ -1,3 +1,9 @@
+## [1.5.0](https://github.com/exact84/RS-Clone/compare/v1.4.0...v1.5.0) (2025-09-13)
+
+### Features
+
+* add not found page content ([368f6f3](https://github.com/exact84/RS-Clone/commit/368f6f38254c7caad5288bf22bc308e4678a48ad))
+
 ## [1.4.0](https://github.com/exact84/RS-Clone/compare/v1.3.0...v1.4.0) (2025-09-12)
 
 ### Features
