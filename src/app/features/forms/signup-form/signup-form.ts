@@ -4,6 +4,7 @@ import { SignupFormInterface } from '../models/forms.model';
 import { FormField } from '../../../shared/ui/form-field/form-field';
 import { PasswordIcon } from '../../../shared/ui/password-icon/password-icon';
 import {
+  generateFieldValidationErrors,
   hasDigit,
   hasLetter,
   isMatchPasswords,
@@ -81,13 +82,7 @@ export class SignupForm implements OnDestroy {
   }
 
   generatePasswordValidationErrors() {
-    const { errors } = this.password;
-    if (!errors) return '';
-    const passwordRequirements = Object.entries(errors)
-      .map((error) => error[1].message)
-      .filter(Boolean)
-      .join(', ');
-    return `Password should contains ${passwordRequirements}.`;
+    return generateFieldValidationErrors(this.password, 'Password should contains');
   }
 
   onChange() {
