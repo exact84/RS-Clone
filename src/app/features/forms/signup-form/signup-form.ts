@@ -44,7 +44,7 @@ export class SignupForm implements OnDestroy {
       password: ['', [Validators.required, isPasswordToShort, hasLetter, hasDigit]],
       confirmPassword: ['', [Validators.required]],
     },
-    { validators: [isMatchPasswords] },
+    { validators: [isMatchPasswords('password', 'confirmPassword')] },
   );
 
   showPassword = signal(false);
