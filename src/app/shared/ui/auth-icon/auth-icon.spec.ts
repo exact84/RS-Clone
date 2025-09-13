@@ -13,6 +13,8 @@ describe('AuthIcon', () => {
 
     fixture = TestBed.createComponent(AuthIcon);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('icon', 'login');
+
     fixture.detectChanges();
   });
 
