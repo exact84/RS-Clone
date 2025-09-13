@@ -2,16 +2,16 @@ import { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn } from
 import { PASSWORD_MIN_LENGTH, REQUEST_DELAY_MS } from '../../shared/constants/constants';
 import { EMPTY, map, Observable, of, switchMap, timer } from 'rxjs';
 
-export const isMatchPasswords: ValidatorFn = (
-  control: AbstractControl,
-): ValidationErrors | null => {
-  const password = control.get('password');
-  const confirmPassword = control.get('confirmPassword');
+export function isMatchPasswords(firstFieldName: string, secondFieldName: string): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const password = control.get(firstFieldName);
+    const confirmPassword = control.get(secondFieldName);
 
-  return password && confirmPassword && password.value === confirmPassword.value
-    ? null
-    : { isMatchPasswords: { message: 'Passwords should match' } };
-};
+    return password && confirmPassword && password.value === confirmPassword.value
+      ? null
+      : { isMatchPasswords: { message: 'Passwords should match' } };
+  };
+}
 
 export const isPasswordToShort: ValidatorFn = (
   control: AbstractControl,
