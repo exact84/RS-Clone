@@ -1,4 +1,10 @@
-import { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn } from '@angular/forms';
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  FormControl,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { PASSWORD_MIN_LENGTH, REQUEST_DELAY_MS } from '../constants/constants';
 import { EMPTY, map, Observable, of, switchMap, timer } from 'rxjs';
 
@@ -44,4 +50,14 @@ export const isTakenLogin: AsyncValidatorFn = (
       ),
     ),
   );
+};
+
+export const generateFieldValidationErrors = (field: FormControl<string>, message: string) => {
+  const { errors } = field;
+  if (!errors) return '';
+  const passwordRequirements = Object.entries(errors)
+    .map((error) => error[1].message)
+    .filter(Boolean)
+    .join(', ');
+  return `${message} ${passwordRequirements}.`;
 };
