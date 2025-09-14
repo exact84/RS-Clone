@@ -1,4 +1,4 @@
-import { Component, inject, Signal } from '@angular/core';
+import { Component, computed, inject, Signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MediaType } from './types/media-type';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -6,6 +6,7 @@ import { DetailsCardService } from './services/details-card-service';
 import { MovieDetailsCard } from './movie-details-card/movie-details-card';
 import { ContentDetails } from '../../pages/types/content-details';
 import { TVDetails } from '../../pages/models/tv-details';
+import { SPINNER_PATH } from '../../shared/constants/constants';
 
 @Component({
   selector: 'app-movie-details',
@@ -18,6 +19,7 @@ export class MovieDetails {
   readonly type = this.route.snapshot.paramMap.get('type') as MediaType;
   readonly id = Number(this.route.snapshot.paramMap.get('id'));
   readonly detailsCardsService = inject(DetailsCardService);
+  readonly spinnerPath = SPINNER_PATH;
 
   fallbackDetails: TVDetails = {
     media_type: 'tv',
@@ -47,4 +49,8 @@ export class MovieDetails {
       initialValue: this.fallbackDetails,
     },
   );
+
+  readonly isLoading = computed(() => this.cardDetails() === this.fallbackDetails);
+
+  readonly isError = computed(() => this.detailsCardsService.errorSignal());
 }

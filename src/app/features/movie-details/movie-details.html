@@ -1,1 +1,9 @@
-<app-movie-details-card [data]="cardDetails()" />
+@if (isError()) {
+  <div class="error">Error - {{ isError() }}</div>
+} @else if (isLoading()) {
+  <div class="loader-wrapper">
+    <img [src]="spinnerPath" alt="Loading..." class="loader" />
+  </div>
+} @else {
+  <app-movie-details-card [data]="cardDetails()" />
+}
