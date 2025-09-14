@@ -25,7 +25,10 @@ export const routes: Routes = [
         path: 'people/:id',
         loadComponent: () => import('./pages/people/people').then((c) => c.People),
       },
-
+      {
+        path: 'profile',
+        loadComponent: () => import('./pages/profile/profile').then((c) => c.Profile),
+      },
       {
         path: 'favourites',
         loadComponent: () => import('./pages/favourites/favourites').then((c) => c.Favourites),
@@ -49,12 +52,6 @@ export const routes: Routes = [
       },
     ],
   },
-
-  {
-    path: 'profile',
-    loadComponent: () => import('./pages/profile/profile').then((c) => c.Profile),
-  },
-
   {
     path: '**',
     loadComponent: () => import('./pages/not-found/not-found').then((c) => c.NotFound),
