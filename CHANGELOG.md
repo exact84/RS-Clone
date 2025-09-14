@@ -1,3 +1,22 @@
+## [1.6.0](https://github.com/exact84/RS-Clone/compare/v1.5.0...v1.6.0) (2025-09-14)
+
+### Features
+
+* implement profile page ([195eb8d](https://github.com/exact84/RS-Clone/commit/195eb8da628efe6706c9b2deffd723d919b22bae))
+
+### Bug Fixes
+
+* fix disabling button ([2c0dc8d](https://github.com/exact84/RS-Clone/commit/2c0dc8df9425d3ceb046857becd2b9b0fe4ec604))
+
+### Refactoring
+
+* add passing field names for isMatchPassword ([e35caf8](https://github.com/exact84/RS-Clone/commit/e35caf828338b9c97e2bedbbc4c84cfa7cdc4d9f))
+* move generatePasswordValidationErrors to shared validators ([be9e0e0](https://github.com/exact84/RS-Clone/commit/be9e0e0b7ac3978193c501a3be12275541b82962))
+* move password form to separate component ([64d14dc](https://github.com/exact84/RS-Clone/commit/64d14dc2a29e08f9d3d5c43cb022246ca8b5c6a5))
+* move profile route in children of main route ([6f058e4](https://github.com/exact84/RS-Clone/commit/6f058e48fb9c7f660a5e9f76cb21a6e50d7b1298))
+* move styles for forms to shared styles ([28a5a88](https://github.com/exact84/RS-Clone/commit/28a5a88815ebd86a4a012c56636f5268de571f52))
+* move validators to shared ([f78c8b2](https://github.com/exact84/RS-Clone/commit/f78c8b29c8af9d46cbee7ceaef21431ba363a2ae))
+
 ## [1.5.0](https://github.com/exact84/RS-Clone/compare/v1.4.0...v1.5.0) (2025-09-13)
 
 ### Features
