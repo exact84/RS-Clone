@@ -80,12 +80,12 @@ export class UpdatePasswordForm implements OnDestroy {
       next: (response) => {
         if (response.ok) {
           this.changePasswordSuccessful.set(true);
-          this.isPendingRequest.set(false);
           setTimeout(() => {
             this.changePasswordSuccessful.set(false);
             this.closeChangePassword.emit();
+            this.isPendingRequest.set(false);
             this.updatePasswordForm.reset();
-          }, 3000);
+          }, 2500);
         }
       },
       error: (error) => {
