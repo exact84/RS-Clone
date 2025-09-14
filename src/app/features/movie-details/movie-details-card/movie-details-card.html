@@ -1,26 +1,24 @@
 <article class="movie-details">
-  @if (data() !== undefined) {
-    <section class="hero">
-      <div class="hero__poster">
-        <img [src]="displayData().poster_path" [alt]="displayData().title" />
+  <section class="hero">
+    <div class="hero__poster">
+      <img [src]="displayData().poster_path" [alt]="displayData().title" />
+    </div>
+
+    <div class="hero__info">
+      {{ displayData().title }}
+
+      <p class="movie-tagline">{{ displayData().tagline }}</p>
+
+      <div class="hero__actions">
+        <app-rating-badge [voteAverage]="displayData().vote_average" />
+        <p>User Score</p>
       </div>
 
-      <div class="hero__info">
-        {{ displayData().title }}
+      <p class="hero__overview">{{ displayData().overview }}</p>
 
-        <p class="movie-tagline">{{ displayData().tagline }}</p>
-
-        <div class="hero__actions">
-          <app-rating-badge [voteAverage]="displayData().vote_average" />
-          <p>User Score</p>
-        </div>
-
-        <p class="hero__overview">{{ displayData().overview }}</p>
-
-        <div class="movie-actions">
-          <button class="btn">Watch Trailer</button>
-        </div>
+      <div class="movie-actions">
+        <button class="btn">Watch Trailer</button>
       </div>
-    </section>
-  }
+    </div>
+  </section>
 </article>

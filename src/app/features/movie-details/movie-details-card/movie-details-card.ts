@@ -15,43 +15,27 @@ export class MovieDetailsCard {
 
   displayData = computed(() => {
     const detail = this.data();
-    if (!detail) {
-      return {
-        title: '',
-        releaseDate: '',
-        poster_path: '',
-        overview: '',
-        vote_average: 0,
-        tagline: '',
-      };
-    }
 
-    if ('title' in detail) {
-      return {
-        title: detail.title,
-        releaseDate: detail.release_date,
-        poster_path: cardTrailerURL + detail.poster_path,
-        overview: detail.overview,
-        vote_average: detail.vote_average,
-        tagline: detail.tagline,
-      };
-    } else if ('name' in detail) {
-      return {
-        title: detail.name,
-        releaseDate: detail.first_air_date,
-        poster_path: cardTrailerURL + detail.poster_path,
-        overview: detail.overview,
-        vote_average: detail.vote_average,
-        tagline: detail.tagline,
-      };
-    }
-    return {
+    const fallback = {
       title: '',
       releaseDate: '',
       poster_path: '',
       overview: '',
       vote_average: 0,
       tagline: '',
+    };
+
+    if (!detail) return fallback;
+
+    const isMovie = detail.media_type === 'movie';
+
+    return {
+      title: isMovie ? detail.title : detail.name,
+      releaseDate: isMovie ? detail.release_date : detail.first_air_date,
+      poster_path: cardTrailerURL + detail.poster_path,
+      overview: detail.overview,
+      vote_average: detail.vote_average,
+      tagline: detail.tagline,
     };
   });
 }
