@@ -12,3 +12,9 @@ export interface SignupFormInterface {
   password: FormControl<string>;
   confirmPassword: FormControl<string>;
 }
+
+export interface UpdatePasswordFormInterface {
+  oldPassword: FormControl<string>;
+  newPassword: FormControl<string>;
+  confirmNewPassword: FormControl<string>;
+}
