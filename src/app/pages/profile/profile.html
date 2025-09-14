@@ -1,1 +1,140 @@
-<p>profile works!</p>
+@if (user(); as user) {
+  <div class="user">
+    <span class="user__avatar">{{ userInitials() }}</span>
+    <div class="user__info">
+      <div class="user__info-row">
+        <span class="user__info-title">First name:</span>
+        <span class="user__info-value">{{ user.firstName }}</span>
+      </div>
+      <div class="user__info-row">
+        <span class="user__info-title">Last name:</span>
+        <span class="user__info-value">{{ user.lastName }}</span>
+      </div>
+      <div class="user__info-row">
+        <span class="user__info-title">Favourites movies:</span>
+        <span class="user__info-value">{{ favouritesMoviesCount() }}</span>
+      </div>
+      <div class="user__info-row">
+        <span class="user__info-title">Favourites persons:</span>
+        <span class="user__info-value">{{ favouritesPersonsCount() }}</span>
+      </div>
+    </div>
+    <div class="user__control">
+      <label for="change-password" class="user__control-title">Change password</label>
+      <button class="user__control-toggle" (click)="toggleChangePassword()">
+        <input type="checkbox" id="change-password" [checked]="changePassword()" />
+      </button>
+    </div>
+  </div>
+  @if (changePassword()) {
+    <form [formGroup]="updatePasswordForm" class="change-password" (ngSubmit)="onSubmit()">
+      <app-form-field inputId="old-password" label="Old password">
+        <ng-container slot="input">
+          <input
+            [type]="showOldPassword() ? 'text' : 'password'"
+            id="old-password"
+            formControlName="oldPassword"
+            autocomplete="off"
+          />
+        </ng-container>
+        <button
+          slot="input-icon"
+          type="button"
+          (click)="toggleOldPassword()"
+          class="password-visibility"
+        >
+          <app-password-icon [showPassword]="showOldPassword()" />
+        </button>
+        <ng-container slot="validation-errors">
+          @if (oldPassword.dirty && oldPassword.invalid) {
+            @if (oldPassword.hasError('required')) {
+              <span class="validation-error">Please enter password</span>
+            }
+          }
+        </ng-container>
+      </app-form-field>
+      <app-form-field inputId="new-password" label="New password">
+        <ng-container slot="input">
+          <input
+            [type]="showNewPassword() ? 'text' : 'password'"
+            id="new-password"
+            formControlName="newPassword"
+            autocomplete="off"
+          />
+        </ng-container>
+        <button
+          slot="input-icon"
+          type="button"
+          (click)="toggleNewPassword()"
+          class="password-visibility"
+        >
+          <app-password-icon [showPassword]="showNewPassword()" />
+        </button>
+        <ng-container slot="validation-errors">
+          @if (newPassword.dirty && newPassword.invalid) {
+            @if (newPassword.hasError('required')) {
+              <span class="validation-error">Please enter new password</span>
+            } @else {
+              {{ generateNewPasswordValidationErrors() }}
+            }
+          }
+        </ng-container>
+      </app-form-field>
+      <app-form-field inputId="confirm-new-password" label="Confirm new password">
+        <ng-container slot="input">
+          <input
+            [type]="showConfirmNewPassword() ? 'text' : 'password'"
+            id="confirm-new-password"
+            formControlName="confirmNewPassword"
+            autocomplete="off"
+          />
+        </ng-container>
+        <button
+          slot="input-icon"
+          type="button"
+          (click)="toggleConfirmOldPassword()"
+          class="password-visibility"
+        >
+          <app-password-icon [showPassword]="showConfirmNewPassword()" />
+        </button>
+        <ng-container slot="validation-errors">
+          @if (confirmNewPassword.dirty && confirmNewPassword.invalid) {
+            @if (confirmNewPassword.hasError('required')) {
+              <span class="validation-error">Please confirm new password</span>
+            }
+          }
+          @if (
+            confirmNewPassword.dirty &&
+            updatePasswordForm.invalid &&
+            updatePasswordForm.hasError('isMatchPasswords')
+          ) {
+            <span class="validation-error">{{
+              updatePasswordForm.getError('isMatchPasswords').message
+            }}</span>
+          }
+        </ng-container>
+      </app-form-field>
+      <button
+        class="form-submit"
+        type="submit"
+        [disabled]="updatePasswordForm.invalid || isPendingRequest()"
+      >
+        Change
+      </button>
+      <app-form-field inputId="submit-error">
+        <ng-container slot="validation-errors">
+          @if (updatePasswordForm.invalid && updatePasswordForm.hasError('submitError')) {
+            <span class="validation-error submit">{{
+              updatePasswordForm.getError('submitError').message
+            }}</span>
+          }
+          @if (changePasswordSuccessful()) {
+            <span class="submit-successful">Successful</span>
+          }
+        </ng-container>
+      </app-form-field>
+    </form>
+  }
+} @else {
+  {{ errorMessage() }}
+}
