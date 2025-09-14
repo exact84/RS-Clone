@@ -1,0 +1,73 @@
+// @use '../../../shared/styles/colors' as colors;
+
+// .movie-details {
+//     padding: 2rem;
+//     background-color: colors.$card-bg;
+//   }
+
+//   .hero {
+//     display: flex;
+//     gap: 2rem;
+//     max-width: 1440px;
+//     margin: 0 auto;
+
+//     &__poster {
+//       flex: 0 0 300px;
+
+//       img {
+//         width: 100%;
+//         border-radius: 10px;
+//         object-fit: cover;
+//       }
+//     }
+
+//     &__actions {
+//       position: relative;
+//       display: flex;
+//       gap: 1rem;
+//       align-items: center;
+//       margin-bottom: 1rem;
+//     }
+
+//     &__info {
+//       flex: 1;
+//       display: flex;
+//       flex-direction: column;
+
+//       .movie-title {
+//         font-size: 2rem;
+//         margin-bottom: 0.5rem;
+//       }
+
+//       .movie-tagline {
+//         font-style: italic;
+//         color: colors.$middle-grey-color;
+//         margin-bottom: 1rem;
+//       }
+
+//       .hero__overview {
+//         margin: 2rem 0;
+//         line-height: 1.6;
+//       }
+
+//       .movie-actions {
+//         display: flex;
+//         gap: 1rem;
+//         margin-top: 1rem;
+
+//         .btn {
+//           padding: 0.5rem 1rem;
+//           background-color: colors.$watch-trailer-btn-bg;
+//           color: colors.$light-color;
+//           border: none;
+//           border-radius: 6px;
+//           cursor: pointer;
+//           transition: background 0.3s ease;
+
+//           &:hover {
+//             background-color: colors.$watch-trailer-btn-hover-bg;
+//           }
+//         }
+//       }
+//     }
+//   }
