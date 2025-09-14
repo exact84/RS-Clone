@@ -3,6 +3,7 @@ import { MovieBase } from './movie-base';
 export interface MovieDetails extends MovieBase {
   genres: { id: number; name: string }[];
   runtime: number;
+  media_type: 'movie';
   tagline: string;
   status: string;
   budget: number;

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { ContentCard } from '../../types/content-card';
 import { MovieCard } from '../../models/movie-card';
 import {
@@ -9,6 +9,7 @@ import {
 } from '../../../shared/constants/constants';
 import { DatePipe } from '@angular/common';
 import { RatingBadge } from '../../../shared/ui/rating-badge/rating-badge';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-slider-card',
@@ -18,6 +19,7 @@ import { RatingBadge } from '../../../shared/ui/rating-badge/rating-badge';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SliderCard {
+  private router = inject(Router);
   data = input.required<ContentCard>();
 
   isMovie(data: ContentCard): data is MovieCard {
@@ -47,5 +49,10 @@ export class SliderCard {
     return this.isMovie(value)
       ? (value.release_date ?? FALLBACK_DATE)
       : (value.first_air_date ?? FALLBACK_DATE);
+  }
+
+  goToDetails(): void {
+    const card = this.data();
+    this.router.navigate([card.media_type, card.id]);
   }
 }

@@ -35,7 +35,15 @@ export class FreeToWatchService {
     }
 
     return this.http.get<{ results: ContentCard[] }>(url, { params: parameters }).pipe(
-      map((response) => response.results),
+      map((response) =>
+        response.results.map(
+          (item) =>
+            ({
+              ...item,
+              media_type: url.includes('/tv') ? 'tv' : 'movie',
+            }) as ContentCard,
+        ),
+      ),
       catchError((error) => {
         console.error('FreeToWatchService error:', error);
         return throwError(() => error);

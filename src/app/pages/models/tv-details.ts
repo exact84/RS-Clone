@@ -1,6 +1,7 @@
 import { TVBase } from './tv-base';
 
 export interface TVDetails extends TVBase {
+  media_type: 'tv';
   genres: { id: number; name: string }[];
   tagline: string;
   status: string;

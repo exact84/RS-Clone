@@ -35,7 +35,15 @@ export class PopularService {
     }
 
     return this.http.get<{ results: ContentCard[] }>(url, { params: parameters }).pipe(
-      map((response) => response.results),
+      map((response) =>
+        response.results.map(
+          (item) =>
+            ({
+              ...item,
+              media_type: url.includes('/tv') ? 'tv' : 'movie',
+            }) as ContentCard,
+        ),
+      ),
       catchError((error) => {
         console.error('PopularMoviesService error:', error);
         return throwError(() => error);
