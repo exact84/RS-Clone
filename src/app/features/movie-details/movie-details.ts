@@ -1,10 +1,11 @@
-import { Component, computed, inject, Signal } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MediaType } from './types/media-type';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DetailsCardService } from './services/details-card-service';
 import { MovieDetailsCard } from './movie-details-card/movie-details-card';
 import { ContentDetails } from '../../pages/types/content-details';
+import { TVDetails } from '../../pages/models/tv-details';
 
 @Component({
   selector: 'app-movie-details',
@@ -18,12 +19,32 @@ export class MovieDetails {
   readonly id = Number(this.route.snapshot.paramMap.get('id'));
   readonly detailsCardsService = inject(DetailsCardService);
 
+  fallbackDetails: TVDetails = {
+    media_type: 'tv',
+    id: 0,
+    name: '',
+    original_name: '',
+    poster_path: '',
+    overview: '',
+    first_air_date: '',
+    vote_average: 0,
+    vote_count: 0,
+    original_language: '',
+    genres: [],
+    tagline: '',
+    status: '',
+    homepage: null,
+    number_of_seasons: 0,
+    number_of_episodes: 0,
+    episode_run_time: [],
+    production_companies: [],
+    spoken_languages: [],
+  };
+
   readonly cardDetails: Signal<ContentDetails | undefined> = toSignal(
     this.detailsCardsService.getMovieDetails(this.id, this.type),
     {
-      initialValue: undefined,
+      initialValue: this.fallbackDetails,
     },
   );
-
-  readonly safeCardDetails = computed(() => this.cardDetails()!);
 }
