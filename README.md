@@ -18,9 +18,28 @@ Netlify (CD),
 GitHub Actions (CI),  
 ESLint, Prettier, Husky.
 
+## Environment Variables
+
+Create an environments/environment.ts file in the project root:
+
+```
+export const environment = {
+  production: false,
+  BASE_URL: 'https://api.themoviedb.org/3',
+  BASE_URL_BACKEND: 'http://localhost:4000/api',
+  API_KEY: '',
+};
+```
+BASE_URL - URL to the TMDb API.  
+BASE_URL_BACKEND - URL to the backend API.  
+In API_KEY you need to enter your TMDb API key.  
+
 ## Installation & Run
 
-> > Описать развёртывание Бэка
+Instructions for setting up the backend and API structure can be found in the README.md file of the backend repository.  
+https://github.com/NMakarevich/movie-db-backend/blob/develop/README.md
+
+You can also use the deployed backend: https://movie-db-backend.up.railway.app/doc
 
 ```bash
 git clone https://github.com/exact84/RS-Clone.git
@@ -39,42 +58,35 @@ npm run lint - run ESLint
 npm run lint:fix - lint with auto-fix  
 npm run prettier - format code with Prettier  
 npm run prepare - install husky,  
+npm run release - run semantic-release for changing version  
 npm run test - run unit tests  
 npm run test:ci - run unit tests in headless mode (for CI)  
 npm run watch - rebuild in watch mode
-
-## Environment Variables
-
-Create a .env file in the project root:
-
-API_URL=https://api.example.com
-...
-
-> > Описать все переменные окружения
 
 ## Architecture
 
 #### Main components:
 
 Frontend (Angular) — SPA client  
-Backend (NestJS) — API for authentication and user data  
-TMDb API — external movie database integration  
-User DB — favorites, watched, custom lists
+TMDb API — external movie database  
+Backend (NestJS) — API for authentication and users data  
+User DB — authorizaion, users data, custom movie lists  
 
-> > Тут всё описать все модули что получаться в итоге, можно со схемой взаимодействия
+#### Architecture diagram:
 
 ```mermaid
-graph TD;
-    A[Angular Frontend] -->|HTTP| N[REST API];
-    N --> B[Backend NestJS];
-    B --> D[(Database)];
-    A --> R[NgRx Store];
-    R --> C[Components];
+flowchart TD
+    B[Frontend]
+    B -->|Request| C[TMDb API]
+    C -->|Response| B
+    B <-->|Autorization| D[Backend]
+    D <-->|Read/Write| E[User DB]
+    B <-->|Users data| D
 ```
 
 ## CI/CD
 
-### CI (Continuous Integration):
+### GitHub:
 
 - GitHub Actions run lint, unit tests (test:ci), and production build (build:prod) on each push and pull request into dev or main branches.
 ```mermaid
@@ -87,8 +99,10 @@ graph TD;
     F --> G[Build production]
 ```
 
-CD (Continuous Deployment):
+### Netlify:
 
+For Netlify deployment, the API_KEY is stored securely in Netlify Environment Variables (secrets).
+It is accessed inside Netlify Functions, which handle requests on the server side, so the key is never exposed in the client-side code.
 - Netlify automatically deploys the latest `dev` branch to the production environment.
 - For each Pull Request, Netlify creates a **Deploy Preview** — a temporary live environment to test changes before merging.
 
