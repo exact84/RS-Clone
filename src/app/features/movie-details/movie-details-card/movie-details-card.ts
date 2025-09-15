@@ -1,6 +1,6 @@
 import { ContentDetails } from '../../../pages/types/content-details';
-import { cardTrailerURL } from './../../../shared/constants/constants';
-import { Component, computed, input } from '@angular/core';
+import { cardTrailerURL, FALLBACK_POSTER } from './../../../shared/constants/constants';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { RatingBadge } from '../../../shared/ui/rating-badge/rating-badge';
 
 interface NormalizedDetails {
@@ -17,6 +17,7 @@ interface NormalizedDetails {
   imports: [RatingBadge],
   templateUrl: './movie-details-card.html',
   styleUrl: './movie-details-card.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetailsCard {
   data = input<ContentDetails>();
@@ -24,7 +25,7 @@ export class MovieDetailsCard {
   private readonly fallback: NormalizedDetails = {
     // тут нужно указать только необходимые поля, остальные будут undefuined, а на форме они будут пустым местом.
     title: 'No title available.', // как миним чтобы в потом alt было что-то, а не пустота.
-    poster_path: 'assets/images/no-poster.png', // Сделать no-poster.png, чтобы не искалась картинка по несуществующему адресу.
+    poster_path: FALLBACK_POSTER, // Сделать no-poster.png, чтобы не искалась картинка по несуществующему адресу.
     overview: 'No description available.',
     tagline: 'No tagline available.',
     vote_average: 0,

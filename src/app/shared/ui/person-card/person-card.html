@@ -1,0 +1,13 @@
+@if (size()) {
+  <div class="person__card" [class]="size()">
+    <img [src]="getProfileImage()" alt="" />
+    <div class="person__info">
+      <h3>
+        {{ data().name }}
+      </h3>
+      @if (variant() === 'default') {
+        <p>{{ data().character }}</p>
+      }
+    </div>
+  </div>
+}

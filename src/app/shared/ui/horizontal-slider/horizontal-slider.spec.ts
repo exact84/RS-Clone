@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MovieDetailsCard } from './movie-details-card';
+import { HorizontalSlider } from './horizontal-slider';
 
-describe('MovieDetailsCard', () => {
-  let component: MovieDetailsCard;
-  let fixture: ComponentFixture<MovieDetailsCard>;
+describe('HorizontalSlider', () => {
+  let component: HorizontalSlider;
+  let fixture: ComponentFixture<HorizontalSlider>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MovieDetailsCard],
+      imports: [HorizontalSlider],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MovieDetailsCard);
+    fixture = TestBed.createComponent(HorizontalSlider);
     component = fixture.componentInstance;
-
     fixture.detectChanges();
   });
 
