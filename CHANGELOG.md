@@ -1,3 +1,20 @@
+## [1.7.0](https://github.com/exact84/RS-Clone/compare/v1.6.0...v1.7.0) (2025-09-15)
+
+### Features
+
+* add auth state ([5fc904a](https://github.com/exact84/RS-Clone/commit/5fc904a8d66ea1c71d2558adf39536b3879eca96))
+
+### Bug Fixes
+
+* fix logout icon ([45a5f48](https://github.com/exact84/RS-Clone/commit/45a5f483eff40106b184a09e3f020c1ae855a5f1))
+* fix menu hiding ([53c8a9b](https://github.com/exact84/RS-Clone/commit/53c8a9b9e6d0fe4206c689276eb22e4ba5fad17f))
+* fix test ([ec0a2de](https://github.com/exact84/RS-Clone/commit/ec0a2de9defaf65c1f8db0ff769ddfdd356b73be))
+
+### Refactoring
+
+* add profile link and icon ([fb485e0](https://github.com/exact84/RS-Clone/commit/fb485e0ead76e8fb30baabfdf4896409697b53f5))
+* refactor header layout ([1620d19](https://github.com/exact84/RS-Clone/commit/1620d194897cd6c69f9c5b9c0614026c4cbb8bcc))
+
 ## [1.6.0](https://github.com/exact84/RS-Clone/compare/v1.5.0...v1.6.0) (2025-09-14)
 
 ### Features
