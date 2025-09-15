@@ -7,3 +7,9 @@
 } @else {
   <app-movie-details-card [data]="cardDetails()" />
 }
+
+<app-horizontal-slider title="Top Billed Cast">
+  @for (person of cast(); track person.id) {
+    <app-person-card [data]="person" [variant]="'default'" [size]="'sm'" />
+  }
+</app-horizontal-slider>

@@ -1,20 +1,24 @@
-<article class="movie-details">
+@let data = displayData();
+<!-- Чтобы computed вызывался только один раз при изменении data, а не в каждом поле -->
+<article class="movie-details" [style.backgroundImage]="'url(' + data.poster_path + ')'">
   <section class="hero">
-    @let data = displayData();
-    <!-- Чтобы computed вызывался только один раз при изменении data, а не в каждом поле -->
     <div class="hero__poster">
       <img [src]="data.poster_path" [alt]="data.title" />
     </div>
 
     <div class="hero__info">
-      {{ data.title }}
-
-      <p class="movie-tagline">{{ data.tagline }}</p>
+      <div class="movie__title">
+        {{ data.title }}
+      </div>
 
       <div class="hero__actions">
         <app-rating-badge [voteAverage]="data.vote_average" />
         <p>User Score</p>
       </div>
+
+      <p class="movie-tagline">{{ data.tagline }}</p>
+
+      <h3>Overview</h3>
 
       <p class="hero__overview">{{ data.overview }}</p>
 

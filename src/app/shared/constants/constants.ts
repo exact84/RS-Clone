@@ -9,10 +9,12 @@ export const REQUEST_DELAY_MS = 500;
 export const posterURL = 'https://image.tmdb.org/t/p/w1280';
 export const youtubeWatchUrl = 'https://www.youtube.com/watch?v=';
 export const cardTrailerURL = 'https://image.tmdb.org/t/p/w500';
+export const actorPhotoURL = 'https://image.tmdb.org/t/p/w300';
 export const SPINNER_PATH = 'spinner.png';
 export const FALLBACK_TITLE = 'Untitled';
 export const FALLBACK_DATE = 'No date';
 export const FALLBACK_POSTER = 'assets/placeholder-movie.png';
+export const FALLBACK_ACTOR = 'actor_fallback.svg';
 
 export const CATEGORY_POPULAR: readonly CategoryOption[] = [
   { label: 'Streaming', value: 'streaming' },

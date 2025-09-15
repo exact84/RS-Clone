@@ -1,0 +1,56 @@
+@use '../../styles/colors' as colors;
+
+.slider {
+  overflow-x: auto;
+  white-space: nowrap;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: colors.$middle-grey-color colors.$light-grey-color;
+  min-height: 325px;
+  padding: 2rem;
+
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+}
+.slider::-webkit-scrollbar {
+  height: 2.5rem;
+}
+
+.slider::-webkit-scrollbar-thumb {
+  background: colors.$middle-grey-color;
+  border-radius: 5px;
+}
+
+.slider::-webkit-scrollbar-track {
+  background: colors.$light-grey-color;
+}
+
+.slider-track {
+  display: flex;
+  gap: 15px;
+  padding-block-end: 1rem;
+  min-height: 100px;
+
+  .error-message,
+  .empty-message {
+    color: colors.$dark-color;
+    margin: auto;
+  }
+
+  .spinner-wrapper {
+    margin: auto;
+
+    .spinner {
+      width: 56px;
+      height: 56px;
+    }
+  }
+  &.trailers-track {
+    .error-message,
+    .empty-message {
+      color: colors.$light-color;
+    }
+  }
+}
