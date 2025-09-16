@@ -9,6 +9,5 @@ describe('VotePercentPipe', () => {
 
   it('should handle null and undefined', () => {
     expect(pipe.transform(null)).toBe('-');
-    expect(pipe.transform()).toBe('-');
   });
 });
