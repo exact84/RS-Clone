@@ -23,27 +23,16 @@ export class MovieDetailsCard {
   data = input<ContentDetails>();
 
   private readonly fallback: NormalizedDetails = {
-    // тут нужно указать только необходимые поля, остальные будут undefuined, а на форме они будут пустым местом.
-    title: 'No title available.', // как миним чтобы в потом alt было что-то, а не пустота.
-    poster_path: FALLBACK_POSTER, // Сделать no-poster.png, чтобы не искалась картинка по несуществующему адресу.
+    title: 'No title available.',
+    poster_path: FALLBACK_POSTER,
     overview: 'No description available.',
     tagline: 'No tagline available.',
     vote_average: 0,
     releaseDate: 'No release date available.',
-    // и тут вссе поля которые ты хочешь что бы НЕ остались пустыми в случае fallback
   };
 
   displayData = computed<NormalizedDetails>(() => {
     const detail = this.data();
-
-    // const fallback = {
-    //   title: '',
-    //   releaseDate: '',
-    //   poster_path: '',
-    //   overview: '',
-    //   vote_average: 0,
-    //   tagline: '',
-    // };
 
     if (!detail) return this.fallback;
 

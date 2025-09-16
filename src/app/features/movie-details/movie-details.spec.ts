@@ -18,7 +18,7 @@ describe('MovieDetails', () => {
       return null;
     },
     getAll: (key: string) => {
-      void key; // ← говорит TypeScript: "я осознанно не использую параметр"
+      void key;
       return [];
     },
 
