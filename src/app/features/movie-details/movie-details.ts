@@ -40,30 +40,28 @@ export class MovieDetails {
     ),
   );
 
-  readonly cardDetailsError = signal<string | null>(null);
+  readonly cardDetailsError = this.detailsCardsService.errorSignal;
   readonly cardDetailsLoading = signal(true);
 
   readonly cardDetails = toSignal(
     this.routeParams$.pipe(
       tap(() => {
         this.cardDetailsLoading.set(true);
-        this.cardDetailsError.set(null);
       }),
       switchMap(({ id, type }) =>
         this.detailsCardsService.getMovieDetails(id, type).pipe(
-          tap(() => this.cardDetailsLoading.set(false)),
-          catchError((error) => {
-            this.cardDetailsError.set(error.message ?? 'Unknown error');
-            this.cardDetailsLoading.set(false);
-            return of();
+          tap({
+            next: () => this.cardDetailsLoading.set(false),
+            error: () => this.cardDetailsLoading.set(false),
           }),
+          catchError(() => of()),
         ),
       ),
     ),
     { initialValue: undefined },
   );
 
-  readonly castError = signal<string | null>(null);
+  readonly castError = this.topBilledCastService.errorSignal;
   readonly castLoading = signal(true);
 
   readonly cast = toSignal(
@@ -74,35 +72,32 @@ export class MovieDetails {
       }),
       switchMap(({ id }) =>
         this.topBilledCastService.getCast(id).pipe(
-          tap(() => this.castLoading.set(false)),
-          catchError((error) => {
-            this.castError.set(error.message ?? 'Unknown error');
-            this.castLoading.set(false);
-            return of([]);
+          tap({
+            next: () => this.castLoading.set(false),
+            error: () => this.castLoading.set(false),
           }),
+          catchError(() => of([])),
         ),
       ),
     ),
     { initialValue: [] },
   );
 
-  readonly recommendationsError = signal<string | null>(null);
+  readonly recommendationsError = this.recommendationsService.errorSignal;
   readonly recommendationsLoading = signal(true);
 
   readonly recommendations = toSignal(
     this.routeParams$.pipe(
       tap(() => {
         this.recommendationsLoading.set(true);
-        this.recommendationsError.set(null);
       }),
       switchMap(({ id }) =>
         this.recommendationsService.getRecommendations(id).pipe(
-          tap(() => this.recommendationsLoading.set(false)),
-          catchError((error) => {
-            this.recommendationsError.set(error.message ?? 'Unknown error');
-            this.recommendationsLoading.set(false);
-            return of([]);
+          tap({
+            next: () => this.recommendationsLoading.set(false),
+            error: () => this.recommendationsLoading.set(false),
           }),
+          catchError(() => of([])),
         ),
       ),
     ),
