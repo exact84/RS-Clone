@@ -21,4 +21,8 @@ export class RecommendationCard {
     const path = value.poster_path;
     return path?.trim().length ? `${cardTrailerURL}${path}` : FALLBACK_POSTER;
   }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0 });
+  }
 }
