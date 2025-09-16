@@ -8,8 +8,8 @@
   gap: 24px;
   padding: 20px;
   height: 100vh;
-  background: colors.$nf-background-color;
-  color: white;
+  background: colors.$page-background;
+  color: colors.$page-color;
 }
 
 .user {
@@ -27,7 +27,7 @@
     width: 128px;
     height: 128px;
     border-radius: 50%;
-    background: colors.$nf-title-color;
+    background: colors.$page-title-background;
     font-size: 64px;
   }
 
@@ -95,7 +95,7 @@
         width: 12px;
         height: 12px;
         border-radius: 50%;
-        background: colors.$nf-title-color;
+        background: colors.$page-title-background;
         transform: translateX(-1px);
         transition: transform 0.3s ease-in-out;
       }
