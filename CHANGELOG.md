@@ -1,3 +1,12 @@
+## [1.7.1](https://github.com/exact84/RS-Clone/compare/v1.7.0...v1.7.1) (2025-09-16)
+
+### Refactoring
+
+* apply auth-guard for auth route ([c431a04](https://github.com/exact84/RS-Clone/commit/c431a04c24fff22307f3c62162c002205930e536))
+* change canActivate to canMatch ([5fa45d9](https://github.com/exact84/RS-Clone/commit/5fa45d92bbc168ceba3faf8366a982f6b496c7f3))
+* update auth-guard and checkAuth ([e6d618e](https://github.com/exact84/RS-Clone/commit/e6d618e317b90561e8d663c9555b41887e62da7e))
+* update styles ([cf32b1c](https://github.com/exact84/RS-Clone/commit/cf32b1c3d980549f8fb490d0805fd180a2860286))
+
 ## [1.7.0](https://github.com/exact84/RS-Clone/compare/v1.6.0...v1.7.0) (2025-09-15)
 
 ### Features
