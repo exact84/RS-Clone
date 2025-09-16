@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SignupRequest, User } from '../models/signup';
 import { LoginRequest, LoginResponse } from '../models/login';
@@ -14,6 +14,12 @@ export class AuthService {
   private readonly router = inject(Router);
 
   private isAuth = signal(false);
+
+  constructor() {
+    effect(() => {
+      this.checkAuth().subscribe((isAuth) => this.isAuth.set(isAuth));
+    });
+  }
 
   signup(signup: SignupRequest) {
     return this.http.post<User>('/auth/signup', signup, { observe: 'response' });
@@ -33,19 +39,8 @@ export class AuthService {
 
   checkAuth() {
     return this.http.get('/auth/check', { observe: 'response' }).pipe(
-      map((response) => {
-        if (response.ok) {
-          this.isAuth.set(true);
-          return true;
-        } else {
-          this.logout();
-          return false;
-        }
-      }),
-      catchError(() => {
-        this.logout();
-        return of(false);
-      }),
+      map(() => true),
+      catchError(() => of(false)),
     );
   }
 
