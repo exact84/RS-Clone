@@ -29,7 +29,7 @@ export const routes: Routes = [
       {
         path: 'profile',
         loadComponent: () => import('./pages/profile/profile').then((c) => c.Profile),
-        canActivate: [authGuard],
+        canMatch: [authGuard],
       },
       {
         path: 'favourites',
@@ -40,7 +40,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadComponent: () => import('./pages/auth/auth').then((c) => c.Auth),
-    canActivate: [authGuard],
+    canMatch: [authGuard],
     children: [
       { path: '', redirectTo: 'signup', pathMatch: 'full' },
       {
