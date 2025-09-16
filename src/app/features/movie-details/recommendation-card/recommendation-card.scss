@@ -1,0 +1,83 @@
+@use '../../../shared/styles/colors' as colors;
+
+:host {
+  display: block;
+  a {
+    text-decoration: none;
+    color: colors.$dark-color;
+  }
+}
+.recommendation__card {
+  position: relative;
+  width: 200px;
+  height: 350px;
+  cursor: pointer;
+  white-space: normal;
+
+  img {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  .recommendation__info {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-inline: 0.5rem;
+    flex: 1;
+
+    .card__title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+      flex: 1 1 auto;
+      overflow-wrap: anywhere;
+      flex-basis: 70%;
+      flex-wrap: wrap;
+      word-break: break-word;
+    }
+
+    .vote {
+      font-size: 0.9rem;
+      color: colors.$dark-color;
+      flex-shrink: 0;
+    }
+  }
+
+  .release-date {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    background: rgba(248, 245, 245, 0.9);
+    color: colors.$dark-color;
+    font-size: 0.8rem;
+    padding: 16px 12px;
+    border-radius: 4px;
+    opacity: 0;
+    font-size: 20px;
+    transition: opacity 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &:hover .release-date {
+    opacity: 1;
+    z-index: 10;
+  }
+
+  &.sm {
+    width: 200px;
+  }
+
+  &.md {
+    width: 240px;
+  }
+
+  &.lg {
+    width: 300px;
+  }
+}

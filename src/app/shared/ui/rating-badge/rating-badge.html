@@ -13,5 +13,5 @@
       transform="rotate(-90 50 50)"
     />
   </svg>
-  <span class="vote-text">{{ voteAverage() * 10 | number: '1.0-0' }} <span>%</span></span>
+  <span class="vote-text">{{ voteAverage() | votePercentPipe }} <span>%</span></span>
 </div>

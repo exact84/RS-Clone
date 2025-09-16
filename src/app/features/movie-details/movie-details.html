@@ -13,3 +13,9 @@
     <app-person-card [data]="person" [variant]="'default'" [size]="'sm'" />
   }
 </app-horizontal-slider>
+
+<app-horizontal-slider title="Recommendations">
+  @for (movie of recommendations(); track $index) {
+    <app-recommendation-card [data]="movie" size="sm" />
+  }
+</app-horizontal-slider>
