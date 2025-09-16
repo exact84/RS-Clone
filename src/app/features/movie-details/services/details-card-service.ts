@@ -1,14 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { MediaType } from '../types/media-type';
 import { MediaDetailsMapWithTrailer } from '../../../pages/models/media-details-map-with-trailer.interface';
+import { ApiErrorService } from '../../../core/services/api-error-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DetailsCardService {
   http = inject(HttpClient);
+  private readonly apiError = inject(ApiErrorService);
   readonly errorSignal = signal<string | null>(null);
 
   getMovieDetails<T extends MediaType>(
@@ -29,17 +31,7 @@ export class DetailsCardService {
             trailerKey: trailer?.key ?? null,
           };
         }),
-        catchError((error) => {
-          const status = error.status ?? 0;
-          const message =
-            status === 401
-              ? 'Authorization error: missing or invalid key'
-              : `Error ${error.status}: ${error.message}`;
-
-          console.error('MovieDetailsService error:', message);
-          this.errorSignal.set(message);
-          return throwError(() => error);
-        }),
+        this.apiError.handleApiError(this.errorSignal, 'Failed to load card'),
       );
   }
 }
