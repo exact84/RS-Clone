@@ -1,19 +1,21 @@
 //form
-$form-border-color: #000;
-$input-color: #000;
-$input-border-color: #000;
+$form-box-shadow: 0 0 2px 1px rgba(255, 255, 255, 0.75);
+$input-color: #fff;
+$input-border-color: #fff;
 $input-border-color-hover: rgba($input-border-color, 0.5);
+$input-background: rgba(255, 255, 255, 0.1);
 $input-outline-color: rgba($input-border-color, 0.75);
-$input-password-icon: #000;
+$input-password-icon: #fff;
 $submit-button-background-color: skyblue;
 $submit-button-background-color-disabled: rgba($submit-button-background-color, 0.3);
 $submit-button-background-color-hover: rgba($submit-button-background-color, 0.8);
 $validation-error-color: red;
+$validation-successful-color: green;
 
 //auth-links
-$link-color: lightgreen;
+$link-color: #01b4e4;
 $link-color-hover: rgba($link-color, 0.8);
-$link-color-active: green;
+$link-color-active: #90cea1;
 
 // home
 
@@ -29,10 +31,10 @@ $trailers-background-gradient: linear-gradient(
   rgba(4, 48, 84, 0.75) 100%
 );
 
-//not-found
-$nf-background-color: linear-gradient(to right, #1c1c1c, #2c2c2c);
-$main-color: #fff;
-$nf-title-color: linear-gradient(to right, #01b4e4, #90cea1);
-$nf-link-color: #fff;
-$nf-link-background: #01b4e4;
-$nf-link-background-hover: #90cea1;
+//common
+$page-background: linear-gradient(to right, #1c1c1c, #2c2c2c);
+$page-color: #fff;
+$page-title-background: linear-gradient(to right, #01b4e4, #90cea1);
+$page-link-color: #fff;
+$page-link-background: #01b4e4;
+$page-link-background-hover: #90cea1;

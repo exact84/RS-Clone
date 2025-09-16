@@ -7,7 +7,7 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
-  background: colors.$nf-background-color;
+  background: colors.$page-background;
 }
 
 .not-found {
@@ -17,13 +17,13 @@
   align-items: center;
   gap: 20px;
   font-size: 1.5rem;
-  color: colors.$main-color;
+  color: colors.$page-color;
   animation: fadeIn 0.7s ease-in-out;
 
   &__title {
     font-size: 8rem;
     margin: 0;
-    background: colors.$nf-title-color;
+    background: colors.$page-title-background;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -38,15 +38,15 @@
   &__link {
     padding: 0.75rem 1.5rem;
     border: none;
-    background: colors.$nf-link-background;
-    color: colors.$nf-link-color;
+    background: colors.$page-link-background;
+    color: colors.$page-link-color;
     text-decoration: none;
     font-weight: bold;
     border-radius: 30px;
     transition: background 0.3s ease;
 
     &:hover {
-      background-color: colors.$nf-link-background-hover;
+      background-color: colors.$page-link-background-hover;
     }
   }
 }

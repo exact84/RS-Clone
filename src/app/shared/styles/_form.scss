@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  max-width: 350px;
 }
 
 form {
@@ -12,7 +13,8 @@ form {
   width: 100%;
   padding: 20px;
   border-radius: 20px;
-  border: 1px solid colors.$form-border-color;
+  color: colors.$page-color;
+  box-shadow: colors.$form-box-shadow;
 }
 
 input {
@@ -21,6 +23,7 @@ input {
   width: 100%;
   box-sizing: border-box;
   border: 1px solid colors.$input-border-color;
+  background-color: colors.$input-background;
   color: colors.$input-color;
   transition: border-color 0.25s;
   outline-color: colors.$input-outline-color;
@@ -51,18 +54,19 @@ input {
 
 .form-submit {
   border: none;
-  background-color: colors.$submit-button-background-color;
+  background: colors.$page-link-background;
   border-radius: 20px;
   padding: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
 
   &:disabled {
-    background-color: colors.$submit-button-background-color-disabled;
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   &:not(:disabled):hover {
-    background-color: colors.$submit-button-background-color-hover;
+    background: colors.$page-link-background-hover;
   }
 }
 
