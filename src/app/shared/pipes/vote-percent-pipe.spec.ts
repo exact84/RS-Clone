@@ -1,4 +1,4 @@
-import { VotePercentPipe } from './vote-percent-pipe-pipe';
+import { VotePercentPipe } from './vote-percent-pipe';
 
 describe('VotePercentPipe', () => {
   const pipe = new VotePercentPipe();

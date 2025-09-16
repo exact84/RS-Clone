@@ -5,7 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { of } from 'rxjs';
-import { VotePercentPipe } from '../../shared/pipes/vote-percent-pipe-pipe';
+import { VotePercentPipe } from '../../shared/pipes/vote-percent-pipe';
 
 describe('MovieDetails', () => {
   let component: MovieDetails;

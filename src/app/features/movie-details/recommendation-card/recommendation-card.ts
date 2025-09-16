@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MovieCard } from '../../../pages/models/movie-card';
 import { cardTrailerURL, FALLBACK_POSTER } from '../../../shared/constants/constants';
 import { DatePipe } from '@angular/common';
-import { VotePercentPipe } from '../../../shared/pipes/vote-percent-pipe-pipe';
+import { VotePercentPipe } from '../../../shared/pipes/vote-percent-pipe';
 import { RouterLink } from '@angular/router';
 
 @Component({
