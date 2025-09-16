@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MediaType } from './types/media-type';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -10,7 +10,7 @@ import { TopBilledCastService } from './services/top-billed-cast-service';
 import { PersonCard } from '../../shared/ui/person-card/person-card';
 import { RecommendationsService } from './services/recommendations-service';
 import { RecommendationCard } from './recommendation-card/recommendation-card';
-import { EMPTY, map } from 'rxjs';
+import { BehaviorSubject, catchError, map, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-movie-details',
@@ -26,8 +26,10 @@ export class MovieDetails {
   readonly recommendationsService = inject(RecommendationsService);
   readonly spinnerPath = SPINNER_PATH;
 
-  readonly type = this.route.snapshot.paramMap.get('type') as MediaType;
-  readonly id = Number(this.route.snapshot.paramMap.get('id'));
+  private readonly routeParams$ = new BehaviorSubject<{ id: number; type: MediaType }>({
+    id: Number(this.route.snapshot.paramMap.get('id')),
+    type: (this.route.snapshot.paramMap.get('type') ?? 'movie') as MediaType,
+  });
 
   readonly routeParams = toSignal(
     this.route.paramMap.pipe(
@@ -38,102 +40,83 @@ export class MovieDetails {
     ),
   );
 
-  readonly currentId = computed(() => {
-    const parameters = this.routeParams();
-    if (!parameters) return;
-
-    const id = parameters.id;
-    return id;
-  });
-
-  readonly currentType = computed(() => {
-    const parameters = this.routeParams();
-    if (!parameters) return;
-    const type = parameters.type;
-    return ['movie', 'tv'].includes(type) ? (type as MediaType) : undefined;
-  });
-
-  // readonly cardDetails: Signal<ContentDetails | undefined> = toSignal(
-  //   this.detailsCardsService.getMovieDetails(this.currentId()!, this.currentType()!),
-  //   {
-  //     initialValue: undefined,
-  //   },
-  // );
-  // readonly cardDetails: Signal<ContentDetails | undefined> = toSignal(
-  //   computed(() => {
-  //     const id = this.currentId();
-  //     const type = this.currentType();
-  //     if (!id || !type) return EMPTY;
-
-  //     return this.detailsCardsService.getMovieDetails(id, type);
-  //   })(),
-  //   { initialValue: undefined }
-  // );
-
-  // getCardDetailsSignal(): Signal<ContentDetails | undefined> {
-  //   return toSignal(
-  //     computed(() => {
-  //       const id = this.currentId();
-  //       const type = this.currentType();
-  //       if (!id || !type) return EMPTY;
-
-  //       return this.detailsCardsService.getMovieDetails(id, type);
-  //     })(),
-  //     { initialValue: undefined },
-  //   );
-  // }
+  readonly cardDetailsError = signal<string | null>(null);
+  readonly cardDetailsLoading = signal(true);
 
   readonly cardDetails = toSignal(
-    computed(() => {
-      const id = this.currentId();
-      const type = this.currentType();
-      if (!id || !type) return EMPTY;
-
-      return this.detailsCardsService.getMovieDetails(id, type);
-    })(),
+    this.routeParams$.pipe(
+      tap(() => {
+        this.cardDetailsLoading.set(true);
+        this.cardDetailsError.set(null);
+      }),
+      switchMap(({ id, type }) =>
+        this.detailsCardsService.getMovieDetails(id, type).pipe(
+          tap(() => this.cardDetailsLoading.set(false)),
+          catchError((error) => {
+            this.cardDetailsError.set(error.message ?? 'Unknown error');
+            this.cardDetailsLoading.set(false);
+            return of();
+          }),
+        ),
+      ),
+    ),
     { initialValue: undefined },
   );
 
-  readonly isLoading = computed(() => this.cardDetails() === undefined);
+  readonly castError = signal<string | null>(null);
+  readonly castLoading = signal(true);
 
-  readonly isError = computed(() => this.detailsCardsService.errorSignal());
+  readonly cast = toSignal(
+    this.routeParams$.pipe(
+      tap(() => {
+        this.castLoading.set(true);
+        this.castError.set(null);
+      }),
+      switchMap(({ id }) =>
+        this.topBilledCastService.getCast(id).pipe(
+          tap(() => this.castLoading.set(false)),
+          catchError((error) => {
+            this.castError.set(error.message ?? 'Unknown error');
+            this.castLoading.set(false);
+            return of([]);
+          }),
+        ),
+      ),
+    ),
+    { initialValue: [] },
+  );
 
-  readonly cast = toSignal(this.topBilledCastService.getCast(this.routeParams()!.id), {
-    initialValue: [],
-  });
+  readonly recommendationsError = signal<string | null>(null);
+  readonly recommendationsLoading = signal(true);
 
   readonly recommendations = toSignal(
-    this.recommendationsService.getRecommendations(this.routeParams()!.id),
-    {
-      initialValue: [],
-    },
+    this.routeParams$.pipe(
+      tap(() => {
+        this.recommendationsLoading.set(true);
+        this.recommendationsError.set(null);
+      }),
+      switchMap(({ id }) =>
+        this.recommendationsService.getRecommendations(id).pipe(
+          tap(() => this.recommendationsLoading.set(false)),
+          catchError((error) => {
+            this.recommendationsError.set(error.message ?? 'Unknown error');
+            this.recommendationsLoading.set(false);
+            return of([]);
+          }),
+        ),
+      ),
+    ),
+    { initialValue: [] },
   );
 
   constructor() {
-    effect(() => {
-      console.log(this.currentId());
-      console.log(this.currentType());
-    });
-
-    effect(() => {
-      const id = this.currentId();
-      const type = this.currentType();
-      if (!id || !type) return;
-
-      console.log('Calling getMovieDetails with:', id, type);
-    });
-
-    effect(() => {
-      const id = this.currentId();
-      const type = this.currentType();
-      if (!id || !type) return;
-
-      const obs = this.detailsCardsService.getMovieDetails(id, type);
-      console.log('Observable identity:', obs);
-    });
-
-    effect(() => {
-      console.log('cardDetails updated:', this.cardDetails());
-    });
+    this.route.paramMap
+      .pipe(
+        map((parameters) => ({
+          id: Number(parameters.get('id')),
+          type: (parameters.get('type') ?? 'movie') as MediaType,
+        })),
+      )
+      .subscribe(this.routeParams$);
   }
 }
