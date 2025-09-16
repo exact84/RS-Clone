@@ -19,4 +19,5 @@ export interface MovieDetails extends MovieBase {
     iso_639_1: string;
     name: string;
   }[];
+  trailerKey?: string | null;
 }

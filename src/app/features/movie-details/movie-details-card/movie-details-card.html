@@ -1,5 +1,4 @@
 @let data = displayData();
-<!-- Чтобы computed вызывался только один раз при изменении data, а не в каждом поле -->
 <article class="movie-details" [style.backgroundImage]="'url(' + data.poster_path + ')'">
   <section class="hero">
     <div class="hero__poster">
@@ -23,7 +22,14 @@
       <p class="hero__overview">{{ data.overview }}</p>
 
       <div class="movie-actions">
-        <button class="btn">Watch Trailer</button>
+        <button
+          class="btn"
+          (click)="openTrailer()"
+          [disabled]="!data.trailerKey"
+          [title]="data.trailerKey ? 'Watch trailer' : 'Trailer is unavailable'"
+        >
+          Watch Trailer
+        </button>
       </div>
     </div>
   </section>
