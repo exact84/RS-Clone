@@ -1,0 +1,12 @@
+<a [routerLink]="['/movie', data().id]">
+  <div class="recommendation__card" [class]="size()">
+    <img [src]="getPosterUrl" [alt]="data().title" />
+    <div class="recommendation__info">
+      <h3 class="card__title">{{ data().title }}</h3>
+      <p class="vote">{{ data().vote_average | votePercentPipe }}</p>
+    </div>
+    <div class="release-date">
+      {{ data().release_date | date: 'MMM dd, yyyy' }}
+    </div>
+  </div>
+</a>

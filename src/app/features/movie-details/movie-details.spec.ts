@@ -3,32 +3,43 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MovieDetails } from './movie-details';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { of } from 'rxjs';
+import { VotePercentPipe } from '../../shared/pipes/vote-percent-pipe-pipe';
 
 describe('MovieDetails', () => {
   let component: MovieDetails;
   let fixture: ComponentFixture<MovieDetails>;
 
+  const mockParameterMap: ParamMap = {
+    get: (key: string) => {
+      if (key === 'id') return '1';
+      if (key === 'type') return 'tv';
+      return null;
+    },
+    getAll: (key: string) => {
+      void key; // ← говорит TypeScript: "я осознанно не использую параметр"
+      return [];
+    },
+
+    has: () => false,
+    keys: [],
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MovieDetails],
+      imports: [MovieDetails, VotePercentPipe],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
         {
           provide: ActivatedRoute,
           useValue: {
-            params: of({ id: '1', type: 'tv' }),
-            queryParams: of({}),
+            paramMap: of(mockParameterMap),
+            queryParamMap: of({ get: () => null }),
             snapshot: {
-              paramMap: {
-                get: (key: string) => (key === 'id' ? '1' : key === 'type' ? 'tv' : null),
-              },
-
-              queryParamMap: {
-                get: () => null,
-              },
+              paramMap: mockParameterMap,
+              queryParamMap: { get: () => null },
             },
           },
         },

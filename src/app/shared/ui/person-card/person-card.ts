@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { CastPerson } from '../../../pages/models/people/cast-person';
 import { actorPhotoURL, FALLBACK_ACTOR } from '../../constants/constants';
 
@@ -18,11 +18,5 @@ export class PersonCard {
     return this.data().profile_path
       ? `${actorPhotoURL}${this.data().profile_path}`
       : `${FALLBACK_ACTOR}`;
-  }
-
-  constructor() {
-    effect(() => {
-      console.log('PersonCard data:', this.data());
-    });
   }
 }

@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
 import { RatingColorDirective } from '../../directives/rating-color-directive';
+import { VotePercentPipe } from '../../pipes/vote-percent-pipe-pipe';
 
 @Component({
   selector: 'app-rating-badge',
-  imports: [DecimalPipe, RatingColorDirective],
+  imports: [RatingColorDirective, VotePercentPipe],
   templateUrl: './rating-badge.html',
   styleUrl: './rating-badge.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
