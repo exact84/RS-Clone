@@ -31,15 +31,6 @@ export class MovieDetails {
     type: (this.route.snapshot.paramMap.get('type') ?? 'movie') as MediaType,
   });
 
-  readonly routeParams = toSignal(
-    this.route.paramMap.pipe(
-      map((parameter) => ({
-        id: Number(parameter.get('id')),
-        type: parameter.get('type') ?? 'movie',
-      })),
-    ),
-  );
-
   readonly cardDetailsError = this.detailsCardsService.errorSignal;
   readonly cardDetailsLoading = signal(true);
 
