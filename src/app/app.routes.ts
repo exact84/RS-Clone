@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
 import { MainLayout } from './layouts/main-layout/main-layout';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,7 @@ export const routes: Routes = [
       {
         path: 'profile',
         loadComponent: () => import('./pages/profile/profile').then((c) => c.Profile),
+        canActivate: [authGuard],
       },
       {
         path: 'favourites',
@@ -38,6 +40,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadComponent: () => import('./pages/auth/auth').then((c) => c.Auth),
+    canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'signup', pathMatch: 'full' },
       {
