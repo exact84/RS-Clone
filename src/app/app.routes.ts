@@ -23,7 +23,7 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/people/people').then((c) => c.People),
       },
       {
-        path: ':type/:id',
+        path: 'details/:type/:id',
         loadComponent: () =>
           import('./features/movie-details/movie-details').then((c) => c.MovieDetails),
       },
