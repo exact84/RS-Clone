@@ -1,3 +1,11 @@
+## [1.8.1](https://github.com/exact84/RS-Clone/compare/v1.8.0...v1.8.1) (2025-09-17)
+
+### Bug Fixes
+
+* fix styles for main layout ([31ec249](https://github.com/exact84/RS-Clone/commit/31ec249b5a849dacb636fbebec697e273950ecb1))
+* header links on small screens ([5e94d93](https://github.com/exact84/RS-Clone/commit/5e94d93bb8387a91e47db6c712ed1a8cc9c57bcf))
+* menu click on large screens ([c4c2b6f](https://github.com/exact84/RS-Clone/commit/c4c2b6fca408f58e394e2570e6516ff9cd4e0261))
+
 ## [1.8.0](https://github.com/exact84/RS-Clone/compare/v1.7.1...v1.8.0) (2025-09-17)
 
 ### Features
