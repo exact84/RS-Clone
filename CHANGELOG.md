@@ -1,3 +1,31 @@
+## [1.8.0](https://github.com/exact84/RS-Clone/compare/v1.7.1...v1.8.0) (2025-09-17)
+
+### Features
+
+* add cast slider ([2b84c67](https://github.com/exact84/RS-Clone/commit/2b84c67bf139557a8fcbe6f612550659db2aa263))
+* add recomendations slider ([2f052c5](https://github.com/exact84/RS-Clone/commit/2f052c517653d1d1298f9bbfd354c96b47a5cf9f))
+* add recomendations slider ([36f34cb](https://github.com/exact84/RS-Clone/commit/36f34cb24956102b34dba6e635dd4e1bd1eaaa5e))
+* add recomendations slider ([0f57a00](https://github.com/exact84/RS-Clone/commit/0f57a0017f3b423da28d7e317b0a3659ef9124a8))
+* implement watch-trailer in movie-details-card ([cfb5682](https://github.com/exact84/RS-Clone/commit/cfb5682c95bdb48b8b48d774f4f18c06b4bfc4cb))
+
+### Bug Fixes
+
+* correct query param handling in Netlify function ([23517d2](https://github.com/exact84/RS-Clone/commit/23517d25ac69b1c0c14100fe17f45b341d5d664e))
+* fallback & types ([44baa75](https://github.com/exact84/RS-Clone/commit/44baa7526dda58dfe1eb84390991ed58fabe0ddf))
+* install missing dependencies ([355b5f8](https://github.com/exact84/RS-Clone/commit/355b5f8dcc05bb9ceb9cbfb5484d9efa2c25e965))
+* proper error handling for failed requests ([110e450](https://github.com/exact84/RS-Clone/commit/110e45000338b3d63d034cc1bad4520b281e9bab))
+* remove redundant code ([a450f40](https://github.com/exact84/RS-Clone/commit/a450f407ac7a78020f54968a8276ec62971a4e00))
+* resolve conflict in _colors.scss during rebase ([a238fd7](https://github.com/exact84/RS-Clone/commit/a238fd782a9364f6d93c9adb5b9922083314ffc7))
+* resolve merge conflict ([5d72908](https://github.com/exact84/RS-Clone/commit/5d7290869921ba38c3b56cb5a40ab36086989675))
+
+### Refactoring
+
+* add error-handling and loader to movie-details ([23063d6](https://github.com/exact84/RS-Clone/commit/23063d654b2b76a99729a6ede57a14e80e092bc3))
+* add initial value to movie-details-card ([1250d08](https://github.com/exact84/RS-Clone/commit/1250d084423a827d9245c4c0f723af50a8019154))
+* ensure scroll reset on route change ([dc10bee](https://github.com/exact84/RS-Clone/commit/dc10beed688c4309f93d25ff2f8a17123498810c))
+* implement api-error-handler ([d7f9577](https://github.com/exact84/RS-Clone/commit/d7f95775ef2a929c2e0599196797b44da9d65d91))
+* movie-details page implement reactive routeParams for updating page when choosing recommendations, add loading state and error handling for each method ([98574b1](https://github.com/exact84/RS-Clone/commit/98574b1035cc96ef0d81ce0b617d76290df78f7c))
+
 ## [1.7.1](https://github.com/exact84/RS-Clone/compare/v1.7.0...v1.7.1) (2025-09-16)
 
 ### Refactoring
