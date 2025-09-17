@@ -1,5 +1,12 @@
 @use '../styles/colors' as colors;
 
+:host {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
 .header {
   width: 100%;
   padding: 1rem 2rem;
@@ -9,10 +16,9 @@
   align-items: center;
   background-color: colors.$header-bg;
   color: colors.$light-color;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
+  position: relative;
+  height: 76px;
+
   .logo {
     width: 18rem;
     min-width: 6rem;
