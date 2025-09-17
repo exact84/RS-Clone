@@ -53,6 +53,6 @@ export class SliderCard {
 
   goToDetails(): void {
     const card = this.data();
-    this.router.navigate([card.media_type, card.id]);
+    this.router.navigate(['details', card.media_type, card.id]);
   }
 }
