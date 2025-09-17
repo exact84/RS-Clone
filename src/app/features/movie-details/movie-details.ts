@@ -40,13 +40,9 @@ export class MovieDetails {
         this.cardDetailsLoading.set(true);
       }),
       switchMap(({ id, type }) =>
-        this.detailsCardsService.getMovieDetails(id, type).pipe(
-          tap({
-            next: () => this.cardDetailsLoading.set(false),
-            error: () => this.cardDetailsLoading.set(false),
-          }),
-          catchError(() => of()),
-        ),
+        this.detailsCardsService
+          .getMovieDetails(id, type)
+          .pipe(tap(() => this.cardDetailsLoading.set(false))),
       ),
     ),
     { initialValue: undefined },
