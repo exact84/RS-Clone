@@ -28,19 +28,24 @@
     <ng-template appScreenSmallDirective>
       @for (item of menuService.items; track $index; let index = $index) {
         <li appMenuClickDirective [index]="index" [submenu]="item.submenu ?? []">
-          <a routerLink="{{ item.route }}" routerLinkActive="active">
-            {{ item.text }}
-          </a>
-
-          @if (
-            item.submenu && menuService.clickedIndex() === index && menuService.showVerticalMenu
-          ) {
-            <app-sub-menu
-              class="vertical-menu__submenu"
-              [menu]="item.submenu"
-              [parentRoute]="item.route"
-              (navigate)="onNavigate()"
-            ></app-sub-menu>
+          @if (!item.submenu) {
+            <a routerLink="{{ item.route }}" routerLinkActive="active">
+              {{ item.text }}
+            </a>
+          } @else {
+            <a href="#" (click)="$event.preventDefault()">
+              {{ item.text }}
+            </a>
+            @if (
+              item.submenu && menuService.clickedIndex() === index && menuService.showVerticalMenu
+            ) {
+              <app-sub-menu
+                class="vertical-menu__submenu"
+                [menu]="item.submenu"
+                [parentRoute]="item.route"
+                (navigate)="onNavigate()"
+              ></app-sub-menu>
+            }
           }
         </li>
       }
