@@ -1,3 +1,5 @@
+@use '../../../styles/_colors.scss';
+
 :host {
   position: absolute;
   top: 50px;
@@ -7,8 +9,10 @@
   align-items: center;
   min-width: 200px;
   z-index: 1;
-  background-color: rgba(3, 37, 65, 0.95);
-  padding-block: 2rem;
+  background-color: colors.$extra-light-grey-color;
+  padding-block: 1rem;
+  border-radius: 10px;
+  border: 1px solid colors.$middle-grey-color;
 
   ul {
     display: flex;
@@ -17,7 +21,7 @@
     list-style: none;
 
     li a {
-      color: white;
+      color: colors.$dark-color;
       text-decoration: none;
       font-size: 20px;
     }

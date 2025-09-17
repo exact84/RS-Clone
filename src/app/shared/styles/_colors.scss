@@ -17,12 +17,18 @@ $link-color: #01b4e4;
 $link-color-hover: rgba($link-color, 0.8);
 $link-color-active: #90cea1;
 
+// header
+
+$header-bg: rgba(3, 37, 65, 1);
+$mobile-submenu-bg: rgba(3, 37, 65, 0.95);
+
 // home
 
 $dark-color: #000;
 $light-color: #fff;
 $middle-grey-color: #878686;
 $light-grey-color: #f1f1f1;
+$extra-light-grey-color: #fff9f9;
 $toggle-trailers-border-color: #1ed5a9;
 $accent-gradient: linear-gradient(to right, #c0fecf, #1ed5a9);
 $trailers-background-gradient: linear-gradient(

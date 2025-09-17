@@ -1,3 +1,5 @@
+@use '../styles/colors' as colors;
+
 .header {
   width: 100%;
   padding: 1rem 2rem;
@@ -5,9 +7,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(3, 37, 65, 1);
-  color: white;
-  position: relative;
+  background-color: colors.$header-bg;
+  color: colors.$light-color;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
   .logo {
     width: 18rem;
     min-width: 6rem;
@@ -25,7 +30,7 @@
   gap: 1rem;
 
   a {
-    color: #fff;
+    color: colors.$light-color;
   }
 }
 
@@ -36,7 +41,7 @@
   cursor: pointer;
   border: none;
   background: transparent;
-  color: #fff;
+  color: colors.$light-color;
   text-decoration: none;
 }
 
@@ -52,7 +57,7 @@ button {
   top: 100%;
   left: 0;
   width: 100vw;
-  background-color: rgba(3, 37, 65, 0.95);
+  background-color: colors.$mobile-submenu-bg;
   padding: 2rem 0;
   z-index: 1000;
 
