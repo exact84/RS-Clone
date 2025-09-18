@@ -15,7 +15,7 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/movies/movies').then((c) => c.Movies),
       },
       {
-        path: 'people',
+        path: 'people/person',
         loadComponent: () => import('./pages/people/people').then((c) => c.People),
       },
       {

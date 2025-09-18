@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { CastPerson } from '../../../pages/models/people/cast-person';
 import { actorPhotoURL, FALLBACK_ACTOR } from '../../constants/constants';
+import { Person } from '../../../pages/models/people/person.interface';
 
 @Component({
   selector: 'app-person-card',
@@ -10,7 +10,7 @@ import { actorPhotoURL, FALLBACK_ACTOR } from '../../constants/constants';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonCard {
-  data = input.required<CastPerson>();
+  data = input.required<Person>();
   variant = input.required<'default' | 'compact'>();
   size = input.required<'sm' | 'md' | 'lg'>();
 
