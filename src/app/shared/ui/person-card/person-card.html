@@ -6,8 +6,13 @@
         <h3>
           {{ data().name }}
         </h3>
-        @if (variant() === 'default') {
+        @if (variant() === 'compact') {
           <p>{{ data().character }}</p>
+        }
+        @if (variant() === 'default') {
+          @for (item of data().known_for; track $index) {
+            <span>{{ item.name || item.title }}, ;</span>
+          }
         }
       </div>
     </div>

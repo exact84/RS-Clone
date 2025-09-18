@@ -20,7 +20,7 @@
       </div>
     } @else if (cast().length > 0) {
       @for (person of cast(); track person.id) {
-        <app-person-card [data]="person" [variant]="'default'" [size]="'sm'" />
+        <app-person-card [data]="person" [variant]="'compact'" [size]="'sm'" />
       }
     } @else {
       <p>No cast information available.</p>

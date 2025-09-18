@@ -1,1 +1,30 @@
-<p>people works!</p>
+<section class="people__wrapper">
+  @if (loading()) {
+    <div class="loader-wrapper">
+      <img [src]="spinnerPath" alt="Loading..." class="loader" />
+    </div>
+  } @else {
+    @if (error()) {
+      <div class="error">{{ error() }}</div>
+    } @else {
+      <div class="people__list">
+        @for (person of people(); track person.id) {
+          <app-person-card [data]="person" [variant]="'default'" [size]="'lg'" />
+        }
+      </div>
+    }
+  }
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage() === 1">← Previous</button>
+    @for (page of pageNumbers(); track page) {
+      @if (page !== '...') {
+        <button (click)="goToPage(page)" [class.active]="page === currentPage()">
+          {{ page }}
+        </button>
+      } @else {
+        <span class="dots">...</span>
+      }
+    }
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next →</button>
+  </div>
+</section>
