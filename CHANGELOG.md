@@ -1,3 +1,9 @@
+## [1.8.2](https://github.com/exact84/RS-Clone/compare/v1.8.1...v1.8.2) (2025-09-18)
+
+### Bug Fixes
+
+* route for movie-details page ([6a19573](https://github.com/exact84/RS-Clone/commit/6a195730b58b43d10e08588ab34c180ac37b40de))
+
 ## [1.8.1](https://github.com/exact84/RS-Clone/compare/v1.8.0...v1.8.1) (2025-09-17)
 
 ### Bug Fixes
