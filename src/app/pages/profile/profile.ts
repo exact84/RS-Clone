@@ -30,12 +30,6 @@ export class Profile {
   userInitials = computed(() => {
     return `${this.user()?.firstName[0]}${this.user()?.lastName[0]}`;
   });
-  favouritesMoviesCount = computed(() => {
-    return this.user()?.favourites?.movieIds.length || 0;
-  });
-  favouritesPersonsCount = computed(() => {
-    return this.user()?.favourites?.personIds.length || 0;
-  });
 
   constructor() {
     effect(() => {
