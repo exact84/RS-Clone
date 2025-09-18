@@ -13,5 +13,5 @@ export interface SignupRequest extends SignupInterface {
 
 export interface User extends SignupInterface {
   id: string;
-  favourites?: FavouritesInterface;
+  favourites: FavouritesInterface[];
 }

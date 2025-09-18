@@ -1,5 +1,6 @@
 export interface FavouritesInterface {
   id: string;
-  movieIds: string[];
-  personIds: string[];
+  label: string;
+  ids: string[];
+  userId: string;
 }
