@@ -1,4 +1,11 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { PeopleService } from './services/people-service';
 import { PersonCard } from '../../shared/ui/person-card/person-card';
 import { Person } from '../models/people/person.interface';
@@ -9,6 +16,7 @@ import { SPINNER_PATH } from '../../shared/constants/constants';
   imports: [PersonCard],
   templateUrl: './people.html',
   styleUrl: './people.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class People implements OnInit {
   private readonly peopleService = inject(PeopleService);

@@ -1,6 +1,13 @@
 <ng-container>
   @if (size()) {
-    <div class="person__card" [class]="size()">
+    <div
+      class="person__card"
+      [class]="size()"
+      (click)="goToDetails()"
+      (keydown.enter)="goToDetails()"
+      tabindex="0"
+      role="button"
+    >
       <img [src]="getProfileImage()" alt="" />
       <div class="person__info">
         <h3>

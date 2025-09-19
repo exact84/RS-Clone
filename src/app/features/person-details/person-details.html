@@ -1,0 +1,40 @@
+<section class="person-page">
+  @let details = personDetails();
+  @switch (uiState()) {
+    @case ('loading') {
+      <div class="spinner-wrapper">
+        <img [src]="spinnerPath" alt="Loading..." class="spinner" />
+      </div>
+    }
+    @case ('error') {
+      <div class="error">{{ detailsError() }}</div>
+    }
+    @case ('success') {
+      @if (details) {
+        <aside>
+          <img class="person-photo" [src]="getPosterUrl" [alt]="details.name" />
+          <div class="personal-info">
+            <h4>Personal Info</h4>
+            <p><strong>Known For:</strong> {{ details.known_for_department }}</p>
+            <p><strong>Gender:</strong> {{ getGender(details.gender) }}</p>
+
+            <p><strong>Birthday:</strong> {{ details.birthday || '—' }}</p>
+          </div>
+        </aside>
+
+        <div class="person-content">
+          <h1>{{ details.name }}</h1>
+          <div class="biography" [class.expanded]="isBioExpanded">
+            {{ details.biography }}
+          </div>
+          @if (!isBioExpanded) {
+            <button class="read-more" (click)="isBioExpanded = true">Read More</button>
+          }
+        </div>
+      }
+    }
+    @default {
+      <div class="empty">Нет данных</div>
+    }
+  }
+</section>
