@@ -11,7 +11,7 @@
         }
         @if (variant() === 'default') {
           @for (item of data().known_for; track $index) {
-            <span>{{ item.name || item.title }}, ;</span>
+            <span>{{ item.name || item.title }}, </span>
           }
         }
       </div>
