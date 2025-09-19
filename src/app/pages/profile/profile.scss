@@ -109,3 +109,22 @@
     }
   }
 }
+
+.favourites {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+
+  &__title {
+    font-size: 18px;
+    color: gray;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+  }
+}
