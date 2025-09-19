@@ -1,49 +1,30 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  inject,
-  signal,
-} from '@angular/core';
-import { ProfileService } from './api/profile.service';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { User } from '../auth/models/signup';
-import { HttpErrorResponse } from '@angular/common/http';
 import { UpdatePasswordForm } from '../../features/forms/update-password-form/update-password-form';
+import { ProfileStore } from '../../shared/store/states/profile.state';
+import { Dispatcher } from '@ngrx/signals/events';
+import { profileEvents } from '../../shared/store/events/profile.events';
 
 @Component({
   selector: 'app-profile',
   imports: [UpdatePasswordForm, ReactiveFormsModule],
-  providers: [ProfileService],
+  providers: [ProfileStore],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Profile {
-  private readonly profileService = inject(ProfileService);
+  private readonly profileStore = inject(ProfileStore);
+  private readonly dispatcher = inject(Dispatcher);
 
-  user = signal<User | null>(null);
-  errorMessage = signal('');
+  user = this.profileStore.user;
 
-  userInitials = computed(() => {
-    return `${this.user()?.firstName[0]}${this.user()?.lastName[0]}`;
-  });
+  userInitials = this.profileStore.userInitials;
+  favouritesInfo = this.profileStore.summaryInfo;
 
   constructor() {
-    effect(() => {
-      this.profileService.getUser().subscribe({
-        next: (response) => {
-          this.user.set(response.body);
-        },
-        error: (error) => {
-          this.errorMessage.set(
-            error instanceof HttpErrorResponse ? error.error.message : 'Failed to fetch user data',
-          );
-        },
-      });
-    });
+    this.dispatcher.dispatch(profileEvents.loadProfile());
   }
 
   changePassword = signal(false);

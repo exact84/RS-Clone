@@ -3,7 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../../auth/models/signup';
 import { UpdatePassword } from '../models/update-password';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ProfileService {
   private readonly http = inject(HttpClient);
 
