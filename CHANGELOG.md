@@ -1,3 +1,18 @@
+## [1.9.0](https://github.com/exact84/RS-Clone/compare/v1.8.2...v1.9.0) (2025-09-19)
+
+### Features
+
+* add people component with pagination ([dee6485](https://github.com/exact84/RS-Clone/commit/dee6485a7f6812f701a85f3923a3bbf3513fe54e))
+
+### Bug Fixes
+
+* remove ; from card ([dc62c67](https://github.com/exact84/RS-Clone/commit/dc62c67c06d212a67268c5de2233cf07e5c7e649))
+* remove redundant code ([51bdbca](https://github.com/exact84/RS-Clone/commit/51bdbca643bcb79418d5c086ea26f0192d9b3e6a))
+
+### Refactoring
+
+* move colors to _colors.scss ([5d0a4b0](https://github.com/exact84/RS-Clone/commit/5d0a4b028e61034b8982e2f7970679a58f1b96db))
+
 ## [1.8.2](https://github.com/exact84/RS-Clone/compare/v1.8.1...v1.8.2) (2025-09-18)
 
 ### Bug Fixes
