@@ -28,7 +28,7 @@ const initialState: FavouritesState = {
 export const FavouritesStore = signalStore(
   withState(initialState),
   withComputed(({ favourites }) => ({
-    favouritesArray: computed(() => Object.values(favourites())),
+    favouritesLists: computed(() => Object.values(favourites())),
     listLabels: computed(() => Object.values(favourites()).map(({ label, id }) => ({ label, id }))),
   })),
   withReducer(
