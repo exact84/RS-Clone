@@ -7,7 +7,7 @@ import { Events, on, withEffects, withReducer } from '@ngrx/signals/events';
 import { computed, inject } from '@angular/core';
 import { FavouritesService } from '../../../pages/favourites/api/favourites.service';
 import { favouritesEvents } from '../events/favourites.events';
-import { from, mergeMap, scan, switchMap } from 'rxjs';
+import { EMPTY, from, map, mergeMap, scan, switchMap } from 'rxjs';
 import { mapResponse } from '@ngrx/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MediaType } from '../../../features/movie-details/types/media-type';
@@ -28,7 +28,6 @@ export const FavouritesStore = signalStore(
   withState(initialState),
   withComputed(({ favourites }) => ({
     favouritesLists: computed(() => Object.values(favourites())),
-    listLabels: computed(() => Object.values(favourites()).map(({ label, id }) => ({ label, id }))),
   })),
   withReducer(
     on(favouritesEvents.loadFavourites, () => ({ isLoading: true })),
@@ -81,41 +80,48 @@ export const FavouritesStore = signalStore(
   ),
   withEffects((store, events = inject(Events), favouritesService = inject(FavouritesService)) => ({
     loadFavourites$: events.on(favouritesEvents.loadFavourites).pipe(
-      switchMap(() =>
-        favouritesService.getAllFavourite().pipe(
-          mapResponse({
-            next: (response) => favouritesEvents.loadFavouritesSuccess(response.body!),
-            error: (error) =>
-              favouritesEvents.loadFavouritesError(
-                error instanceof HttpErrorResponse
-                  ? error.error.message
-                  : 'Failed to fetch user data',
-              ),
-          }),
-        ),
-      ),
-    ),
-    loadListsItems$: events.on(favouritesEvents.loadFavouritesSuccess).pipe(
-      switchMap(({ payload: favourites }) =>
-        from(favourites).pipe(
-          mergeMap((favourite) =>
-            from(favourite.ids).pipe(
-              mergeMap((id) => {
-                const [type, itemId] = id.split('/');
-                return favouritesService.getContent(Number(itemId), type as MediaType);
-              }),
-              scan((accumulator, value) => [...accumulator, value], [] as ContentCard[]),
+      switchMap(() => {
+        return store.favouritesLists().length === 0
+          ? favouritesService.getAllFavourite().pipe(
               mapResponse({
-                next: (data) => favouritesEvents.loadListItemSuccess({ id: favourite.id, data }),
-                error: (error) => {
-                  console.log(error instanceof HttpErrorResponse ? error.message : 'Unknown error');
-                },
+                next: (response) => favouritesEvents.loadFavouritesSuccess(response.body!),
+                error: (error) =>
+                  favouritesEvents.loadFavouritesError(
+                    error instanceof HttpErrorResponse
+                      ? error.error.message
+                      : 'Failed to fetch user data',
+                  ),
               }),
+            )
+          : EMPTY;
+      }),
+    ),
+    loadListsItems$: events
+      .on(favouritesEvents.loadFavouritesSuccess, favouritesEvents.loadListItem)
+      .pipe(
+        map(() => store.favouritesLists()),
+        switchMap((favourites) =>
+          from(favourites).pipe(
+            mergeMap((favourite) =>
+              from(favourite.ids).pipe(
+                mergeMap((id) => {
+                  const [type, itemId] = id.split('/');
+                  return favouritesService.getContent(Number(itemId), type as MediaType);
+                }),
+                scan((accumulator, value) => [...accumulator, value], [] as ContentCard[]),
+                mapResponse({
+                  next: (data) => favouritesEvents.loadListItemSuccess({ id: favourite.id, data }),
+                  error: (error) => {
+                    console.log(
+                      error instanceof HttpErrorResponse ? error.message : 'Unknown error',
+                    );
+                  },
+                }),
+              ),
             ),
           ),
         ),
       ),
-    ),
     createNewList$: events.on(favouritesEvents.createNewList).pipe(
       switchMap(({ payload: label }) =>
         favouritesService.createNewList(label).pipe(
