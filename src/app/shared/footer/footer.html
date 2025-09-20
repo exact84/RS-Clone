@@ -1,30 +1,16 @@
 <footer class="footer">
   <div class="footer-container">
     <div class="github-links">
-      <a
-        href="https://github.com/evgeniia-korolova"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="github-link"
-      >
-        evgeniia-korolova
-      </a>
-      <a
-        href="https://github.com/NMakarevich"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="github-link"
-      >
-        NMakarevich
-      </a>
-      <a
-        href="https://github.com/exact84"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="github-link"
-      >
-        exact84
-      </a>
+      @for (developer of developers; track $index) {
+        <a
+          href="https://github.com/{{ developer }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="github-link"
+        >
+          {{ developer }}
+        </a>
+      }
     </div>
   </div>
   <div class="footer-container">
