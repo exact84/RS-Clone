@@ -89,6 +89,25 @@
   }
 }
 
+.known-for-card {
+  width: 130px;
+  flex: 0 0 auto;
+
+  img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    aspect-ratio: 2/3;
+  }
+
+  p {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    white-space: wrap;
+  }
+}
+
 @media (max-width: 768px) {
   .person-page {
     flex-direction: column;
