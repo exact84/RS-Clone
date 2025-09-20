@@ -37,8 +37,9 @@
               <h3>Known For</h3>
               <app-horizontal-slider>
                 @for (item of casted; track $index) {
-                  <div class="known-for-card">
+                  <div class="known-for-card" [routerLink]="['/', 'details', 'movie', item.id]">
                     <img [src]="imageUrl + item.poster_path" alt="{{ item.title || item.name }}" />
+                    <p>{{ item.title || item.name }}</p>
                   </div>
                 }
               </app-horizontal-slider>
@@ -48,7 +49,7 @@
       }
     }
     @default {
-      <div class="empty">Нет данных</div>
+      <div class="empty">No data</div>
     }
   }
 </section>

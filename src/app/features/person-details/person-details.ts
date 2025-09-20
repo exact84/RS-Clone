@@ -7,7 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { PersonDetailsService } from './services/person-details-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { cardTrailerURL, FALLBACK_ACTOR, SPINNER_PATH } from '../../shared/constants/constants';
 import { BehaviorSubject } from 'rxjs';
 import { PersonDetailsItem } from '../../pages/models/people/person-details.interface';
@@ -18,7 +18,7 @@ import { CastedInCard } from './casted-in-card.interface';
 
 @Component({
   selector: 'app-person-details',
-  imports: [HorizontalSlider],
+  imports: [HorizontalSlider, RouterLink],
   templateUrl: './person-details.html',
   styleUrl: './person-details.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
