@@ -1,5 +1,4 @@
-import { MovieDetailsWithTrailer } from '../../models/movie-details-with-trailer.interface';
-import { TVDetailsWithTrailer } from '../../models/tv-details-with-trailer.interface';
+import { ContentCard } from '../../types/content-card';
 
 export interface FavouritesInterface {
   id: string;
@@ -9,5 +8,5 @@ export interface FavouritesInterface {
 }
 
 export interface ExtendedFavourites extends FavouritesInterface {
-  items?: (MovieDetailsWithTrailer | TVDetailsWithTrailer)[];
+  items?: ContentCard[];
 }
