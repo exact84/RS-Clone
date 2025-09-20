@@ -1,0 +1,62 @@
+@use '../styles/colors' as colors;
+
+:host {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.footer {
+  display: flex;
+  background-color: colors.$header-bg;
+  color: colors.$light-color;
+  padding: 0.4rem 0;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  padding: 0 1rem;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.github-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-copy {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+.github-link {
+  color: colors.$light-color;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.github-link:hover {
+  color: colors.$page-link-background-hover;
+}
+
+.course-link {
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.course-link:hover {
+  opacity: 0.6;
+}
+
+.course-logo {
+  object-fit: contain;
+}
