@@ -9,6 +9,7 @@ export const favouritesEvents = eventGroup({
     loadFavourites: type<void>(),
     loadFavouritesSuccess: type<FavouritesInterface[]>(),
     loadFavouritesError: type<string>(),
+    loadListItem: type<void>(),
     loadListItemSuccess: type<{
       id: string;
       data: ContentCard[];
