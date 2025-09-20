@@ -1,0 +1,23 @@
+<div class="favourites-menu">
+  <button class="favourites-menu__icon" type="button" (mouseenter)="showList()">+</button>
+  @if (isOpenList()) {
+    <div class="favourites-menu__overlay">
+      <div class="favourites-menu__content">
+        <h2 class="favourites-menu__title">Add to list</h2>
+        <ul class="favourites-menu__list">
+          @for (list of lists(); track list.id) {
+            <li class="favourites-menu__item">
+              <button
+                class="favourites-menu__button"
+                type="button"
+                (click)="addToFavourites(list.id)"
+              >
+                {{ list.label }} {{ isInFavourites(list.ids) }}
+              </button>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  }
+</div>
