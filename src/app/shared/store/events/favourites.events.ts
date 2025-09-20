@@ -1,8 +1,7 @@
 import { eventGroup } from '@ngrx/signals/events';
 import { type } from '@ngrx/signals';
-import { MovieDetailsWithTrailer } from '../../../pages/models/movie-details-with-trailer.interface';
-import { TVDetailsWithTrailer } from '../../../pages/models/tv-details-with-trailer.interface';
 import { FavouritesInterface } from '../../../pages/favourites/models/favourites';
+import { ContentCard } from '../../../pages/types/content-card';
 
 export const favouritesEvents = eventGroup({
   source: 'Favourites',
@@ -12,17 +11,17 @@ export const favouritesEvents = eventGroup({
     loadFavouritesError: type<string>(),
     loadListItemSuccess: type<{
       id: string;
-      data: (MovieDetailsWithTrailer | TVDetailsWithTrailer)[];
+      data: ContentCard[];
     }>(),
     createNewList: type<string>(),
     createNewListSuccess: type<FavouritesInterface>(),
     addToFavourites: type<{
       id: string;
-      data: MovieDetailsWithTrailer | TVDetailsWithTrailer;
+      data: ContentCard;
     }>(),
     addToFavouritesSuccess: type<{
       id: string;
-      data: MovieDetailsWithTrailer | TVDetailsWithTrailer;
+      data: ContentCard;
     }>(),
     deleteFromFavourites: type<{
       id: string;
