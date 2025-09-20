@@ -39,7 +39,7 @@ export class FavouritesService {
     );
   }
 
-  addToFavourites(contentId: string, id: string) {
+  addToFavourites(id: string, contentId: string) {
     return this.http.patch<FavouritesInterface>(
       '/favourites/add',
       { id, contentId },
@@ -47,7 +47,7 @@ export class FavouritesService {
     );
   }
 
-  deleteFromFavourites(contentId: string, id: string) {
+  deleteFromFavourites(id: string, contentId: string) {
     return this.http.patch<FavouritesInterface>(
       '/favourites/delete',
       { id, contentId },
