@@ -10,10 +10,8 @@ import { favouritesEvents } from '../events/favourites.events';
 import { from, mergeMap, scan, switchMap } from 'rxjs';
 import { mapResponse } from '@ngrx/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DetailsCardService } from '../../../features/movie-details/services/details-card-service';
-import { MovieDetailsWithTrailer } from '../../../pages/models/movie-details-with-trailer.interface';
-import { TVDetailsWithTrailer } from '../../../pages/models/tv-details-with-trailer.interface';
 import { MediaType } from '../../../features/movie-details/types/media-type';
+import { ContentCard } from '../../../pages/types/content-card';
 
 interface FavouritesState {
   favourites: Record<string, ExtendedFavourites>;
@@ -26,6 +24,7 @@ const initialState: FavouritesState = {
 };
 
 export const FavouritesStore = signalStore(
+  { providedIn: 'root' },
   withState(initialState),
   withComputed(({ favourites }) => ({
     favouritesLists: computed(() => Object.values(favourites())),
@@ -38,130 +37,125 @@ export const FavouritesStore = signalStore(
       for (const list of favourites) normalizedFavourites[list.id] = list;
       return { favourites: normalizedFavourites };
     }),
-    on(favouritesEvents.loadListItemSuccess, (event, state) => {
-      const copyFavourites = { ...state.favourites };
-      const { id, data } = event.payload;
-      copyFavourites[id].items = [...data];
-      return { favourites: copyFavourites, isLoading: false };
+    on(favouritesEvents.loadListItemSuccess, ({ payload: { id, data } }, state) => {
+      return {
+        favourites: { ...state.favourites, [id]: { ...state.favourites[id], items: [...data] } },
+        isLoading: false,
+      };
     }),
     on(favouritesEvents.createNewListSuccess, ({ payload: newList }, state) => {
-      const copyFavourites = { ...state.favourites };
-      copyFavourites[newList.id] = newList;
-      return { favourites: copyFavourites };
+      return {
+        favourites: {
+          ...state.favourites,
+          [newList.id]: newList,
+        },
+      };
     }),
     on(favouritesEvents.addToFavouritesSuccess, ({ payload: { id, data } }, state) => {
-      const copyFavourites = { ...state.favourites };
-      copyFavourites[id].ids = [...copyFavourites[id].ids, `${data.media_type}/${data.id}`];
-      copyFavourites[id].items = copyFavourites[id].items
-        ? [...copyFavourites[id].items, data]
-        : [data];
-      return { favourites: copyFavourites };
+      return {
+        favourites: {
+          ...state.favourites,
+          [id]: {
+            ...state.favourites[id],
+            ids: [...state.favourites[id].ids, `${data.media_type}/${data.id}`],
+            items: state.favourites[id].items ? [...state.favourites[id].items, data] : [data],
+          },
+        },
+      };
     }),
     on(favouritesEvents.deleteFromFavouritesSuccess, ({ payload: { id, contentId } }, state) => {
-      const copyFavourites = { ...state.favourites };
-      const idsIndex = copyFavourites[id].ids.indexOf(contentId);
-      copyFavourites[id].ids =
-        idsIndex === -1 ? copyFavourites[id].ids : copyFavourites[id].ids.splice(idsIndex, 1);
-      const itemIndex = copyFavourites[id].items!.findIndex((item) => {
-        const [type, itemId] = contentId.split('/');
-        return item.id === Number(itemId) && item.media_type === type;
-      });
-      copyFavourites[id].items =
-        itemIndex === -1
-          ? copyFavourites[id].items
-          : copyFavourites[id].items!.splice(itemIndex, 1);
-      return { favourites: copyFavourites };
+      return {
+        favourites: {
+          ...state.favourites,
+          [id]: {
+            ...state.favourites[id],
+            ids: state.favourites[id].ids.filter((id) => id !== contentId),
+            items: state.favourites[id].items!.filter((item) => {
+              const [type, id] = contentId.split('/');
+              return item.media_type === type && item.id !== Number(id);
+            }),
+          },
+        },
+      };
     }),
   ),
-  withEffects(
-    (
-      store,
-      events = inject(Events),
-      favouritesService = inject(FavouritesService),
-      detailsCardService = inject(DetailsCardService),
-    ) => ({
-      loadFavourites$: events.on(favouritesEvents.loadFavourites).pipe(
-        switchMap(() =>
-          favouritesService.getAllFavourite().pipe(
-            mapResponse({
-              next: (response) => favouritesEvents.loadFavouritesSuccess(response.body!),
-              error: (error) =>
-                favouritesEvents.loadFavouritesError(
-                  error instanceof HttpErrorResponse
-                    ? error.error.message
-                    : 'Failed to fetch user data',
-                ),
-            }),
-          ),
+  withEffects((store, events = inject(Events), favouritesService = inject(FavouritesService)) => ({
+    loadFavourites$: events.on(favouritesEvents.loadFavourites).pipe(
+      switchMap(() =>
+        favouritesService.getAllFavourite().pipe(
+          mapResponse({
+            next: (response) => favouritesEvents.loadFavouritesSuccess(response.body!),
+            error: (error) =>
+              favouritesEvents.loadFavouritesError(
+                error instanceof HttpErrorResponse
+                  ? error.error.message
+                  : 'Failed to fetch user data',
+              ),
+          }),
         ),
       ),
-      loadListsItems$: events.on(favouritesEvents.loadFavouritesSuccess).pipe(
-        switchMap(({ payload: favourites }) =>
-          from(favourites).pipe(
-            mergeMap((favourite) =>
-              from(favourite.ids).pipe(
-                mergeMap((id) => {
-                  const [type, itemId] = id.split('/');
-                  return detailsCardService.getMovieDetails(Number(itemId), type as MediaType);
-                }),
-                scan(
-                  (accumulator, value) => [...accumulator, value],
-                  [] as (MovieDetailsWithTrailer | TVDetailsWithTrailer)[],
-                ),
-                mapResponse({
-                  next: (data) => favouritesEvents.loadListItemSuccess({ id: favourite.id, data }),
-                  error: (error) => {
-                    console.log(
-                      error instanceof HttpErrorResponse ? error.message : 'Unknown error',
-                    );
-                  },
-                }),
-              ),
+    ),
+    loadListsItems$: events.on(favouritesEvents.loadFavouritesSuccess).pipe(
+      switchMap(({ payload: favourites }) =>
+        from(favourites).pipe(
+          mergeMap((favourite) =>
+            from(favourite.ids).pipe(
+              mergeMap((id) => {
+                const [type, itemId] = id.split('/');
+                return favouritesService.getContent(Number(itemId), type as MediaType);
+              }),
+              scan((accumulator, value) => [...accumulator, value], [] as ContentCard[]),
+              mapResponse({
+                next: (data) => favouritesEvents.loadListItemSuccess({ id: favourite.id, data }),
+                error: (error) => {
+                  console.log(error instanceof HttpErrorResponse ? error.message : 'Unknown error');
+                },
+              }),
             ),
           ),
         ),
       ),
-      createNewList$: events.on(favouritesEvents.createNewList).pipe(
-        switchMap(({ payload: label }) =>
-          favouritesService.createNewList(label).pipe(
-            mapResponse({
-              next: (response) => favouritesEvents.createNewListSuccess(response.body!),
-              error: (error) => {
-                console.log(error instanceof HttpErrorResponse ? error.message : 'Unknown error');
-              },
-            }),
-          ),
+    ),
+    createNewList$: events.on(favouritesEvents.createNewList).pipe(
+      switchMap(({ payload: label }) =>
+        favouritesService.createNewList(label).pipe(
+          mapResponse({
+            next: (response) => favouritesEvents.createNewListSuccess(response.body!),
+            error: (error) => {
+              console.log(error instanceof HttpErrorResponse ? error.message : 'Unknown error');
+            },
+          }),
         ),
       ),
-      addToFavourite$: events.on(favouritesEvents.addToFavourites).pipe(
-        switchMap(({ payload: { id, data } }) => {
-          const contentId = `${data.media_type}/${data.id}`;
-          return favouritesService.addToFavourites(contentId, id).pipe(
-            mapResponse({
-              next: (response) => {
-                if (response.ok) favouritesEvents.addToFavouritesSuccess({ id, data });
-              },
-              error: (error) => {
-                console.log(error instanceof HttpErrorResponse ? error.message : 'Unknown error');
-              },
-            }),
-          );
-        }),
-      ),
-      deleteFromFavourites$: events.on(favouritesEvents.deleteFromFavourites).pipe(
-        switchMap(({ payload: { id, contentId } }) =>
-          favouritesService.deleteFromFavourites(contentId, id).pipe(
-            mapResponse({
-              next: (response) => {
-                if (response.ok) favouritesEvents.deleteFromFavouritesSuccess({ id, contentId });
-              },
-              error: (error) => {
-                console.log(error instanceof HttpErrorResponse ? error.message : 'Unknown error');
-              },
-            }),
-          ),
+    ),
+    addToFavourite$: events.on(favouritesEvents.addToFavourites).pipe(
+      switchMap(({ payload: { id, data } }) => {
+        const contentId = `${data.media_type}/${data.id}`;
+        return favouritesService.addToFavourites(id, contentId).pipe(
+          mapResponse({
+            next: () => {
+              return favouritesEvents.addToFavouritesSuccess({ id, data });
+            },
+            error: (error) => {
+              console.log(error instanceof HttpErrorResponse ? error.message : 'Unknown error');
+            },
+          }),
+        );
+      }),
+    ),
+    deleteFromFavourites$: events.on(favouritesEvents.deleteFromFavourites).pipe(
+      switchMap(({ payload: { id, contentId } }) =>
+        favouritesService.deleteFromFavourites(id, contentId).pipe(
+          mapResponse({
+            next: () => {
+              return favouritesEvents.deleteFromFavouritesSuccess({ id, contentId });
+            },
+            error: (error) => {
+              console.log(error instanceof HttpErrorResponse ? error.message : 'Unknown error');
+            },
+          }),
         ),
       ),
-    }),
-  ),
+    ),
+  })),
 );
