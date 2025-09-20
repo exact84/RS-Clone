@@ -1,5 +1,6 @@
 <section class="person-page">
   @let details = personDetails();
+  @let casted = castedIn();
   @switch (uiState()) {
     @case ('loading') {
       <div class="spinner-wrapper">
@@ -29,6 +30,19 @@
           </div>
           @if (!isBioExpanded) {
             <button class="read-more" (click)="isBioExpanded = true">Read More</button>
+          }
+
+          @if (casted.length > 0) {
+            <div class="known-for">
+              <h3>Known For</h3>
+              <app-horizontal-slider>
+                @for (item of casted; track $index) {
+                  <div class="known-for-card">
+                    <img [src]="imageUrl + item.poster_path" alt="{{ item.title || item.name }}" />
+                  </div>
+                }
+              </app-horizontal-slider>
+            </div>
           }
         </div>
       }

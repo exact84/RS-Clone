@@ -11,31 +11,39 @@ import { ActivatedRoute } from '@angular/router';
 import { cardTrailerURL, FALLBACK_ACTOR, SPINNER_PATH } from '../../shared/constants/constants';
 import { BehaviorSubject } from 'rxjs';
 import { PersonDetailsItem } from '../../pages/models/people/person-details.interface';
-import { KnownForPerson } from '../../pages/models/people/known-for-person.interface';
+
+import { CastedInService } from './services/casted-in-service';
+import { HorizontalSlider } from '../../shared/ui/horizontal-slider/horizontal-slider';
+import { CastedInCard } from './casted-in-card.interface';
 
 @Component({
   selector: 'app-person-details',
-  imports: [],
+  imports: [HorizontalSlider],
   templateUrl: './person-details.html',
   styleUrl: './person-details.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonDetails {
-  personDetailsService = inject(PersonDetailsService);
+  readonly personDetailsService = inject(PersonDetailsService);
+  readonly castedInService = inject(CastedInService);
   readonly route = inject(ActivatedRoute);
   readonly spinnerPath = SPINNER_PATH;
   readonly detailsError = signal<string | null>(null);
+  readonly castedInError = signal<string | null>(null);
   readonly personDetails = signal<PersonDetailsItem | null>(null);
-  readonly knownFor = signal<KnownForPerson | null>(null);
-  readonly loading = signal(false);
+  readonly castedIn = signal<CastedInCard[] | []>([]);
+  readonly loadingDetails = signal(false);
+  readonly loadingCastedIn = signal(false);
   readonly cardImg = cardTrailerURL;
+
+  protected imageUrl = cardTrailerURL;
 
   private readonly routeParams$ = new BehaviorSubject<{ id: number }>({
     id: Number(this.route.snapshot.paramMap.get('id')),
   });
 
   protected uiState = computed(() => {
-    if (this.loading()) return 'loading';
+    if (this.loadingDetails()) return 'loading';
     if (this.detailsError()) return 'error';
     if (this.personDetails()) return 'success';
     return 'idle';
@@ -55,17 +63,36 @@ export class PersonDetails {
       const { id } = this.routeParams$.value;
       if (!id) return;
 
-      this.loading.set(true);
+      this.loadingDetails.set(true);
       this.detailsError.set(null);
 
       this.personDetailsService.getPersonDetails(id).subscribe({
         next: (details) => {
           this.personDetails.set(details);
-          this.loading.set(false);
+          this.loadingDetails.set(false);
         },
         error: () => {
           this.detailsError.set('Failed to load person details');
-          this.loading.set(false);
+          this.loadingDetails.set(false);
+        },
+      });
+    });
+
+    effect(() => {
+      const { id } = this.routeParams$.value;
+      if (!id) return;
+
+      this.loadingCastedIn.set(true);
+      this.castedInError.set(null);
+
+      this.castedInService.getCastedIn(id).subscribe({
+        next: (items) => {
+          this.castedIn.set(items);
+          this.loadingCastedIn.set(false);
+        },
+        error: () => {
+          this.detailsError.set('Failed to custed in works');
+          this.loadingCastedIn.set(false);
         },
       });
     });

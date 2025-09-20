@@ -8,4 +8,5 @@ export interface PersonCreditItem {
   character?: string;
   job?: string;
   media_type: 'movie' | 'tv';
+  popularity: number;
 }
