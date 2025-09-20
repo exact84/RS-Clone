@@ -86,3 +86,9 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+  }
+}
