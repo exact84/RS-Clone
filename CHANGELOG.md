@@ -1,3 +1,17 @@
+## [1.10.0](https://github.com/exact84/RS-Clone/compare/v1.9.0...v1.10.0) (2025-09-20)
+
+### Features
+
+* add footer ([d9ad9a4](https://github.com/exact84/RS-Clone/commit/d9ad9a4e9e78882447a1084c56761e30d44c1b1b))
+
+### Bug Fixes
+
+* don't add progress if no checkboxes, update-issue pipeline ([f98468e](https://github.com/exact84/RS-Clone/commit/f98468ef7c276710641aa4532112c0def7f49893))
+
+### Refactoring
+
+* replace static github links with [@for](https://github.com/for) ([12322c1](https://github.com/exact84/RS-Clone/commit/12322c1514e3371e232d4dd2a3b57b2b96be86ed))
+
 ## [1.9.0](https://github.com/exact84/RS-Clone/compare/v1.8.2...v1.9.0) (2025-09-19)
 
 ### Features
