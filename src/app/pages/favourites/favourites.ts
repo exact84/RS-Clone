@@ -16,7 +16,8 @@ export class Favourites {
   private readonly dispatcher = inject(Dispatcher);
 
   constructor() {
-    this.dispatcher.dispatch(favouritesEvents.loadFavourites());
+    if (this.favourites().length === 0) this.dispatcher.dispatch(favouritesEvents.loadFavourites());
+    else this.dispatcher.dispatch(favouritesEvents.loadListItem());
   }
 
   favourites = this.favouritesStore.favouritesLists;
