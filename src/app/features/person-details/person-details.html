@@ -35,14 +35,29 @@
           @if (casted.length > 0) {
             <div class="known-for">
               <h3>Known For</h3>
-              <app-horizontal-slider>
-                @for (item of casted; track $index) {
-                  <div class="known-for-card" [routerLink]="['/', 'details', 'movie', item.id]">
-                    <img [src]="imageUrl + item.poster_path" alt="{{ item.title || item.name }}" />
-                    <p>{{ item.title || item.name }}</p>
+              @switch (uiState()) {
+                @case ('loading') {
+                  <div class="spinner-wrapper">
+                    <img [src]="spinnerPath" alt="Loading..." class="spinner" />
                   </div>
                 }
-              </app-horizontal-slider>
+                @case ('error') {
+                  <div class="error">{{ detailsError() }}</div>
+                }
+                @case ('success') {
+                  <app-horizontal-slider>
+                    @for (item of casted; track $index) {
+                      <div class="known-for-card" [routerLink]="['/', 'details', 'movie', item.id]">
+                        <img
+                          [src]="imageUrl + item.poster_path"
+                          alt="{{ item.title || item.name }}"
+                        />
+                        <p>{{ item.title || item.name }}</p>
+                      </div>
+                    }
+                  </app-horizontal-slider>
+                }
+              }
             </div>
           }
         </div>
