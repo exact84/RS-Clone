@@ -43,9 +43,15 @@ export class PersonDetails {
   });
 
   protected uiState = computed(() => {
-    if (this.loadingDetails() || this.loadingCastedIn()) return 'loading';
-    if (this.detailsError() || this.castedInError()) return 'error';
-    if (this.personDetails() || this.castedIn()) return 'success';
+    if (this.loadingDetails()) return 'loading';
+    if (this.detailsError()) return 'error';
+    if (this.personDetails()) return 'success';
+    return 'idle';
+  });
+  protected uiStateCasted = computed(() => {
+    if (this.loadingCastedIn()) return 'loading';
+    if (this.castedInError()) return 'error';
+    if (this.castedIn()) return 'success';
     return 'idle';
   });
 
