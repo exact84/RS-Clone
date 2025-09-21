@@ -1,7 +1,7 @@
 <div class="favourites-menu">
-  <button class="favourites-menu__icon" type="button" (mouseenter)="showList()">
+  <span class="favourites-menu__icon" type="button" (mouseenter)="showList()">
     <app-favourite-icons icon="heart" />
-  </button>
+  </span>
   @if (isOpenList()) {
     <div class="favourites-menu__overlay">
       <div class="favourites-menu__content">
