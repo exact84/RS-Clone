@@ -2,6 +2,7 @@ import { Component, inject, input, signal } from '@angular/core';
 import { ContentCard } from '../../pages/types/content-card';
 import { FavouritesMenuService } from './services/favourites-menu.service';
 import { FavouriteIcons } from './favourite-icons/favourite-icons';
+import { FavouritesStore } from '../../shared/store/states/favourites.state';
 
 @Component({
   selector: 'app-favourites-menu',
@@ -16,10 +17,11 @@ import { FavouriteIcons } from './favourite-icons/favourite-icons';
 })
 export class FavouritesMenu {
   private readonly favouritesMenuService = inject(FavouritesMenuService);
+  private readonly favouritesStore = inject(FavouritesStore);
 
   readonly contentCard = input.required<ContentCard>();
 
-  lists = this.favouritesMenuService.favouritesLists;
+  lists = this.favouritesStore.favouritesLists;
   isOpenList = signal(false);
 
   isInFavourites(ids: string[]) {
