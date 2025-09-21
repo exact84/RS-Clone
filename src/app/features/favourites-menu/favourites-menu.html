@@ -6,7 +6,7 @@
     <div class="favourites-menu__overlay">
       <div class="favourites-menu__content">
         <h2 class="favourites-menu__title">
-          {{ lists().length ? 'Add to list' : 'Please log in to add to lists' }}
+          {{ isAuth() ? 'Add to list' : 'Please log in to add to lists' }}
         </h2>
         <ul class="favourites-menu__list">
           @for (list of lists(); track list.id) {

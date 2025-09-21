@@ -12,6 +12,7 @@ import { mapResponse } from '@ngrx/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MediaType } from '../../../features/movie-details/types/media-type';
 import { ContentCard } from '../../../pages/types/content-card';
+import { profileEvents } from '../events/profile.events';
 
 interface FavouritesState {
   favourites: Record<string, ExtendedFavourites>;
@@ -81,6 +82,7 @@ export const FavouritesStore = signalStore(
         },
       };
     }),
+    on(profileEvents.logout, () => initialState),
   ),
   withEffects((store, events = inject(Events), favouritesService = inject(FavouritesService)) => ({
     loadFavourites$: events.on(favouritesEvents.loadFavourites).pipe(

@@ -5,6 +5,8 @@ import { LoginRequest, LoginResponse } from '../models/login';
 import { AUTHORIZATION_KEY } from '../../../shared/constants/constants';
 import { catchError, map, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { Dispatcher } from '@ngrx/signals/events';
+import { profileEvents } from '../../../shared/store/events/profile.events';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +14,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
+  private readonly dispatcher = inject(Dispatcher);
 
   private isAuth = signal(false);
 
@@ -51,6 +54,7 @@ export class AuthService {
   logout() {
     this.isAuth.set(false);
     localStorage.removeItem(AUTHORIZATION_KEY);
+    this.dispatcher.dispatch(profileEvents.logout());
     this.router.navigate(['']);
   }
 }
