@@ -92,3 +92,9 @@
     flex-direction: column;
   }
 }
+
+::ng-deep {
+  .favourites-menu__icon svg {
+    transform: scale(1.4);
+  }
+}
