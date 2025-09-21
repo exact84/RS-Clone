@@ -1,5 +1,7 @@
 <div class="favourites-menu">
-  <button class="favourites-menu__icon" type="button" (mouseenter)="showList()">+</button>
+  <button class="favourites-menu__icon" type="button" (mouseenter)="showList()">
+    <app-favourite-icons icon="heart" />
+  </button>
   @if (isOpenList()) {
     <div class="favourites-menu__overlay">
       <div class="favourites-menu__content">
@@ -12,7 +14,12 @@
                 type="button"
                 (click)="addToFavourites(list.id)"
               >
-                {{ list.label }} {{ isInFavourites(list.ids) }}
+                <span class="favourites-menu__item-checked">
+                  @if (isInFavourites(list.ids)) {
+                    <app-favourite-icons icon="check" />
+                  }
+                </span>
+                {{ list.label }}
               </button>
             </li>
           }
