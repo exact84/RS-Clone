@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SliderCard } from './slider-card';
 import { MovieCard } from '../../models/movie-card';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('SliderCard', () => {
   let component: SliderCard;
@@ -10,6 +12,7 @@ describe('SliderCard', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SliderCard],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SliderCard);

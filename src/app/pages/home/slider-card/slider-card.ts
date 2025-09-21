@@ -10,10 +10,11 @@ import {
 import { DatePipe } from '@angular/common';
 import { RatingBadge } from '../../../shared/ui/rating-badge/rating-badge';
 import { Router } from '@angular/router';
+import { FavouritesMenu } from '../../../features/favourites-menu/favourites-menu';
 
 @Component({
   selector: 'app-slider-card',
-  imports: [DatePipe, RatingBadge],
+  imports: [DatePipe, RatingBadge, FavouritesMenu],
   templateUrl: './slider-card.html',
   styleUrl: './slider-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
