@@ -31,11 +31,15 @@ export const FavouritesStore = signalStore(
   })),
   withReducer(
     on(favouritesEvents.loadFavourites, () => ({ isLoading: true })),
-    on(favouritesEvents.loadFavouritesSuccess, ({ payload: favourites }) => {
-      const normalizedFavourites: Record<string, FavouritesInterface> = {};
-      for (const list of favourites) normalizedFavourites[list.id] = list;
-      return { favourites: normalizedFavourites };
-    }),
+    on(
+      favouritesEvents.loadFavouritesSuccess,
+      favouritesEvents.loadFavouritesSuccessWithItems,
+      ({ payload: favourites }) => {
+        const normalizedFavourites: Record<string, FavouritesInterface> = {};
+        for (const list of favourites) normalizedFavourites[list.id] = list;
+        return { favourites: normalizedFavourites };
+      },
+    ),
     on(favouritesEvents.loadListItemSuccess, ({ payload: { id, data } }, state) => {
       return {
         favourites: { ...state.favourites, [id]: { ...state.favourites[id], items: [...data] } },
@@ -80,11 +84,14 @@ export const FavouritesStore = signalStore(
   ),
   withEffects((store, events = inject(Events), favouritesService = inject(FavouritesService)) => ({
     loadFavourites$: events.on(favouritesEvents.loadFavourites).pipe(
-      switchMap(() => {
+      switchMap(({ payload: { withItems } }) => {
         return store.favouritesLists().length === 0
           ? favouritesService.getAllFavourite().pipe(
               mapResponse({
-                next: (response) => favouritesEvents.loadFavouritesSuccess(response.body!),
+                next: (response) =>
+                  withItems
+                    ? favouritesEvents.loadFavouritesSuccessWithItems(response.body!)
+                    : favouritesEvents.loadFavouritesSuccess(response.body!),
                 error: (error) =>
                   favouritesEvents.loadFavouritesError(
                     error instanceof HttpErrorResponse
@@ -97,7 +104,7 @@ export const FavouritesStore = signalStore(
       }),
     ),
     loadListsItems$: events
-      .on(favouritesEvents.loadFavouritesSuccess, favouritesEvents.loadListItem)
+      .on(favouritesEvents.loadFavouritesSuccessWithItems, favouritesEvents.loadListItem)
       .pipe(
         map(() => store.favouritesLists()),
         switchMap((favourites) =>

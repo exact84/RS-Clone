@@ -13,7 +13,7 @@ export class FavouritesMenuService {
 
   constructor() {
     if (this.favouritesStore.favouritesLists().length === 0)
-      this.dispatcher.dispatch(favouritesEvents.loadFavourites());
+      this.dispatcher.dispatch(favouritesEvents.loadFavourites({ withItems: false }));
   }
 
   addToFavourites(listId: string, data: ContentCard) {

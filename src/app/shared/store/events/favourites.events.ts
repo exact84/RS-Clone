@@ -6,8 +6,9 @@ import { ContentCard } from '../../../pages/types/content-card';
 export const favouritesEvents = eventGroup({
   source: 'Favourites',
   events: {
-    loadFavourites: type<void>(),
+    loadFavourites: type<{ withItems: boolean }>(),
     loadFavouritesSuccess: type<FavouritesInterface[]>(),
+    loadFavouritesSuccessWithItems: type<FavouritesInterface[]>(),
     loadFavouritesError: type<string>(),
     loadListItem: type<void>(),
     loadListItemSuccess: type<{
