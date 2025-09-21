@@ -33,6 +33,12 @@
         }
       </a>
     } @else {
+      <a class="auth-control" routerLink="/favourites">
+        <app-auth-icon
+          [icon]="hasFavourites() ? 'favourites_filled' : 'favourites'"
+          title="Favourites"
+        />
+      </a>
       <a class="auth-control" routerLink="/profile">
         @if (isMobile()) {
           <app-auth-icon icon="profile" title="Profile" />
