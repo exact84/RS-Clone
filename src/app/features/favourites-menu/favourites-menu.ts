@@ -3,6 +3,7 @@ import { ContentCard } from '../../pages/types/content-card';
 import { FavouritesMenuService } from './services/favourites-menu.service';
 import { FavouriteIcons } from './favourite-icons/favourite-icons';
 import { FavouritesStore } from '../../shared/store/states/favourites.state';
+import { AuthService } from '../../pages/auth/services/auth.service';
 
 @Component({
   selector: 'app-favourites-menu',
@@ -17,10 +18,12 @@ import { FavouritesStore } from '../../shared/store/states/favourites.state';
 })
 export class FavouritesMenu {
   private readonly favouritesMenuService = inject(FavouritesMenuService);
+  private readonly authService = inject(AuthService);
   private readonly favouritesStore = inject(FavouritesStore);
 
   readonly contentCard = input.required<ContentCard>();
 
+  isAuth = this.authService.authStatus;
   lists = this.favouritesStore.favouritesLists;
   isOpenList = signal(false);
 
