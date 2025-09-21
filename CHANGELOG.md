@@ -1,3 +1,17 @@
+## [1.11.0](https://github.com/exact84/RS-Clone/compare/v1.10.0...v1.11.0) (2025-09-21)
+
+### Features
+
+* add person-details page with the main card ([c05e186](https://github.com/exact84/RS-Clone/commit/c05e1861ff8d953cc4836aa79ba1cc75254e44db))
+* add redirect from movie-details card to person-details card ([5c3b816](https://github.com/exact84/RS-Clone/commit/5c3b816491b65257759f959bba3c543d999a4d17))
+* add slider with casted in movies to person-details ([3898d17](https://github.com/exact84/RS-Clone/commit/3898d171af79e550cb83f0fc2f0d9bc2215b7cef))
+
+### Bug Fixes
+
+* add error handling to person-details casted-in ([e723f8e](https://github.com/exact84/RS-Clone/commit/e723f8ecf45d0700d28defb49a6bb8b6171d0b2a))
+* fix tests ([68cb9a3](https://github.com/exact84/RS-Clone/commit/68cb9a3348fa87f23847a3710415497fdc9dcc5e))
+* separate handling errors in template ([1573d58](https://github.com/exact84/RS-Clone/commit/1573d589f80084041fe80d8e6360621c3219e9ec))
+
 ## [1.10.0](https://github.com/exact84/RS-Clone/compare/v1.9.0...v1.10.0) (2025-09-20)
 
 ### Features
