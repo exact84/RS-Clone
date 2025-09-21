@@ -13,7 +13,7 @@ describe('FavouriteIcons', () => {
 
     fixture = TestBed.createComponent(FavouriteIcons);
     component = fixture.componentInstance;
-    fixture.componentRef.setInput('icon', 'heart');
+    fixture.componentRef.setInput('icon', 'favourite');
     fixture.detectChanges();
   });
 

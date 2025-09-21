@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { ContentCard } from '../../pages/types/content-card';
 import { FavouritesMenuService } from './services/favourites-menu.service';
 import { FavouriteIcons } from './favourite-icons/favourite-icons';
@@ -25,6 +25,9 @@ export class FavouritesMenu {
 
   isAuth = this.authService.authStatus;
   lists = this.favouritesStore.favouritesLists;
+  isInLists = computed(() => {
+    return this.lists().some((item) => this.isInFavourites(item.ids));
+  });
   isOpenList = signal(false);
 
   isInFavourites(ids: string[]) {
