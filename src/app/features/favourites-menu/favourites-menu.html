@@ -1,32 +1,32 @@
-<div class="favourites-menu">
-  <span class="favourites-menu__icon" type="button" (mouseenter)="showList()">
-    <app-favourite-icons icon="heart" />
-  </span>
-  @if (isOpenList()) {
-    <div class="favourites-menu__overlay">
-      <div class="favourites-menu__content">
-        <h2 class="favourites-menu__title">
-          {{ isAuth() ? 'Add to list' : 'Please log in to add to lists' }}
-        </h2>
-        <ul class="favourites-menu__list">
-          @for (list of lists(); track list.id) {
-            <li class="favourites-menu__item">
-              <button
-                class="favourites-menu__button"
-                type="button"
-                (click)="addToFavourites(list.id)"
-              >
-                <span class="favourites-menu__item-checked">
-                  @if (isInFavourites(list.ids)) {
-                    <app-favourite-icons icon="check" />
-                  }
-                </span>
-                {{ list.label }}
-              </button>
-            </li>
-          }
-        </ul>
+@if (isAuth()) {
+  <div class="favourites-menu">
+    <span class="favourites-menu__icon" type="button" (mouseenter)="showList()">
+      <app-favourite-icons icon="favourite" />
+    </span>
+    @if (isOpenList()) {
+      <div class="favourites-menu__overlay">
+        <div class="favourites-menu__content">
+          <h2 class="favourites-menu__title">Add to list</h2>
+          <ul class="favourites-menu__list">
+            @for (list of lists(); track list.id) {
+              <li class="favourites-menu__item">
+                <button
+                  class="favourites-menu__button"
+                  type="button"
+                  (click)="addToFavourites(list.id)"
+                >
+                  <span class="favourites-menu__item-checked">
+                    @if (isInFavourites(list.ids)) {
+                      <app-favourite-icons icon="check" />
+                    }
+                  </span>
+                  {{ list.label }}
+                </button>
+              </li>
+            }
+          </ul>
+        </div>
       </div>
-    </div>
-  }
-</div>
+    }
+  </div>
+}
