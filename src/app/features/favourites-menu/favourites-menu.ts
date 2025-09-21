@@ -1,10 +1,11 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { ContentCard } from '../../pages/types/content-card';
 import { FavouritesMenuService } from './services/favourites-menu.service';
+import { FavouriteIcons } from './favourite-icons/favourite-icons';
 
 @Component({
   selector: 'app-favourites-menu',
-  imports: [],
+  imports: [FavouriteIcons],
   templateUrl: './favourites-menu.html',
   styleUrl: './favourites-menu.scss',
   host: {
