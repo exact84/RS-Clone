@@ -1,7 +1,7 @@
 @if (isAuth()) {
   <div class="favourites-menu">
     <span class="favourites-menu__icon" type="button" (mouseenter)="showList()">
-      <app-favourite-icons icon="favourite" />
+      <app-favourite-icons [icon]="isInLists() ? 'favourite_filled' : 'favourite'" />
     </span>
     @if (isOpenList()) {
       <div class="favourites-menu__overlay">

@@ -7,5 +7,5 @@ import { Component, input } from '@angular/core';
   styleUrl: './favourite-icons.scss',
 })
 export class FavouriteIcons {
-  readonly icon = input.required<'favourite' | 'check'>();
+  readonly icon = input.required<'favourite' | 'favourite_filled' | 'check'>();
 }
