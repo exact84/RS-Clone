@@ -1,3 +1,13 @@
+:host {
+  position: relative;
+}
+
+::ng-deep app-favourites-menu {
+  position: absolute;
+  right: 0;
+  bottom: 30px;
+}
+
 .movie-card {
   width: 150px;
   max-width: 150px;
