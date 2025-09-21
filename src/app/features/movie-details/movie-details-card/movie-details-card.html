@@ -13,6 +13,9 @@
       <div class="hero__actions">
         <app-rating-badge [voteAverage]="data.vote_average" />
         <p>User Score</p>
+        @if (contentCard()) {
+          <app-favourites-menu [contentCard]="contentCard()!" />
+        }
       </div>
 
       <p class="movie-tagline">{{ data.tagline }}</p>
