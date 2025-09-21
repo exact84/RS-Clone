@@ -7,6 +7,8 @@ import { AuthService } from '../../../pages/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Dispatcher } from '@ngrx/signals/events';
+import { favouritesEvents } from '../../../shared/store/events/favourites.events';
 
 @Component({
   selector: 'app-login-form',
@@ -18,6 +20,7 @@ export class LoginForm implements OnDestroy {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly dispatcher = inject(Dispatcher);
 
   private subscription!: Subscription;
 
@@ -48,6 +51,7 @@ export class LoginForm implements OnDestroy {
       next: (response) => {
         if (response.ok && response.body) {
           this.authService.saveToken(response.body.token);
+          this.dispatcher.dispatch(favouritesEvents.loadFavourites({ withItems: false }));
           this.router.navigate(['']);
         }
       },
