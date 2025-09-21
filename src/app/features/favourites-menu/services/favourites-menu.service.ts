@@ -16,12 +16,6 @@ export class FavouritesMenuService {
       this.dispatcher.dispatch(favouritesEvents.loadFavourites());
   }
 
-  private readonly favouritesListsSignal = this.favouritesStore.favouritesLists;
-
-  get favouritesLists() {
-    return this.favouritesListsSignal;
-  }
-
   addToFavourites(listId: string, data: ContentCard) {
     this.dispatcher.dispatch(favouritesEvents.addToFavourites({ id: listId, data }));
   }
