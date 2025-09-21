@@ -5,7 +5,9 @@
   @if (isOpenList()) {
     <div class="favourites-menu__overlay">
       <div class="favourites-menu__content">
-        <h2 class="favourites-menu__title">Add to list</h2>
+        <h2 class="favourites-menu__title">
+          {{ lists().length ? 'Add to list' : 'Please log in to add to lists' }}
+        </h2>
         <ul class="favourites-menu__list">
           @for (list of lists(); track list.id) {
             <li class="favourites-menu__item">
