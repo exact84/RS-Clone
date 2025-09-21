@@ -7,6 +7,7 @@ import { LARGE_SCREEN_BREAKPOINT } from '../constants/constants';
 import { AuthIcon } from '../ui/auth-icon/auth-icon';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { AuthService } from '../../pages/auth/services/auth.service';
+import { FavouritesStore } from '../store/states/favourites.state';
 
 @Component({
   selector: 'app-header',
@@ -21,8 +22,10 @@ import { AuthService } from '../../pages/auth/services/auth.service';
 export class Header implements OnDestroy {
   protected menuService = inject(MenuService);
   protected authService = inject(AuthService);
+  private readonly favouritesStore = inject(FavouritesStore);
 
   protected readonly isAuth = this.authService.authStatus;
+  protected readonly hasFavourites = this.favouritesStore.hasFavourites;
   protected readonly isMobile = signal(true);
 
   private readonly _mobileQuery: MediaQueryList;

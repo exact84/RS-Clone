@@ -29,6 +29,7 @@ export const FavouritesStore = signalStore(
   withState(initialState),
   withComputed(({ favourites }) => ({
     favouritesLists: computed(() => Object.values(favourites())),
+    hasFavourites: computed(() => Object.values(favourites()).some((list) => list.ids.length)),
   })),
   withReducer(
     on(favouritesEvents.loadFavourites, () => ({ isLoading: true })),
