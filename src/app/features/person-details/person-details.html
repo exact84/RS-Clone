@@ -35,7 +35,7 @@
           @if (casted.length > 0) {
             <div class="known-for">
               <h3>Known For</h3>
-              @switch (uiState()) {
+              @switch (uiStateCasted()) {
                 @case ('loading') {
                   <div class="spinner-wrapper">
                     <img [src]="spinnerPath" alt="Loading..." class="spinner" />
