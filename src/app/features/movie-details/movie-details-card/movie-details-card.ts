@@ -7,6 +7,8 @@ import {
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { RatingBadge } from '../../../shared/ui/rating-badge/rating-badge';
 import { Router } from '@angular/router';
+import { FavouritesMenu } from '../../favourites-menu/favourites-menu';
+import { ContentCard } from '../../../pages/types/content-card';
 
 interface NormalizedDetails {
   id: number;
@@ -21,13 +23,14 @@ interface NormalizedDetails {
 
 @Component({
   selector: 'app-movie-details-card',
-  imports: [RatingBadge],
+  imports: [RatingBadge, FavouritesMenu],
   templateUrl: './movie-details-card.html',
   styleUrl: './movie-details-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetailsCard {
   data = input<ContentDetails>();
+  contentCard = computed(() => (this.data() ? (this.data() as ContentCard) : undefined));
   router = inject(Router);
 
   private readonly fallback: NormalizedDetails = {
