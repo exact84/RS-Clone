@@ -1,0 +1,55 @@
+@use 'sass:math';
+
+$width: 8px;
+
+.spinner {
+  position: relative;
+  display: block;
+  width: 100px;
+  height: 100px;
+  transform-origin: center;
+  animation: spinner 3s infinite linear;
+
+  &-item {
+    position: absolute;
+    display: block;
+    width: $width;
+    height: 25px;
+    top: calc(50% + 20px);
+    left: calc(50% - $width / 2);
+    transform-origin: 4px -20px;
+    border-radius: 2px;
+    background: linear-gradient(to top, #01b4e4, #90cea1);
+  }
+}
+
+@for $i from 0 through 10 {
+  .spinner-item:nth-child(#{$i}) {
+    transform: rotate(calc(360deg / 10 * $i));
+    opacity: calc($i / 5);
+    animation: height;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+    animation-delay: calc($i * 0.1s);
+  }
+}
+
+@keyframes height {
+  from {
+    height: 35px;
+  }
+
+  to {
+    height: 25px;
+  }
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
