@@ -32,14 +32,14 @@ export const FavouritesStore = signalStore(
     hasFavourites: computed(() => Object.values(favourites()).some((list) => list.ids.length)),
   })),
   withReducer(
-    on(favouritesEvents.loadFavourites, () => ({ isLoading: true })),
+    on(favouritesEvents.loadFavourites, favouritesEvents.loadListItem, () => ({ isLoading: true })),
     on(
       favouritesEvents.loadFavouritesSuccess,
       favouritesEvents.loadFavouritesSuccessWithItems,
       ({ payload: favourites }) => {
         const normalizedFavourites: Record<string, FavouritesInterface> = {};
         for (const list of favourites) normalizedFavourites[list.id] = list;
-        return { favourites: normalizedFavourites };
+        return { favourites: normalizedFavourites, isLoading: false };
       },
     ),
     on(favouritesEvents.loadListItemSuccess, ({ payload: { id, data } }, state) => {
