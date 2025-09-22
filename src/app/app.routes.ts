@@ -10,10 +10,24 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: Home },
+      // {
+      //   path: 'movies',
+      //   loadComponent: () => import('./pages/movies/movies').then((c) => c.Movies),
+      // },
       {
         path: 'movies',
         loadComponent: () => import('./pages/movies/movies').then((c) => c.Movies),
+        children: [
+          { path: '', redirectTo: '/popular', pathMatch: 'full' },
+          {
+            path: 'popular',
+            loadComponent: () =>
+              import('./pages/movies/popular-movies/popular-movies').then((c) => c.PopularMovies),
+            data: { category: 'popular' },
+          },
+        ],
       },
+
       {
         path: 'people/person',
         loadComponent: () => import('./pages/people/people').then((c) => c.People),

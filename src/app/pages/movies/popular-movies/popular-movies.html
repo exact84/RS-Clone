@@ -1,0 +1,36 @@
+<section class="page__wrapper">
+  <h1>Popular</h1>
+  <div class="content__wrapper">
+    @if (isGenresLoading()) {
+      <img [src]="spinnerPath" alt="Loading genres..." />
+    }
+
+    @if (hasGenresError()) {
+      <p>Ошибка загрузки жанров</p>
+    }
+
+    @if (!isGenresLoading() && !hasGenresError()) {
+      <app-genres-tabs
+        [tabs]="genres()"
+        class="genres__list"
+        [tabSelected]="selectedGenre()"
+        (genreSelected)="genreSelected($event)"
+      />
+    }
+
+    @if (isMoviesLoading()) {
+      <img [src]="spinnerPath" alt="Loading movies..." />
+    }
+
+    @if (hasMoviesError()) {
+      <p>Ошибка загрузки фильмов</p>
+    }
+    @if (!isMoviesLoading() && !hasMoviesError()) {
+      <div class="cards__list">
+        @for (movie of movies(); track movie.id) {
+          <app-slider-card [data]="movie" />
+        }
+      </div>
+    }
+  </div>
+</section>
