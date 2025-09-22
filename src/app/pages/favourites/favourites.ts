@@ -21,4 +21,6 @@ export class Favourites {
   }
 
   favourites = this.favouritesStore.favouritesLists;
+
+  isLoading = this.favouritesStore.isLoading;
 }
