@@ -19,4 +19,8 @@ export class FavouritesMenuService {
   addToFavourites(listId: string, data: ContentCard) {
     this.dispatcher.dispatch(favouritesEvents.addToFavourites({ id: listId, data }));
   }
+
+  deleteFromFavourites(listId: string, contentId: string) {
+    this.dispatcher.dispatch(favouritesEvents.deleteFromFavourites({ id: listId, contentId }));
+  }
 }
