@@ -3,19 +3,26 @@
   @if (isLoading()) {
     <div class="loading">Loading...</div>
   } @else {
-    <section class="favourites">
-      @for (fav of favourites(); track fav.id) {
-        <div class="favourites-list">
-          <h2 class="favourites-list__title">{{ fav.label }} ({{ fav.ids.length }})</h2>
-          <div class="favourites-list__cards">
-            @for (item of fav.items; track item.id) {
-              <app-slider-card [data]="item" />
-            } @empty {
-              <p class="favourites-list__empty">No movies/tv in list.</p>
-            }
+    @if (errorMessage()) {
+      <div class="error-message">
+        <p>Something went wrong</p>
+        <p>Reason: {{ errorMessage() }}</p>
+      </div>
+    } @else {
+      <section class="favourites">
+        @for (fav of favourites(); track fav.id) {
+          <div class="favourites-list">
+            <h2 class="favourites-list__title">{{ fav.label }} ({{ fav.ids.length }})</h2>
+            <div class="favourites-list__cards">
+              @for (item of fav.items; track item.id) {
+                <app-slider-card [data]="item" />
+              } @empty {
+                <p class="favourites-list__empty">No movies/tv in list.</p>
+              }
+            </div>
           </div>
-        </div>
-      }
-    </section>
+        }
+      </section>
+    }
   }
 </div>
