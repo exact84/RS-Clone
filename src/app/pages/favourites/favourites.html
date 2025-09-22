@@ -6,16 +6,9 @@
         <h2 class="favourites-list__title">{{ fav.label }} ({{ fav.ids.length }})</h2>
         <div class="favourites-list__cards">
           @for (item of fav.items; track item.id) {
-            <div class="card-wrapper">
-              <button
-                class="button-delete"
-                type="button"
-                (click)="deleteFromFavourites(fav.id, item)"
-              >
-                &#215;
-              </button>
-              <app-slider-card [data]="item" />
-            </div>
+            <app-slider-card [data]="item" />
+          } @empty {
+            <p class="favourites-list__empty">No movies/tv in list.</p>
           }
         </div>
       </div>
