@@ -1,3 +1,9 @@
+## [1.13.0](https://github.com/exact84/RS-Clone/compare/v1.12.0...v1.13.0) (2025-09-22)
+
+### Features
+
+* add popular-movies component with tabs ([983de05](https://github.com/exact84/RS-Clone/commit/983de05f88380a9dc7983c947a42170abe184e4a))
+
 ## [1.12.0](https://github.com/exact84/RS-Clone/compare/v1.11.0...v1.12.0) (2025-09-22)
 
 ### Features
