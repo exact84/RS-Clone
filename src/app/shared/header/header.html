@@ -6,10 +6,8 @@
   </div>
 
   @if (isMobile()) {
-    <button (click)="menuService.toggleMenu()">
-      <img src="./menu.png" alt="menu burger" />
-    </button>
-    @if (menuService.showVerticalMenu) {
+    <app-burger />
+    @if (menuService.showVerticalMenu()) {
       <app-menu class="vertical-menu" />
     }
   } @else {
