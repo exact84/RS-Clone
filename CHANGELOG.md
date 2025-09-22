@@ -1,3 +1,45 @@
+## [1.12.0](https://github.com/exact84/RS-Clone/compare/v1.11.0...v1.12.0) (2025-09-22)
+
+### Features
+
+* add favourites menu ([d4f5bfa](https://github.com/exact84/RS-Clone/commit/d4f5bfaf28aa82c3c2465c2f8503db4147d9ebf2))
+* add favourites-menu ([0f92d04](https://github.com/exact84/RS-Clone/commit/0f92d0409495dd130b9a431e10492cabceb1ceb4))
+* add layout for favourites page ([1336a31](https://github.com/exact84/RS-Clone/commit/1336a3108881c28b400f299266550bd1903aae9b))
+* add method for loading card ([d75086b](https://github.com/exact84/RS-Clone/commit/d75086b9f35ef1e43d4477cf1d61a22619a5705a))
+* add navigation to favourites ([0ef6dfc](https://github.com/exact84/RS-Clone/commit/0ef6dfc03a5bb40a5e046c3469b8e543901054be))
+* implement favourites store ([311d45a](https://github.com/exact84/RS-Clone/commit/311d45a2c1546746aa7cfd3f83be41c44c036f11))
+
+### Bug Fixes
+
+* resolve conflict ([42e8321](https://github.com/exact84/RS-Clone/commit/42e8321f743ff2a74a8e313fdb2c5c9f2759f488))
+* resolve conflict ([54fb0b4](https://github.com/exact84/RS-Clone/commit/54fb0b43280e5b09570bccc23a64a8052cb8f8f9))
+
+### Refactoring
+
+* add conditional events ([597e8fc](https://github.com/exact84/RS-Clone/commit/597e8fc5d85999b9d7487f45c221e3101dad507a))
+* add dispatch load favourites on successful login ([afcfa4e](https://github.com/exact84/RS-Clone/commit/afcfa4ee238c1230cf65fc4c8f6edc9b29f62f40))
+* add event ([b03f23c](https://github.com/exact84/RS-Clone/commit/b03f23cb694fc0d876dd6625c0d3071085f7d584))
+* add favourites menu to details card ([d996746](https://github.com/exact84/RS-Clone/commit/d996746818ac98f68f7360b9358acc1d826df1e3))
+* add favourites menu to details card ([785616f](https://github.com/exact84/RS-Clone/commit/785616fad44594f61fe89b023a1b2c45d37b24b9))
+* add favourites-menu to details card ([dd15ce8](https://github.com/exact84/RS-Clone/commit/dd15ce8f2b55b8a5f071692de36b5fa6c70c07c1))
+* add filled icon ([e52b83c](https://github.com/exact84/RS-Clone/commit/e52b83c7dd52fcb268d6d16de64007181e7f6d83))
+* add message if user is not authorized ([50f7456](https://github.com/exact84/RS-Clone/commit/50f74568beab8dd0b20e2232336a433633ca41db))
+* add profile store to profile component ([0571e5e](https://github.com/exact84/RS-Clone/commit/0571e5e7c0bb02e46b211df5f6c35c533c8e1677))
+* delete info about favourites ([7b6f128](https://github.com/exact84/RS-Clone/commit/7b6f128a5aea58ac1da8798c345c5b81da2da63a))
+* move getting favourites lists from service to component ([a9ff686](https://github.com/exact84/RS-Clone/commit/a9ff686ab9eca8e460f4b82bcfd1dcfa3d20bdb8))
+* rename computed signal for favourites ([da4036b](https://github.com/exact84/RS-Clone/commit/da4036ba0682ee7f45173085c1c34e124046caff))
+* rename icon ([4154a89](https://github.com/exact84/RS-Clone/commit/4154a89d57511506eaa1898c261f5d44ba60b7e9))
+* show icon only for authorized users ([43f9899](https://github.com/exact84/RS-Clone/commit/43f9899bff3a91236785f7d9981af1286b24af18))
+* update app styles ([e17bc67](https://github.com/exact84/RS-Clone/commit/e17bc67287fccf9e397c416fd1e7fbd795d0fc17))
+* update arguments in methods ([0a0865d](https://github.com/exact84/RS-Clone/commit/0a0865da5860928eccf3f10952e0a4c3d8f6e733))
+* update auth handling ([43f8aa2](https://github.com/exact84/RS-Clone/commit/43f8aa2815090a51991195d2866d3e4cc82c84a9))
+* update favourites model according changes in backend ([193ac02](https://github.com/exact84/RS-Clone/commit/193ac020fbd86cb5cf0a74ef848f033bc2d5bf97))
+* update favourites store ([d12b562](https://github.com/exact84/RS-Clone/commit/d12b562d90f4683a0efac50bb6a0ca1046c62476))
+* update icon container and styles ([e9da443](https://github.com/exact84/RS-Clone/commit/e9da4438f3959f01433efb7c32138785b8571529))
+* update loading favourites ([f3e06d7](https://github.com/exact84/RS-Clone/commit/f3e06d7540fca4b0a0820d91741cd14c5230fb74))
+* update menu layout ([7b37fe8](https://github.com/exact84/RS-Clone/commit/7b37fe8c03ad48d9f499f2e8bb76083991c8459b))
+* update state ([7904b30](https://github.com/exact84/RS-Clone/commit/7904b30580e3dacbc26445e1026c57468ab86e25))
+
 ## [1.11.0](https://github.com/exact84/RS-Clone/compare/v1.10.0...v1.11.0) (2025-09-21)
 
 ### Features
