@@ -28,7 +28,7 @@ export const FavouritesStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
   withComputed(({ favourites }) => ({
-    favouritesLists: computed(() => Object.values(favourites())),
+    favouritesLists: computed(() => Object.values(favourites()) as ExtendedFavourites[]),
     hasFavourites: computed(() => Object.values(favourites()).some((list) => list.ids.length)),
   })),
   withReducer(
