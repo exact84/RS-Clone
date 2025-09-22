@@ -38,6 +38,10 @@
     flex-wrap: wrap;
     gap: 16px;
   }
+
+  &__empty {
+    font-size: 18px;
+  }
 }
 
 ::ng-deep .movie-card__info * {
