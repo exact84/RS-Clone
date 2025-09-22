@@ -1,0 +1,13 @@
+@let tabsData = tabs();
+
+<div class="tabs__container">
+  @for (tab of tabsData; track $index) {
+    <button
+      class="tabs-btn"
+      [class.active]="tab.id === tabSelected()"
+      (click)="onGenreSelect(tab.id)"
+    >
+      {{ tab.name }}
+    </button>
+  }
+</div>

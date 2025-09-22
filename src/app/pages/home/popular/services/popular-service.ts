@@ -1,14 +1,18 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Observable, map, catchError, throwError } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
+import { Observable, map } from 'rxjs';
 import { ContentCard } from '../../../types/content-card';
 import { getDateRange } from '../../../../shared/utils/date-range';
+import { ApiErrorService } from '../../../../core/services/api-error-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PopularService {
   private http = inject(HttpClient);
+  readonly selectedCategory = signal<string>('streaming');
+  private readonly apiError = inject(ApiErrorService);
+  readonly errorSignal = signal<string | null>(null);
 
   getPopularByCategory(category: string): Observable<ContentCard[]> {
     const { from, to } = getDateRange(3);
@@ -44,10 +48,7 @@ export class PopularService {
             }) as ContentCard,
         ),
       ),
-      catchError((error) => {
-        console.error('PopularMoviesService error:', error);
-        return throwError(() => error);
-      }),
+      this.apiError.handleApiError(this.errorSignal, 'Failed to load popular movies'),
     );
   }
 }

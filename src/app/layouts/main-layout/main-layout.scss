@@ -9,4 +9,8 @@
   padding-top: 76px;
   padding-bottom: 52px;
   flex: 1;
+
+  &.page-wrapper {
+    view-transition-name: page;
+  }
 }
