@@ -42,7 +42,7 @@
               {{ item.text }}
             </a>
             @if (
-              item.submenu && menuService.clickedIndex() === index && menuService.showVerticalMenu
+              item.submenu && menuService.clickedIndex() === index && menuService.showVerticalMenu()
             ) {
               <app-sub-menu
                 class="vertical-menu__submenu"
