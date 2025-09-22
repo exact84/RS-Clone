@@ -13,7 +13,7 @@
                 <button
                   class="favourites-menu__button"
                   type="button"
-                  (click)="addToFavourites(list.id)"
+                  (click)="toggleFavourite(list)"
                 >
                   <span class="favourites-menu__item-checked">
                     @if (isInFavourites(list.ids)) {
