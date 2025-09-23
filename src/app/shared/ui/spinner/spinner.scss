@@ -23,7 +23,7 @@ $width: 8px;
   }
 }
 
-@for $i from 0 through 10 {
+@for $i from 1 through 10 {
   .spinner-item:nth-child(#{$i}) {
     transform: rotate(calc(360deg / 10 * $i));
     opacity: calc($i / 5);
