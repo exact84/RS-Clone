@@ -4,12 +4,12 @@ import {
   computed,
   effect,
   inject,
+  input,
   signal,
 } from '@angular/core';
 import { PersonDetailsService } from './services/person-details-service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { cardTrailerURL, FALLBACK_ACTOR, SPINNER_PATH } from '../../shared/constants/constants';
-import { BehaviorSubject, map, Subject, takeUntil } from 'rxjs';
 import { PersonDetailsItem } from '../../pages/models/people/person-details.interface';
 
 import { CastedInService } from './services/casted-in-service';
@@ -24,9 +24,10 @@ import { CastedInCard } from './casted-in-card.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonDetails {
+  readonly id = input.required<number>();
   readonly personDetailsService = inject(PersonDetailsService);
   readonly castedInService = inject(CastedInService);
-  readonly route = inject(ActivatedRoute);
+
   readonly spinnerPath = SPINNER_PATH;
   readonly detailsError = signal<string | null>(null);
   readonly castedInError = signal<string | null>(null);
@@ -37,11 +38,6 @@ export class PersonDetails {
   readonly cardImg = cardTrailerURL;
 
   protected imageUrl = cardTrailerURL;
-
-  private readonly routeParams$ = new BehaviorSubject<{ id: number }>({
-    id: Number(this.route.snapshot.paramMap.get('id')),
-  });
-  private readonly destroy$ = new Subject<void>();
 
   protected uiState = computed(() => {
     if (this.loadingDetails()) return 'loading';
@@ -59,29 +55,13 @@ export class PersonDetails {
   protected isBioExpanded = false;
 
   constructor() {
-    this.route.paramMap
-      .pipe(
-        map((parameters) => {
-          const rawId = parameters.get('id');
-          const id = rawId ? Number(rawId) : 0;
-          return { id };
-        }),
-        takeUntil(this.destroy$),
-      )
-
-      .subscribe((parameters) => {
-        console.log('Route changed, new id:', parameters.id);
-        this.routeParams$.next(parameters);
-      });
-
     effect(() => {
-      const { id } = this.routeParams$.value;
-      if (!id) return;
+      if (!this.id()) return;
 
       this.loadingDetails.set(true);
       this.detailsError.set(null);
 
-      this.personDetailsService.getPersonDetails(id).subscribe({
+      const subscription = this.personDetailsService.getPersonDetails(this.id()).subscribe({
         next: (details) => {
           this.personDetails.set(details);
           this.loadingDetails.set(false);
@@ -91,16 +71,16 @@ export class PersonDetails {
           this.loadingDetails.set(false);
         },
       });
+      return () => subscription.unsubscribe();
     });
 
     effect(() => {
-      const { id } = this.routeParams$.value;
-      if (!id) return;
+      if (!this.id()) return;
 
       this.loadingCastedIn.set(true);
       this.castedInError.set(null);
 
-      this.castedInService.getCastedIn(id).subscribe({
+      const subscription = this.castedInService.getCastedIn(this.id()).subscribe({
         next: (items) => {
           this.castedIn.set(items);
           this.loadingCastedIn.set(false);
@@ -110,6 +90,7 @@ export class PersonDetails {
           this.loadingCastedIn.set(false);
         },
       });
+      return () => subscription.unsubscribe();
     });
   }
 

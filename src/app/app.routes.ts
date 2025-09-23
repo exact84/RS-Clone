@@ -10,10 +10,6 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: Home },
-      // {
-      //   path: 'movies',
-      //   loadComponent: () => import('./pages/movies/movies').then((c) => c.Movies),
-      // },
       {
         path: 'movies',
         loadComponent: () => import('./pages/movies/movies').then((c) => c.Movies),
