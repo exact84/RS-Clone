@@ -16,6 +16,15 @@
   gap: 30px;
   flex-shrink: 0;
   position: relative;
+  cursor: pointer;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
 
   .movie-card__poster {
     position: relative;
