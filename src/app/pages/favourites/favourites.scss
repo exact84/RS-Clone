@@ -6,6 +6,14 @@
   height: 100%;
   background: colors.$page-background;
   color: colors.$page-color;
+
+  ::ng-deep .movie-card__info * {
+    color: colors.$page-color;
+  }
+
+  app-spinner {
+    align-self: center;
+  }
 }
 
 .page-container {
@@ -42,20 +50,6 @@
   &__empty {
     font-size: 18px;
   }
-}
-
-::ng-deep .movie-card__info * {
-  color: colors.$page-color;
-}
-
-.loading {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  font-size: 32px;
 }
 
 .error-message {
