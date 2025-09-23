@@ -31,6 +31,6 @@ export class MenuService {
     this.mouseInItem.set(false);
     this.mouseInPopup.set(false);
     this.showVerticalMenu.set(false);
-    this.burgerClass.set('close');
+    this.burgerClass.update((value) => (value === 'open' ? 'close' : ''));
   }
 }

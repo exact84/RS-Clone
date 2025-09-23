@@ -6,6 +6,9 @@ import { MenuService } from '../services/menu-service';
   imports: [],
   templateUrl: './burger.html',
   styleUrl: './burger.scss',
+  host: {
+    '(animationend)': 'deleteClass()',
+  },
 })
 export class Burger {
   menuService = inject(MenuService);
@@ -14,5 +17,9 @@ export class Burger {
 
   toggleBurger() {
     this.menuService.toggleMenu();
+  }
+
+  deleteClass() {
+    this.burgerClass.update((value) => (value === 'close' ? '' : value));
   }
 }
