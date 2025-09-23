@@ -70,5 +70,6 @@ export const routes: Routes = [
   {
     path: '**',
     loadComponent: () => import('./pages/not-found/not-found').then((c) => c.NotFound),
+    data: { fallback: true },
   },
 ];
