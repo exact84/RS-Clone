@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { actorPhotoURL, FALLBACK_ACTOR } from '../../constants/constants';
 import { Person } from '../../../pages/models/people/person.interface';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-person-card',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './person-card.html',
   styleUrl: './person-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
