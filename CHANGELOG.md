@@ -1,3 +1,14 @@
+## [1.13.1](https://github.com/exact84/RS-Clone/compare/v1.13.0...v1.13.1) (2025-09-23)
+
+### Refactoring
+
+* add error message for loading lists ([c95b7f8](https://github.com/exact84/RS-Clone/commit/c95b7f85d8d5de680aa8dfae1d8badaaf83945d4))
+* add loading indicator, delete unused styles ([170a086](https://github.com/exact84/RS-Clone/commit/170a086c844b86d0fc869595db0e1bf7b5009534))
+* add toggle for favourites lists ([5c058af](https://github.com/exact84/RS-Clone/commit/5c058af1ee02568bcb934c7caf97761fee78022f))
+* add typing for computed signal ([1d72a6a](https://github.com/exact84/RS-Clone/commit/1d72a6a2690236f23e32d967084d27cdf2d225e8))
+* delete separated button for deleting item from favourites ([2b95ea7](https://github.com/exact84/RS-Clone/commit/2b95ea7bc055c8fbcd18a50ae749091b552cd82d))
+* update store reducers ([c93ed10](https://github.com/exact84/RS-Clone/commit/c93ed105ee71d2c065dc5a0225cfa81b74516501))
+
 ## [1.13.0](https://github.com/exact84/RS-Clone/compare/v1.12.0...v1.13.0) (2025-09-22)
 
 ### Features
