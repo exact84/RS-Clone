@@ -1,3 +1,14 @@
+## [1.14.0](https://github.com/exact84/RS-Clone/compare/v1.13.1...v1.14.0) (2025-09-23)
+
+### Features
+
+* add hover to all cards ([597e61a](https://github.com/exact84/RS-Clone/commit/597e61a1597d15dbf9fb335b037a7b7119140a02))
+
+### Bug Fixes
+
+* fix viewTransition for person-card ([ab32636](https://github.com/exact84/RS-Clone/commit/ab32636cdcaa832dc21d9f4276f9a4c870123e40))
+* route in casted-in slider ([f4c83f6](https://github.com/exact84/RS-Clone/commit/f4c83f68a91a74b501b8587d53e3fcc64633446f))
+
 ## [1.13.1](https://github.com/exact84/RS-Clone/compare/v1.13.0...v1.13.1) (2025-09-23)
 
 ### Refactoring
