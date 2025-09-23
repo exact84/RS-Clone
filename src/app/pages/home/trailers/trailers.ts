@@ -12,11 +12,11 @@ import { TrailerCard } from './trailer-card/trailer-card';
 import { TrailerItem } from '../../types/trailer-item';
 import { CATEGORY_TRAILERS, posterURL, youtubeWatchUrl } from '../../../shared/constants/constants';
 import { HomeTabs } from '../home-tabs/home-tabs';
-import { SPINNER_PATH } from '../../../shared/constants/constants';
+import { Spinner } from '../../../shared/ui/spinner/spinner';
 
 @Component({
   selector: 'app-trailers',
-  imports: [TrailerCard, HomeTabs],
+  imports: [TrailerCard, HomeTabs, Spinner],
   templateUrl: './trailers.html',
   styleUrls: ['./trailers.scss', '../home.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,7 +28,6 @@ export class Trailers {
 
   readonly loadingState = signal<boolean>(false);
   readonly errorState = signal<boolean>(false);
-  readonly spinnerPath = SPINNER_PATH;
 
   readonly selectedCategory = signal<string>('popular');
   readonly selectedTrailers = signal<TrailerItem[]>([]);

@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { PopularService } from './services/popular-service';
-import { SPINNER_PATH } from '../../../shared/constants/constants';
 import { ContentCard } from '../../types/content-card';
 import { HomeTabs } from '../home-tabs/home-tabs';
 import { SliderCard } from '../slider-card/slider-card';
 import { CATEGORY_POPULAR } from '../../../shared/constants/constants';
+import { Spinner } from '../../../shared/ui/spinner/spinner';
 
 @Component({
   selector: 'app-popular',
-  imports: [HomeTabs, SliderCard],
+  imports: [HomeTabs, SliderCard, Spinner],
   templateUrl: './popular.html',
   styleUrls: ['./popular.scss', '../home.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,7 +20,6 @@ export class Popular {
 
   readonly loadingState = signal<boolean>(false);
   readonly errorState = signal<boolean>(false);
-  readonly spinnerPath = SPINNER_PATH;
 
   readonly selectedCategory = signal<string>('streaming');
   readonly selectedMovies = signal<ContentCard[]>([]);

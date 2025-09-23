@@ -9,18 +9,17 @@ import {
 import { PeopleService } from './services/people-service';
 import { PersonCard } from '../../shared/ui/person-card/person-card';
 import { Person } from '../models/people/person.interface';
-import { SPINNER_PATH } from '../../shared/constants/constants';
+import { Spinner } from '../../shared/ui/spinner/spinner';
 
 @Component({
   selector: 'app-people',
-  imports: [PersonCard],
+  imports: [PersonCard, Spinner],
   templateUrl: './people.html',
   styleUrl: './people.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class People implements OnInit {
   private readonly peopleService = inject(PeopleService);
-  readonly spinnerPath = SPINNER_PATH;
   readonly error = signal<string | null>(null);
   readonly loading = signal(false);
 
