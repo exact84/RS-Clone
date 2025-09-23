@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject, signal, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, signal, input, computed } from '@angular/core';
 import { MediaType } from './types/media-type';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { DetailsCardService } from './services/details-card-service';
 import { MovieDetailsCard } from './movie-details-card/movie-details-card';
 import { SPINNER_PATH } from '../../shared/constants/constants';
@@ -10,7 +9,7 @@ import { TopBilledCastService } from './services/top-billed-cast-service';
 import { PersonCard } from '../../shared/ui/person-card/person-card';
 import { RecommendationsService } from './services/recommendations-service';
 import { RecommendationCard } from './recommendation-card/recommendation-card';
-import { BehaviorSubject, catchError, map, of, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { catchError, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-movie-details',
@@ -19,25 +18,27 @@ import { BehaviorSubject, catchError, map, of, Subject, switchMap, takeUntil, ta
   styleUrl: './movie-details.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MovieDetails implements OnDestroy {
-  readonly route = inject(ActivatedRoute);
+export class MovieDetails {
+  readonly id = input.required<number>();
+  readonly type = input.required<MediaType>();
+
   readonly detailsCardsService = inject(DetailsCardService);
   readonly topBilledCastService = inject(TopBilledCastService);
   readonly recommendationsService = inject(RecommendationsService);
   readonly spinnerPath = SPINNER_PATH;
 
-  private readonly routeParams$ = new BehaviorSubject<{ id: number; type: MediaType }>({
-    id: Number(this.route.snapshot.paramMap.get('id')),
-    type: (this.route.snapshot.paramMap.get('type') ?? 'movie') as MediaType,
-  });
+  private readonly routeParams = computed(() => ({
+    id: this.id(),
+    type: this.type(),
+  }));
 
-  private readonly destroy$ = new Subject<void>();
+  private readonly parameters$ = toObservable(this.routeParams);
 
   readonly cardDetailsError = this.detailsCardsService.errorSignal;
   readonly cardDetailsLoading = signal(true);
 
   readonly cardDetails = toSignal(
-    this.routeParams$.pipe(
+    this.parameters$.pipe(
       tap(() => {
         this.cardDetailsLoading.set(true);
       }),
@@ -54,7 +55,7 @@ export class MovieDetails implements OnDestroy {
   readonly castLoading = signal(true);
 
   readonly cast = toSignal(
-    this.routeParams$.pipe(
+    this.parameters$.pipe(
       tap(() => {
         this.castLoading.set(true);
         this.castError.set(null);
@@ -76,7 +77,7 @@ export class MovieDetails implements OnDestroy {
   readonly recommendationsLoading = signal(true);
 
   readonly recommendations = toSignal(
-    this.routeParams$.pipe(
+    this.parameters$.pipe(
       tap(() => {
         this.recommendationsLoading.set(true);
       }),
@@ -92,21 +93,4 @@ export class MovieDetails implements OnDestroy {
     ),
     { initialValue: [] },
   );
-
-  constructor() {
-    this.route.paramMap
-      .pipe(
-        map((parameters) => ({
-          id: Number(parameters.get('id')),
-          type: (parameters.get('type') ?? 'movie') as MediaType,
-        })),
-        takeUntil(this.destroy$),
-      )
-      .subscribe(this.routeParams$);
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 }
