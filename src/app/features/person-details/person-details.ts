@@ -9,7 +9,7 @@ import {
 import { PersonDetailsService } from './services/person-details-service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { cardTrailerURL, FALLBACK_ACTOR, SPINNER_PATH } from '../../shared/constants/constants';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, Subject, takeUntil } from 'rxjs';
 import { PersonDetailsItem } from '../../pages/models/people/person-details.interface';
 
 import { CastedInService } from './services/casted-in-service';
@@ -41,6 +41,7 @@ export class PersonDetails {
   private readonly routeParams$ = new BehaviorSubject<{ id: number }>({
     id: Number(this.route.snapshot.paramMap.get('id')),
   });
+  private readonly destroy$ = new Subject<void>();
 
   protected uiState = computed(() => {
     if (this.loadingDetails()) return 'loading';
@@ -58,12 +59,20 @@ export class PersonDetails {
   protected isBioExpanded = false;
 
   constructor() {
-    this.route.paramMap.subscribe((parameters) => {
-      const rawId = parameters.get('id');
-      const id = rawId ? Number(rawId) : 0;
-      console.log('Route changed, new id:', id);
-      this.routeParams$.next({ id });
-    });
+    this.route.paramMap
+      .pipe(
+        map((parameters) => {
+          const rawId = parameters.get('id');
+          const id = rawId ? Number(rawId) : 0;
+          return { id };
+        }),
+        takeUntil(this.destroy$),
+      )
+
+      .subscribe((parameters) => {
+        console.log('Route changed, new id:', parameters.id);
+        this.routeParams$.next(parameters);
+      });
 
     effect(() => {
       const { id } = this.routeParams$.value;

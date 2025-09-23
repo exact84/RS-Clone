@@ -13,8 +13,8 @@ export class TopBilledCastService {
   private readonly apiError = inject(ApiErrorService);
   readonly errorSignal = signal<string | null>(null);
 
-  getCast(movieId: number): Observable<Person[]> {
-    return this.http.get<{ cast: Person[] }>(`/movie/${movieId}/credits`).pipe(
+  getCast(movieId: number, mediaType: 'movie' | 'tv'): Observable<Person[]> {
+    return this.http.get<{ cast: Person[] }>(`/${mediaType}/${movieId}/credits`).pipe(
       map((response) => response.cast),
       this.apiError.handleApiError(this.errorSignal, 'Failed to load cast'),
     );

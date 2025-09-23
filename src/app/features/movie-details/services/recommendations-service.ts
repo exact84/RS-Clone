@@ -12,9 +12,18 @@ export class RecommendationsService {
   private readonly apiError = inject(ApiErrorService);
   readonly errorSignal = signal<string | null>(null);
 
-  getRecommendations(movieId: number): Observable<MovieCard[]> {
-    return this.http.get<{ results: MovieCard[] }>(`/movie/${movieId}/recommendations`).pipe(
-      map((response) => response.results),
+  getRecommendations(movieId: number, mediaType: 'movie' | 'tv'): Observable<MovieCard[]> {
+    return this.http.get<{ results: MovieCard[] }>(`/${mediaType}/${movieId}/recommendations`).pipe(
+      map((response) =>
+        response.results
+          .filter(
+            (item) => item.poster_path && (item.media_type === 'movie' || item.media_type === 'tv'),
+          )
+          .map((item) => ({
+            ...item,
+            media_type: item.media_type as 'movie' | 'tv',
+          })),
+      ),
       this.apiError.handleApiError(this.errorSignal, 'Failed to load recommendations'),
     );
   }

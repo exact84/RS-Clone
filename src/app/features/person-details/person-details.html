@@ -47,7 +47,10 @@
                 @case ('success') {
                   <app-horizontal-slider>
                     @for (item of casted; track $index) {
-                      <div class="known-for-card" [routerLink]="['/', 'details', 'movie', item.id]">
+                      <div
+                        class="known-for-card"
+                        [routerLink]="['/', 'details', item.media_type, item.id]"
+                      >
                         <img
                           [src]="imageUrl + item.poster_path"
                           alt="{{ item.title || item.name }}"

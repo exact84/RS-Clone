@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MediaType } from './types/media-type';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -10,7 +10,7 @@ import { TopBilledCastService } from './services/top-billed-cast-service';
 import { PersonCard } from '../../shared/ui/person-card/person-card';
 import { RecommendationsService } from './services/recommendations-service';
 import { RecommendationCard } from './recommendation-card/recommendation-card';
-import { BehaviorSubject, catchError, map, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, of, Subject, switchMap, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-movie-details',
@@ -19,7 +19,7 @@ import { BehaviorSubject, catchError, map, of, switchMap, tap } from 'rxjs';
   styleUrl: './movie-details.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MovieDetails {
+export class MovieDetails implements OnDestroy {
   readonly route = inject(ActivatedRoute);
   readonly detailsCardsService = inject(DetailsCardService);
   readonly topBilledCastService = inject(TopBilledCastService);
@@ -30,6 +30,8 @@ export class MovieDetails {
     id: Number(this.route.snapshot.paramMap.get('id')),
     type: (this.route.snapshot.paramMap.get('type') ?? 'movie') as MediaType,
   });
+
+  private readonly destroy$ = new Subject<void>();
 
   readonly cardDetailsError = this.detailsCardsService.errorSignal;
   readonly cardDetailsLoading = signal(true);
@@ -57,8 +59,8 @@ export class MovieDetails {
         this.castLoading.set(true);
         this.castError.set(null);
       }),
-      switchMap(({ id }) =>
-        this.topBilledCastService.getCast(id).pipe(
+      switchMap(({ id, type }) =>
+        this.topBilledCastService.getCast(id, type).pipe(
           tap({
             next: () => this.castLoading.set(false),
             error: () => this.castLoading.set(false),
@@ -78,8 +80,8 @@ export class MovieDetails {
       tap(() => {
         this.recommendationsLoading.set(true);
       }),
-      switchMap(({ id }) =>
-        this.recommendationsService.getRecommendations(id).pipe(
+      switchMap(({ id, type }) =>
+        this.recommendationsService.getRecommendations(id, type).pipe(
           tap({
             next: () => this.recommendationsLoading.set(false),
             error: () => this.recommendationsLoading.set(false),
@@ -98,7 +100,13 @@ export class MovieDetails {
           id: Number(parameters.get('id')),
           type: (parameters.get('type') ?? 'movie') as MediaType,
         })),
+        takeUntil(this.destroy$),
       )
       .subscribe(this.routeParams$);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
