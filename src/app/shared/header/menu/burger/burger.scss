@@ -1,9 +1,11 @@
 .burger {
   display: flex;
   flex-direction: column;
+  padding: 0 10px;
   width: 48px;
   height: 32px;
   justify-content: space-between;
+  box-sizing: content-box;
 
   &-line {
     display: block;
