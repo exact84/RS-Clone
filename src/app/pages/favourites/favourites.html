@@ -1,7 +1,7 @@
 <div class="page-container">
   <h1 class="page-title">Favourites Lists</h1>
   @if (isLoading()) {
-    <div class="loading">Loading...</div>
+    <app-spinner />
   } @else {
     @if (errorMessage()) {
       <div class="error-message">
