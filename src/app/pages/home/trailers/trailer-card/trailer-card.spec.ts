@@ -24,6 +24,7 @@ describe('TrailerCard', () => {
       release_date: '2025-09-09',
       vote_average: 8.5,
       vote_count: 100,
+      media_type: 'movie',
     } satisfies MovieWithTrailer);
 
     fixture.detectChanges();
