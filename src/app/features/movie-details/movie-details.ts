@@ -3,17 +3,17 @@ import { MediaType } from './types/media-type';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { DetailsCardService } from './services/details-card-service';
 import { MovieDetailsCard } from './movie-details-card/movie-details-card';
-import { SPINNER_PATH } from '../../shared/constants/constants';
 import { HorizontalSlider } from '../../shared/ui/horizontal-slider/horizontal-slider';
 import { TopBilledCastService } from './services/top-billed-cast-service';
 import { PersonCard } from '../../shared/ui/person-card/person-card';
 import { RecommendationsService } from './services/recommendations-service';
 import { RecommendationCard } from './recommendation-card/recommendation-card';
 import { catchError, of, switchMap, tap } from 'rxjs';
+import { Spinner } from '../../shared/ui/spinner/spinner';
 
 @Component({
   selector: 'app-movie-details',
-  imports: [MovieDetailsCard, HorizontalSlider, PersonCard, RecommendationCard],
+  imports: [MovieDetailsCard, HorizontalSlider, PersonCard, RecommendationCard, Spinner],
   templateUrl: './movie-details.html',
   styleUrl: './movie-details.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,7 +25,6 @@ export class MovieDetails {
   readonly detailsCardsService = inject(DetailsCardService);
   readonly topBilledCastService = inject(TopBilledCastService);
   readonly recommendationsService = inject(RecommendationsService);
-  readonly spinnerPath = SPINNER_PATH;
 
   private readonly routeParams = computed(() => ({
     id: this.id(),

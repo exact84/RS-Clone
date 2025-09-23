@@ -10,11 +10,12 @@ import { TrendingService } from './services/trending-service';
 import { ContentCard } from '../../types/content-card';
 import { HomeTabs } from '../home-tabs/home-tabs';
 import { SliderCard } from '../slider-card/slider-card';
-import { CATEGORY_TRENDING, SPINNER_PATH } from '../../../shared/constants/constants';
+import { CATEGORY_TRENDING } from '../../../shared/constants/constants';
+import { Spinner } from '../../../shared/ui/spinner/spinner';
 
 @Component({
   selector: 'app-trending',
-  imports: [HomeTabs, SliderCard],
+  imports: [HomeTabs, SliderCard, Spinner],
   templateUrl: './trending.html',
   styleUrls: ['./trending.scss', '../home.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,7 +33,6 @@ export class Trending {
   readonly trendingCache = signal<Map<string, ContentCard[]>>(new Map());
   readonly categoryClick = signal<string>('day');
   readonly mediaType = signal<'movie' | 'tv'>('movie');
-  readonly spinnerPath = SPINNER_PATH;
 
   readonly selectedKey = computed(() => `${this.mediaType()}-${this.selectedCategory()}`);
 

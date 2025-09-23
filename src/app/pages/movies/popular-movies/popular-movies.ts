@@ -1,6 +1,5 @@
 import { Component, DestroyRef, effect, inject, signal } from '@angular/core';
 import { PopularMoviesService } from './services/popular-movies-service';
-import { SPINNER_PATH } from '../../../shared/constants/constants';
 import { GenresTabs } from '../genres/genres-tabs/genres-tabs';
 import { GenresService } from '../genres/genres-service';
 import { Genres } from '../genres/models/genres.interface';
@@ -8,10 +7,11 @@ import { ContentCard } from '../../types/content-card';
 import { SliderCard } from '../../home/slider-card/slider-card';
 import { of, tap, catchError } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Spinner } from '../../../shared/ui/spinner/spinner';
 
 @Component({
   selector: 'app-popular-movies',
-  imports: [GenresTabs, SliderCard],
+  imports: [GenresTabs, SliderCard, Spinner],
   templateUrl: './popular-movies.html',
   styleUrls: ['./popular-movies.scss', '../movies.scss'],
 })
@@ -29,8 +29,6 @@ export class PopularMovies {
 
   readonly isMoviesLoading = signal<boolean>(false);
   readonly hasMoviesError = signal<boolean>(false);
-
-  readonly spinnerPath = SPINNER_PATH;
 
   constructor() {
     effect(() => {

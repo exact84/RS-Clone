@@ -3,7 +3,7 @@
     <div class="error">Error - {{ cardDetailsError() }}</div>
   } @else if (cardDetailsLoading()) {
     <div class="loader-wrapper">
-      <img [src]="spinnerPath" alt="Loading..." class="loader" />
+      <app-spinner />
     </div>
   } @else {
     <app-movie-details-card [data]="cardDetails()" />
@@ -16,7 +16,7 @@
       <div class="error">Error - {{ castError() }}</div>
     } @else if (castLoading()) {
       <div class="loader-wrapper">
-        <img [src]="spinnerPath" alt="Loading..." class="loader" />
+        <app-spinner />
       </div>
     } @else if (cast().length > 0) {
       @for (person of cast(); track person.id) {
@@ -34,7 +34,7 @@
       <div class="error">Error - {{ recommendationsError() }}</div>
     } @else if (recommendationsLoading()) {
       <div class="loader-wrapper">
-        <img [src]="spinnerPath" alt="Loading..." class="loader" />
+        <app-spinner />
       </div>
     } @else if (recommendations().length > 0) {
       @for (movie of recommendations(); track $index) {

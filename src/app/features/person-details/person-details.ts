@@ -9,16 +9,17 @@ import {
 } from '@angular/core';
 import { PersonDetailsService } from './services/person-details-service';
 import { RouterLink } from '@angular/router';
-import { cardTrailerURL, FALLBACK_ACTOR, SPINNER_PATH } from '../../shared/constants/constants';
+import { cardTrailerURL, FALLBACK_ACTOR } from '../../shared/constants/constants';
 import { PersonDetailsItem } from '../../pages/models/people/person-details.interface';
 
 import { CastedInService } from './services/casted-in-service';
 import { HorizontalSlider } from '../../shared/ui/horizontal-slider/horizontal-slider';
 import { CastedInCard } from './casted-in-card.interface';
+import { Spinner } from '../../shared/ui/spinner/spinner';
 
 @Component({
   selector: 'app-person-details',
-  imports: [HorizontalSlider, RouterLink],
+  imports: [HorizontalSlider, RouterLink, Spinner],
   templateUrl: './person-details.html',
   styleUrl: './person-details.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,7 +29,6 @@ export class PersonDetails {
   readonly personDetailsService = inject(PersonDetailsService);
   readonly castedInService = inject(CastedInService);
 
-  readonly spinnerPath = SPINNER_PATH;
   readonly detailsError = signal<string | null>(null);
   readonly castedInError = signal<string | null>(null);
   readonly personDetails = signal<PersonDetailsItem | null>(null);

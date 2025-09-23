@@ -1,7 +1,7 @@
 <section class="people__wrapper">
   @if (loading()) {
     <div class="loader-wrapper">
-      <img [src]="spinnerPath" alt="Loading..." class="loader" />
+      <app-spinner />
     </div>
   } @else {
     @if (error()) {
