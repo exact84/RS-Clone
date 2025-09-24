@@ -1,4 +1,12 @@
-import { Component, DestroyRef, effect, inject, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  effect,
+  ElementRef,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { PopularMoviesService } from './services/popular-movies-service';
 import { SPINNER_PATH } from '../../../shared/constants/constants';
 import { GenresTabs } from '../genres/genres-tabs/genres-tabs';
@@ -6,7 +14,7 @@ import { GenresService } from '../genres/genres-service';
 import { Genres } from '../genres/models/genres.interface';
 import { ContentCard } from '../../types/content-card';
 import { SliderCard } from '../../home/slider-card/slider-card';
-import { of, tap, catchError } from 'rxjs';
+import { catchError, EMPTY } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -24,6 +32,10 @@ export class PopularMovies {
   readonly selectedGenre = signal<number>(0);
   readonly movies = signal<ContentCard[]>([]);
 
+  readonly currentPage = signal(1);
+  readonly allPagesLoaded = signal(false);
+  readonly scrollAnchor = viewChild('scrollAnchor', { read: ElementRef });
+
   readonly isGenresLoading = signal<boolean>(false);
   readonly hasGenresError = signal<boolean>(false);
 
@@ -31,6 +43,8 @@ export class PopularMovies {
   readonly hasMoviesError = signal<boolean>(false);
 
   readonly spinnerPath = SPINNER_PATH;
+
+  readonly lazyScrollEnabled = signal(false);
 
   constructor() {
     effect(() => {
@@ -56,31 +70,63 @@ export class PopularMovies {
 
     effect(() => {
       const genreId = this.selectedGenre();
-      if (!genreId) return;
+      const page = this.currentPage();
+
+      if (this.allPagesLoaded() || !genreId) return;
+
+      this.isMoviesLoading.set(true);
+      this.hasMoviesError.set(false);
 
       this.popularMoviesService
-        .getMoviesByGenre(genreId)
+        .getMoviesByGenre(genreId, page)
         .pipe(
-          takeUntilDestroyed(this.destroyRef), // ← вот здесь ты его используешь
-          tap(() => {
-            this.isMoviesLoading.set(true);
-            this.hasMoviesError.set(false);
-          }),
+          takeUntilDestroyed(this.destroyRef),
           catchError(() => {
             this.hasMoviesError.set(true);
-            this.movies.set([]);
+            // this.movies.set([]);
             this.isMoviesLoading.set(false);
-            return of([]);
+            return EMPTY;
           }),
         )
         .subscribe((items) => {
-          this.movies.set(items);
+          if (items.length === 0) {
+            this.allPagesLoaded.set(true);
+          } else {
+            this.movies.update((previous) => [...previous, ...items]);
+          }
           this.isMoviesLoading.set(false);
         });
+    });
+
+    effect(() => {
+      const anchor = this.scrollAnchor();
+      if (!anchor || !this.lazyScrollEnabled()) return;
+
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          this.loadNextPage();
+        }
+      });
+
+      observer.observe(anchor.nativeElement);
+
+      return () => observer.disconnect();
     });
   }
 
   genreSelected(genreId: number) {
     this.selectedGenre.set(genreId);
+  }
+
+  loadNextPage() {
+    if (!this.lazyScrollEnabled() || this.isMoviesLoading() || this.allPagesLoaded()) return;
+
+    // this.isMoviesLoading.set(true);
+    this.currentPage.update((p) => p + 1);
+  }
+
+  enableLazyScroll() {
+    this.lazyScrollEnabled.set(true);
+    this.loadNextPage();
   }
 }

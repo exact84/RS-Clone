@@ -6,7 +6,7 @@
     }
 
     @if (hasGenresError()) {
-      <p>Ошибка загрузки жанров</p>
+      <p>Failed to load genres</p>
     }
 
     @if (!isGenresLoading() && !hasGenresError()) {
@@ -23,12 +23,23 @@
     }
 
     @if (hasMoviesError()) {
-      <p>Ошибка загрузки фильмов</p>
+      <p>Failed to load movies</p>
     }
     @if (!isMoviesLoading() && !hasMoviesError()) {
-      <div class="cards__list">
-        @for (movie of movies(); track movie.id) {
-          <app-slider-card [data]="movie" />
+      <div class="cards__wrapper">
+        <div class="cards__list">
+          @for (movie of movies(); track movie.id) {
+            <app-slider-card [data]="movie" />
+          }
+        </div>
+
+        @if (!lazyScrollEnabled()) {
+          <button class="load-more-btn" (click)="enableLazyScroll()" type="button">
+            Load More
+          </button>
+        }
+        @if (lazyScrollEnabled()) {
+          <div #scrollAnchor style="height: 1px; scroll-margin-top: 500px"></div>
         }
       </div>
     }

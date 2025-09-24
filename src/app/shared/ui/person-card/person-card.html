@@ -9,7 +9,7 @@
         tabindex="0"
         role="button"
       >
-        <img [src]="getProfileImage()" alt="" />
+        <img [src]="getProfileImage()" [alt]="data().name" loading="lazy" />
         <div class="person__info">
           <h3>
             {{ data().name }}
