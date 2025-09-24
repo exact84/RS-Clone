@@ -1,3 +1,11 @@
+## [1.14.1](https://github.com/exact84/RS-Clone/compare/v1.14.0...v1.14.1) (2025-09-24)
+
+### Refactoring
+
+* implement withComponentInputBinding() for movie-details ([e8bccc3](https://github.com/exact84/RS-Clone/commit/e8bccc30e7afcc8e515aef6b09c6ec8f91b784e5))
+* implement withComponentInputBinding() for person-card page ([f12ebf8](https://github.com/exact84/RS-Clone/commit/f12ebf8984d27251f1c0ea55add327e648164eb2))
+* implement withComponentInputBinding() on not-found page ([0732f54](https://github.com/exact84/RS-Clone/commit/0732f5445b4ff46eaa5db92c72cfb0e07e24e814))
+
 ## [1.14.0](https://github.com/exact84/RS-Clone/compare/v1.13.1...v1.14.0) (2025-09-23)
 
 ### Features
