@@ -3,3 +3,12 @@
   justify-content: center;
   margin: 0 auto;
 }
+
+.cards__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.cards__load-more {
+  align-self: center;
+}
