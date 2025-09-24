@@ -14,3 +14,9 @@
     view-transition-name: page;
   }
 }
+
+@media (max-width: 604px) {
+  .layout-container {
+    padding-bottom: 70px;
+  }
+}

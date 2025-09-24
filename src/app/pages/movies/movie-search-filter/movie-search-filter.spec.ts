@@ -2,19 +2,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
-import { Movies } from './movies';
+import { MovieSearchFilter } from './movie-search-filter';
 
-describe('Movies', () => {
-  let component: Movies;
-  let fixture: ComponentFixture<Movies>;
+describe('MovieSearchFilter', () => {
+  let component: MovieSearchFilter;
+  let fixture: ComponentFixture<MovieSearchFilter>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Movies],
+      imports: [MovieSearchFilter],
       providers: [provideHttpClient(withFetch()), provideHttpClientTesting()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Movies);
+    fixture = TestBed.createComponent(MovieSearchFilter);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
