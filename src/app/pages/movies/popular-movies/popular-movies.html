@@ -1,46 +1,48 @@
 <section class="page__wrapper">
-  <h1>Popular</h1>
   <div class="content__wrapper">
-    @if (isMoviesLoading()) {
-      <div class="spinner-wrapper">
-        <app-spinner />
-      </div>
-    } @else {
-      @if (hasGenresError()) {
-        <p>Failed to load genres</p>
-      }
+    @if (hasGenresError()) {
+      <p>Failed to load genres</p>
+    }
 
-      @if (!isGenresLoading() && !hasGenresError()) {
-        <app-genres-tabs
-          [tabs]="genres()"
-          class="genres__list"
-          [tabSelected]="selectedGenre()"
-          (genreSelected)="genreSelected($event)"
-        />
-      }
+    @if (!isGenresLoading() && !hasGenresError()) {
+      <app-genres-tabs
+        [tabs]="genres()"
+        class="genres__list"
+        [tabSelected]="selectedGenre()"
+        (genreSelected)="genreSelected($event)"
+      />
 
       @if (hasMoviesError()) {
         <p>Failed to load movies</p>
-      }
-
-      <div class="cards__container">
-        @if (!isMoviesLoading() && !hasMoviesError()) {
+      } @else {
+        <div class="cards__wrapper">
           <div class="cards__list">
             @for (movie of movies(); track movie.id) {
               <app-slider-card [data]="movie" />
             }
           </div>
-        }
-        @if (isNextPageLoading()) {
-          <div class="spinner-wrapper">
-            <app-spinner />
-          </div>
-        } @else {
-          <button app-button class="cards__load-more" type="button" (click)="loadMore()">
-            Load more
-          </button>
-        }
-      </div>
+
+          @if (isMoviesLoading()) {
+            <div class="spinner-wrapper">
+              <app-spinner />
+            </div>
+          } @else {
+            @if (!lazyScrollEnabled()) {
+              <button
+                app-button
+                class="cards__load-more"
+                (click)="enableLazyScroll()"
+                type="button"
+              >
+                Load More
+              </button>
+            }
+          }
+          @if (lazyScrollEnabled()) {
+            <div #scrollAnchor style="height: 1px; scroll-margin-top: 500px"></div>
+          }
+        </div>
+      }
     }
   </div>
 </section>

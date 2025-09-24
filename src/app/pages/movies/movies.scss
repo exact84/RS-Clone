@@ -7,17 +7,38 @@
 
 .content__wrapper {
   display: flex;
-
+  justify-content: center;
   gap: 1rem;
-
-  .genres__list {
-    width: 40%;
-  }
+  padding-left: 140px;
 
   .cards__list {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
     padding-inline: 1rem;
+  }
+
+  .cards__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cards__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    padding-inline: 1rem;
+    overflow-anchor: auto;
+  }
+
+  .load-more-btn,
+  #scrollAnchor {
+    overflow-anchor: none;
+  }
+
+  .load-more-btn {
+    padding-block: 10px;
   }
 }
