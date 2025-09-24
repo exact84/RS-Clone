@@ -10,3 +10,9 @@
   padding-bottom: 52px;
   flex: 1;
 }
+
+@media (max-width: 604px) {
+  .layout-container {
+    padding-bottom: 70px;
+  }
+}
