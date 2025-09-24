@@ -1,0 +1,22 @@
+@use 'app/shared/styles/colors' as colors;
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: colors.$watch-trailer-btn-bg;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  color: white;
+
+  &:hover {
+    background-color: colors.$watch-trailer-btn-hover-bg;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
