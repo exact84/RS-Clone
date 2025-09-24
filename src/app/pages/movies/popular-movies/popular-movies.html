@@ -7,7 +7,7 @@
       </div>
     } @else {
       @if (hasGenresError()) {
-        <p>Ошибка загрузки жанров</p>
+        <p>Failed to load genres</p>
       }
 
       @if (!isGenresLoading() && !hasGenresError()) {
@@ -20,7 +20,7 @@
       }
 
       @if (hasMoviesError()) {
-        <p>Ошибка загрузки фильмов</p>
+        <p>Failed to load movies</p>
       }
       @if (!isMoviesLoading() && !hasMoviesError()) {
         <div class="cards__list">
