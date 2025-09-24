@@ -1,7 +1,7 @@
 <section class="page__wrapper">
   <h1>Popular</h1>
   <div class="content__wrapper">
-    @if (isGenresLoading() || isMoviesLoading()) {
+    @if (isMoviesLoading()) {
       <div class="spinner-wrapper">
         <app-spinner />
       </div>
@@ -22,13 +22,25 @@
       @if (hasMoviesError()) {
         <p>Failed to load movies</p>
       }
-      @if (!isMoviesLoading() && !hasMoviesError()) {
-        <div class="cards__list">
-          @for (movie of movies(); track movie.id) {
-            <app-slider-card [data]="movie" />
-          }
-        </div>
-      }
+
+      <div class="cards__container">
+        @if (!isMoviesLoading() && !hasMoviesError()) {
+          <div class="cards__list">
+            @for (movie of movies(); track movie.id) {
+              <app-slider-card [data]="movie" />
+            }
+          </div>
+        }
+        @if (isNextPageLoading()) {
+          <div class="spinner-wrapper">
+            <app-spinner />
+          </div>
+        } @else {
+          <button app-button class="cards__load-more" type="button" (click)="loadMore()">
+            Load more
+          </button>
+        }
+      </div>
     }
   </div>
 </section>

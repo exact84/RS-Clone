@@ -1,17 +1,18 @@
-import { Component, DestroyRef, effect, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, effect, inject, signal } from '@angular/core';
 import { PopularMoviesService } from './services/popular-movies-service';
 import { GenresTabs } from '../genres/genres-tabs/genres-tabs';
 import { GenresService } from '../genres/genres-service';
 import { Genres } from '../genres/models/genres.interface';
 import { ContentCard } from '../../types/content-card';
 import { SliderCard } from '../../home/slider-card/slider-card';
-import { of, tap, catchError } from 'rxjs';
+import { of, tap, catchError, finalize } from 'rxjs';
+import { Button } from '../../../shared/ui/button/button';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Spinner } from '../../../shared/ui/spinner/spinner';
 
 @Component({
   selector: 'app-popular-movies',
-  imports: [GenresTabs, SliderCard, Spinner],
+  imports: [GenresTabs, SliderCard, Spinner, Button],
   templateUrl: './popular-movies.html',
   styleUrls: ['./popular-movies.scss', '../movies.scss'],
 })
@@ -29,6 +30,10 @@ export class PopularMovies {
 
   readonly isMoviesLoading = signal<boolean>(false);
   readonly hasMoviesError = signal<boolean>(false);
+  readonly page = signal(1);
+  readonly totalPages = this.popularMoviesService.total_pages;
+  readonly isLastPage = computed(() => this.page() === this.totalPages());
+  readonly isNextPageLoading = signal<boolean>(false);
 
   constructor() {
     effect(() => {
@@ -53,15 +58,15 @@ export class PopularMovies {
     });
 
     effect(() => {
+      this.isMoviesLoading.set(true);
       const genreId = this.selectedGenre();
       if (!genreId) return;
 
       this.popularMoviesService
         .getMoviesByGenre(genreId)
         .pipe(
-          takeUntilDestroyed(this.destroyRef), // ← вот здесь ты его используешь
+          takeUntilDestroyed(this.destroyRef),
           tap(() => {
-            this.isMoviesLoading.set(true);
             this.hasMoviesError.set(false);
           }),
           catchError(() => {
@@ -78,7 +83,36 @@ export class PopularMovies {
     });
   }
 
+  loadMore() {
+    this.isNextPageLoading.set(true);
+    if (!this.isLastPage()) this.page.update((page) => page + 1);
+    const genreId = this.selectedGenre();
+    this.popularMoviesService
+      .getMoviesByGenre(genreId, this.page())
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        tap(() => {
+          this.hasMoviesError.set(false);
+        }),
+        catchError(() => {
+          this.hasMoviesError.set(true);
+          this.movies.set([]);
+          this.isNextPageLoading.set(false);
+          return of([]);
+        }),
+        finalize(() => this.isMoviesLoading.set(false)),
+      )
+      .subscribe((items) => {
+        this.movies.set([...this.movies(), ...items]);
+        this.isNextPageLoading.set(false);
+      });
+  }
+
   genreSelected(genreId: number) {
+    if (genreId !== this.selectedGenre()) {
+      this.page.set(1);
+      this.movies.set([]);
+    }
     this.selectedGenre.set(genreId);
   }
 }
