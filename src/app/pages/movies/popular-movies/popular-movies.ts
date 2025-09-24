@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   effect,
@@ -22,6 +23,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   imports: [GenresTabs, SliderCard],
   templateUrl: './popular-movies.html',
   styleUrls: ['./popular-movies.scss', '../movies.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PopularMovies {
   private popularMoviesService = inject(PopularMoviesService);
@@ -83,7 +85,7 @@ export class PopularMovies {
           takeUntilDestroyed(this.destroyRef),
           catchError(() => {
             this.hasMoviesError.set(true);
-            // this.movies.set([]);
+            this.movies.set([]);
             this.isMoviesLoading.set(false);
             return EMPTY;
           }),
@@ -115,13 +117,18 @@ export class PopularMovies {
   }
 
   genreSelected(genreId: number) {
+    if (genreId !== this.selectedGenre()) {
+      this.currentPage.set(1);
+      this.movies.set([]);
+      this.allPagesLoaded.set(false);
+    }
+
     this.selectedGenre.set(genreId);
   }
 
   loadNextPage() {
     if (!this.lazyScrollEnabled() || this.isMoviesLoading() || this.allPagesLoaded()) return;
-
-    // this.isMoviesLoading.set(true);
+    this.isMoviesLoading.set(true);
     this.currentPage.update((p) => p + 1);
   }
 

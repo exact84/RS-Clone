@@ -24,8 +24,7 @@
 
     @if (hasMoviesError()) {
       <p>Failed to load movies</p>
-    }
-    @if (!isMoviesLoading() && !hasMoviesError()) {
+    } @else {
       <div class="cards__wrapper">
         <div class="cards__list">
           @for (movie of movies(); track movie.id) {
