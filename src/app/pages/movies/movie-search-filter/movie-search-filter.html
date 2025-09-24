@@ -1,58 +1,61 @@
 <div class="container">
   <div class="movie-search-filter">
-    <form (ngSubmit)="page.set(1); fetchMovies()">
-      <label for="search"
-        >Search:
+    <form
+      (ngSubmit)="store.setSearch(searchControl.value ?? ''); store.setPage(1); store.fetchMovies()"
+    >
+      <label for="search">
+        Search:
         <input
+          #searchInput
           id="search"
           name="search"
           type="text"
           [formControl]="searchControl"
           placeholder="Search..."
           autocomplete="on"
-      /></label>
+        />
+      </label>
 
       <div class="genres-list">
         <span>Genres:</span>
-        @for (g of genres(); track g.id) {
-          <label>
+        @for (g of store.genres(); track g.id) {
+          <label animate.enter="checkbox-enter" [style.animationDelay]="$index * 50 + 'ms'">
             <input
-              name="genre"
               type="checkbox"
-              [checked]="selectedGenres().includes(g.id)"
-              (change)="toggleGenre(g.id, $event.target.checked)"
+              id="genre-{{ g.id }}"
+              [checked]="store.filters().genres.includes(g.id)"
+              (change)="store.toggleGenre(g.id, $event.target.checked)"
             />
             {{ g.name }}
           </label>
         }
       </div>
 
-      <label for="year"
-        >Year:
+      <label for="year">
+        Year:
         <input
           id="year"
           name="year"
           type="number"
           placeholder="Year"
           autocomplete="on"
-          [ngModel]="selectedYear()"
-          (ngModelChange)="selectedYear.set($event)"
-      /></label>
+          [ngModel]="store.filters().year"
+          (ngModelChange)="store.setYear($event)"
+        />
+      </label>
 
-      <label for="language"
-        >Language:
+      <label for="language">
+        Language:
         <select
           id="language"
           name="language"
           autocomplete="on"
-          [ngModel]="selectedLanguage()"
-          (ngModelChange)="selectedLanguage.set($event)"
+          [ngModel]="store.filters().language"
+          (ngModelChange)="store.setLanguage($event)"
         >
           <option [ngValue]="null">All</option>
-          @for (lang of languages(); track lang.iso_639_1) {
-            <option [ngValue]="lang.iso_639_1">
-              {{ lang.english_name }}
-            </option>
+          @for (lang of store.languages(); track lang.iso_639_1) {
+            <option [ngValue]="lang.iso_639_1">{{ lang.english_name }}</option>
           }
         </select>
       </label>
@@ -63,14 +66,12 @@
           id="country"
           name="country"
           autocomplete="on"
-          [ngModel]="selectedCountry()"
-          (ngModelChange)="selectedCountry.set($event)"
+          [ngModel]="store.filters().country"
+          (ngModelChange)="store.setCountry($event)"
         >
           <option [ngValue]="null">All</option>
-          @for (country of countries(); track country.iso_3166_1) {
-            <option [value]="country.iso_3166_1">
-              {{ country.english_name }}
-            </option>
+          @for (country of store.countries(); track country.iso_3166_1) {
+            <option [value]="country.iso_3166_1">{{ country.english_name }}</option>
           }
         </select>
       </label>
@@ -87,8 +88,8 @@
             max="10"
             step="0.1"
             placeholder="0–10"
-            [ngModel]="selectedRatingMin()"
-            (ngModelChange)="selectedRatingMin.set($event)"
+            [ngModel]="store.filters().ratingMin"
+            (ngModelChange)="store.setRatingMin($event)"
           />
         </label>
 
@@ -98,38 +99,54 @@
             id="ratingMax"
             name="ratingMax"
             type="number"
-            step="0.1"
             min="0"
             max="10"
+            step="0.1"
             placeholder="0–10"
-            [ngModel]="selectedRatingMax()"
-            (ngModelChange)="selectedRatingMax.set($event)"
+            [ngModel]="store.filters().ratingMax"
+            (ngModelChange)="store.setRatingMax($event)"
           />
         </label>
       </div>
 
-      <button type="submit" [disabled]="!canSearch()">Search</button>
+      <button type="submit" [disabled]="!store.canSearch()">Search</button>
+      <button [disabled]="!store.canSearch()" (click)="store.resetFilters()">Reset</button>
     </form>
   </div>
 
-  <div class="movie-list">
-    @for (movie of movies(); track $index) {
-      @if (loading()) {
-        <!-- <app-spinner></app-spinner> -->
-      } @else if (error()) {
-        <div class="error">{{ error() }}</div>
-      } @else {
-        <app-slider-card [data]="movie"></app-slider-card>
+  <section class="movie-list">
+    @if (store.loading()) {
+      <!-- <app-spinner></app-spinner> -->
+    } @else if (store.error()) {
+      <div class="error">{{ store.error() }}</div>
+    } @else if (store.movies().length === 0) {
+      <div class="empty-state">
+        <p>No movies found for your search/filter combination.</p>
+        <p>Try changing your filters or search query.</p>
+      </div>
+    } @else {
+      @for (movie of store.movies(); track $index) {
+        <app-slider-card [data]="movie" class="movie-card"></app-slider-card>
       }
     }
-  </div>
+  </section>
 </div>
 
-@if (totalPages() > 1) {
+@if (store.totalPages() > 1) {
   <div class="pagination">
-    <button [disabled]="page() === 1" (click)="page.set(page() - 1); fetchMovies()">← Back</button>
-    <span>Page {{ page() }} из {{ totalPages() }}</span>
-    <button [disabled]="page() === totalPages()" (click)="page.set(page() + 1); fetchMovies()">
+    <button
+      [disabled]="!store.canGoBack()"
+      (click)="store.setPage(store.page() - 1); store.fetchMovies()"
+    >
+      ← Back
+    </button>
+
+    <span>Page {{ store.page() }} из {{ store.totalPages() }}</span>
+
+    <button
+      [disabled]="!store.canPaginate()"
+      (click)="store.setPage(store.page() + 1); store.fetchMovies()"
+    >
       Forward →
     </button>
   </div>
