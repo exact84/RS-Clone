@@ -134,6 +134,12 @@ flowchart TD
 ## Short rationale:
 
 > > in README (5–7 lines) explain where you chose signals vs RxJS and why (clarity, perf, simplicity). (10 pts)
+### Why Signals
+Page Movies:  
+Основное состояние (фильтры, список фильмов, страница, загрузка, ошибки) хранится в сигнале для единого источника правды.
+RxJS используется только для HTTP-запросов и конвертируется в сигналы через toSignal, чтобы шаблон мог реагировать напрямую.
+Computed и untracked помогают избежать лишних пересчётов и дублирования.
+Такой подход упрощает код компонентов, улучшает производительность и делает логику предсказуемой.
 
 ## Performance budget
 
