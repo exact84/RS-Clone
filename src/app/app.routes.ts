@@ -13,6 +13,23 @@ export const routes: Routes = [
       {
         path: 'movies',
         loadComponent: () => import('./pages/movies/movies').then((c) => c.Movies),
+        children: [
+          { path: '', redirectTo: '/popular', pathMatch: 'full' },
+          {
+            path: 'popular',
+            loadComponent: () =>
+              import('./pages/movies/popular-movies/popular-movies').then((c) => c.PopularMovies),
+            data: { category: 'popular' },
+          },
+        ],
+      },
+      {
+        path: 'top-rated',
+        loadComponent: () =>
+          import('./pages/movies/movie-search-filter/movie-search-filter').then(
+            (c) => c.MovieSearchFilter,
+          ),
+        data: { category: 'top-rated' },
       },
       {
         path: 'people/person',
@@ -60,5 +77,6 @@ export const routes: Routes = [
   {
     path: '**',
     loadComponent: () => import('./pages/not-found/not-found').then((c) => c.NotFound),
+    data: { fallback: true },
   },
 ];

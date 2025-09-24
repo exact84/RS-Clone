@@ -4,7 +4,7 @@
   @switch (uiState()) {
     @case ('loading') {
       <div class="spinner-wrapper">
-        <img [src]="spinnerPath" alt="Loading..." class="spinner" />
+        <app-spinner />
       </div>
     }
     @case ('error') {
@@ -38,7 +38,7 @@
               @switch (uiStateCasted()) {
                 @case ('loading') {
                   <div class="spinner-wrapper">
-                    <img [src]="spinnerPath" alt="Loading..." class="spinner" />
+                    <app-spinner />
                   </div>
                 }
                 @case ('error') {
@@ -47,7 +47,10 @@
                 @case ('success') {
                   <app-horizontal-slider>
                     @for (item of casted; track $index) {
-                      <div class="known-for-card" [routerLink]="['/', 'details', 'movie', item.id]">
+                      <div
+                        class="known-for-card"
+                        [routerLink]="['/', 'details', item.media_type, item.id]"
+                      >
                         <img
                           [src]="imageUrl + item.poster_path"
                           alt="{{ item.title || item.name }}"

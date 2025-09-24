@@ -6,6 +6,14 @@
   height: 100%;
   background: colors.$page-background;
   color: colors.$page-color;
+
+  ::ng-deep .movie-card__info * {
+    color: colors.$page-color;
+  }
+
+  app-spinner {
+    align-self: center;
+  }
 }
 
 .page-container {
@@ -38,30 +46,16 @@
     flex-wrap: wrap;
     gap: 16px;
   }
-}
 
-::ng-deep .movie-card__info * {
-  color: colors.$page-color;
-}
-
-.card-wrapper {
-  position: relative;
-  padding: 20px 20px 0 0;
-}
-
-.button-delete {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: transparent;
-  border: none;
-  color: colors.$page-color;
-  font-size: 32px;
-  line-height: 19px;
-  cursor: pointer;
-  transition: transform 0.3s;
-
-  &:hover {
-    transform: scale(1.1);
+  &__empty {
+    font-size: 18px;
   }
+}
+
+.error-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
 }

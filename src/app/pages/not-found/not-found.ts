@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Component, computed, input } from '@angular/core';
+import { RouterLink, UrlSegment } from '@angular/router';
 
 @Component({
   selector: 'app-not-found',
@@ -8,7 +8,10 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   styleUrl: './not-found.scss',
 })
 export class NotFound {
-  activatedRoute = inject(ActivatedRoute);
+  readonly url = input<UrlSegment[]>([]);
 
-  path = this.activatedRoute.snapshot.url.join('/');
+  readonly path = computed(() => {
+    const segments = this.url();
+    return Array.isArray(segments) ? segments.map((s) => s.path).join('/') : '';
+  });
 }

@@ -1,24 +1,28 @@
 <div class="page-container">
   <h1 class="page-title">Favourites Lists</h1>
-  <section class="favourites">
-    @for (fav of favourites(); track fav.id) {
-      <div class="favourites-list">
-        <h2 class="favourites-list__title">{{ fav.label }} ({{ fav.ids.length }})</h2>
-        <div class="favourites-list__cards">
-          @for (item of fav.items; track item.id) {
-            <div class="card-wrapper">
-              <button
-                class="button-delete"
-                type="button"
-                (click)="deleteFromFavourites(fav.id, item)"
-              >
-                &#215;
-              </button>
-              <app-slider-card [data]="item" />
-            </div>
-          }
-        </div>
+  @if (isLoading()) {
+    <app-spinner />
+  } @else {
+    @if (errorMessage()) {
+      <div class="error-message">
+        <p>Something went wrong</p>
+        <p>Reason: {{ errorMessage() }}</p>
       </div>
+    } @else {
+      <section class="favourites">
+        @for (fav of favourites(); track fav.id) {
+          <div class="favourites-list">
+            <h2 class="favourites-list__title">{{ fav.label }} ({{ fav.ids.length }})</h2>
+            <div class="favourites-list__cards">
+              @for (item of fav.items; track item.id) {
+                <app-slider-card [data]="item" />
+              } @empty {
+                <p class="favourites-list__empty">No movies/tv in list.</p>
+              }
+            </div>
+          </div>
+        }
+      </section>
     }
-  </section>
+  }
 </div>

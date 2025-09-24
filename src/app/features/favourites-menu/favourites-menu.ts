@@ -4,6 +4,7 @@ import { FavouritesMenuService } from './services/favourites-menu.service';
 import { FavouriteIcons } from './favourite-icons/favourite-icons';
 import { FavouritesStore } from '../../shared/store/states/favourites.state';
 import { AuthService } from '../../pages/auth/services/auth.service';
+import { ExtendedFavourites } from '../../pages/favourites/models/favourites';
 
 @Component({
   selector: 'app-favourites-menu',
@@ -22,6 +23,7 @@ export class FavouritesMenu {
   private readonly favouritesStore = inject(FavouritesStore);
 
   readonly contentCard = input.required<ContentCard>();
+  contentId = computed(() => `${this.contentCard().media_type}/${this.contentCard().id}`);
 
   isAuth = this.authService.authStatus;
   lists = this.favouritesStore.favouritesLists;
@@ -31,7 +33,7 @@ export class FavouritesMenu {
   isOpenList = signal(false);
 
   isInFavourites(ids: string[]) {
-    return ids.includes(`${this.contentCard().media_type}/${this.contentCard().id}`);
+    return ids.includes(this.contentId());
   }
 
   showList() {
@@ -42,7 +44,9 @@ export class FavouritesMenu {
     this.isOpenList.set(false);
   }
 
-  addToFavourites(listId: string) {
-    this.favouritesMenuService.addToFavourites(listId, this.contentCard());
+  toggleFavourite(list: ExtendedFavourites) {
+    if (list.ids.includes(this.contentId()))
+      this.favouritesMenuService.deleteFromFavourites(list.id, this.contentId());
+    else this.favouritesMenuService.addToFavourites(list.id, this.contentCard());
   }
 }

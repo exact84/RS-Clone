@@ -1,14 +1,14 @@
 import { CATEGORY_FREE } from './../../../shared/constants/constants';
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { FreeToWatchService } from './services/free-to-watch-service';
-import { SPINNER_PATH } from '../../../shared/constants/constants';
 import { ContentCard } from '../../types/content-card';
 import { HomeTabs } from '../home-tabs/home-tabs';
 import { SliderCard } from '../slider-card/slider-card';
+import { Spinner } from '../../../shared/ui/spinner/spinner';
 
 @Component({
   selector: 'app-free-to-watch',
-  imports: [HomeTabs, SliderCard],
+  imports: [HomeTabs, SliderCard, Spinner],
   templateUrl: './free-to-watch.html',
   styleUrls: ['./free-to-watch.scss', '../home.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,7 +20,6 @@ export class FreeToWatch {
 
   readonly loadingState = signal<boolean>(false);
   readonly errorState = signal<boolean>(false);
-  readonly spinnerPath = SPINNER_PATH;
 
   readonly selectedCategory = signal<string>('movies');
   readonly selectedMovies = signal<ContentCard[]>([]);

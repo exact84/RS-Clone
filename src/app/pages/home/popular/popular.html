@@ -14,7 +14,7 @@
     <div class="slider-track">
       @if (loadingState()) {
         <div class="spinner-wrapper">
-          <img [src]="spinnerPath" alt="Loading..." class="spinner" />
+          <app-spinner />
         </div>
       } @else if (errorState()) {
         <div class="error-message">Failed to load trailers. Please try again later.</div>

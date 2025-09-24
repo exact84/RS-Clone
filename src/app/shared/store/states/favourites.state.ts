@@ -17,31 +17,37 @@ import { profileEvents } from '../events/profile.events';
 interface FavouritesState {
   favourites: Record<string, ExtendedFavourites>;
   isLoading: boolean;
+  errorMessage: string | null;
 }
 
 const initialState: FavouritesState = {
   favourites: {},
   isLoading: false,
+  errorMessage: null,
 };
 
 export const FavouritesStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
   withComputed(({ favourites }) => ({
-    favouritesLists: computed(() => Object.values(favourites())),
+    favouritesLists: computed(() => Object.values(favourites()) as ExtendedFavourites[]),
     hasFavourites: computed(() => Object.values(favourites()).some((list) => list.ids.length)),
   })),
   withReducer(
-    on(favouritesEvents.loadFavourites, () => ({ isLoading: true })),
+    on(favouritesEvents.loadFavourites, favouritesEvents.loadListItem, () => ({ isLoading: true })),
     on(
       favouritesEvents.loadFavouritesSuccess,
       favouritesEvents.loadFavouritesSuccessWithItems,
       ({ payload: favourites }) => {
         const normalizedFavourites: Record<string, FavouritesInterface> = {};
         for (const list of favourites) normalizedFavourites[list.id] = list;
-        return { favourites: normalizedFavourites };
+        return { favourites: normalizedFavourites, isLoading: false, errorMessage: null };
       },
     ),
+    on(favouritesEvents.loadFavouritesError, favouritesEvents.loadListItemError, ({ payload }) => ({
+      isLoading: false,
+      errorMessage: payload,
+    })),
     on(favouritesEvents.loadListItemSuccess, ({ payload: { id, data } }, state) => {
       return {
         favourites: { ...state.favourites, [id]: { ...state.favourites[id], items: [...data] } },
@@ -99,7 +105,7 @@ export const FavouritesStore = signalStore(
                   favouritesEvents.loadFavouritesError(
                     error instanceof HttpErrorResponse
                       ? error.error.message
-                      : 'Failed to fetch user data',
+                      : 'Failed to fetch data',
                   ),
               }),
             )
@@ -122,8 +128,10 @@ export const FavouritesStore = signalStore(
                 mapResponse({
                   next: (data) => favouritesEvents.loadListItemSuccess({ id: favourite.id, data }),
                   error: (error) => {
-                    console.log(
-                      error instanceof HttpErrorResponse ? error.message : 'Unknown error',
+                    favouritesEvents.loadListItemError(
+                      error instanceof HttpErrorResponse
+                        ? error.error.message
+                        : 'Failed to fetch data',
                     );
                   },
                 }),

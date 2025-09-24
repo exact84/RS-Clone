@@ -1,4 +1,4 @@
-<a [routerLink]="['/details/movie', data().id]" (click)="scrollToTop()">
+<a [routerLink]="['/details', data().media_type, data().id]" (click)="scrollToTop()">
   <div class="recommendation__card" [class]="size()">
     <img [src]="getPosterUrl" [alt]="data().title" />
     <div class="recommendation__info">

@@ -26,6 +26,7 @@ export class CastedInService {
               id: item.id,
               title: item.title ?? item.name ?? 'Untitled',
               poster_path: item.poster_path ?? '',
+              media_type: item.media_type as 'movie' | 'tv',
             }),
           ),
       ),

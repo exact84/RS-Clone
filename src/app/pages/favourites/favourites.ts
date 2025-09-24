@@ -3,11 +3,11 @@ import { FavouritesStore } from '../../shared/store/states/favourites.state';
 import { Dispatcher } from '@ngrx/signals/events';
 import { favouritesEvents } from '../../shared/store/events/favourites.events';
 import { SliderCard } from '../home/slider-card/slider-card';
-import { ContentCard } from '../types/content-card';
+import { Spinner } from '../../shared/ui/spinner/spinner';
 
 @Component({
   selector: 'app-favourites',
-  imports: [SliderCard],
+  imports: [SliderCard, Spinner],
   templateUrl: './favourites.html',
   styleUrl: './favourites.scss',
 })
@@ -22,9 +22,6 @@ export class Favourites {
   }
 
   favourites = this.favouritesStore.favouritesLists;
-
-  deleteFromFavourites(id: string, item: ContentCard) {
-    const contentId = `${item.media_type}/${item.id}`;
-    this.dispatcher.dispatch(favouritesEvents.deleteFromFavourites({ id, contentId }));
-  }
+  isLoading = this.favouritesStore.isLoading;
+  errorMessage = this.favouritesStore.errorMessage;
 }

@@ -1,3 +1,57 @@
+## [1.15.0](https://github.com/exact84/RS-Clone/compare/v1.14.1...v1.15.0) (2025-09-24)
+
+### Features
+
+* implement burger menu ([eb67184](https://github.com/exact84/RS-Clone/commit/eb67184e274e44731649660edfe3e87d32da5ce1))
+* implement spinner ([799f944](https://github.com/exact84/RS-Clone/commit/799f94419d494b8952e8df4ba9ed7eaecf476f80))
+
+### Bug Fixes
+
+* fix changing burger classes on menu interaction ([783a9c9](https://github.com/exact84/RS-Clone/commit/783a9c9af92f89fbdf006986e64d9774a0387169))
+
+### Refactoring
+
+* add spinner on loading status ([533a358](https://github.com/exact84/RS-Clone/commit/533a358523bec3dc5ea40e923d909c93798ddd13))
+* change errors messages ([b91ced8](https://github.com/exact84/RS-Clone/commit/b91ced88be66be706d4b849063cbe8d15e221381))
+* fix auth styles ([43d3626](https://github.com/exact84/RS-Clone/commit/43d3626033e6712ae7aeec8924bd536d8c76f346))
+* update styles ([2400167](https://github.com/exact84/RS-Clone/commit/24001670381f246db00730f21318cf909941252c))
+
+## [1.14.1](https://github.com/exact84/RS-Clone/compare/v1.14.0...v1.14.1) (2025-09-24)
+
+### Refactoring
+
+* implement withComponentInputBinding() for movie-details ([e8bccc3](https://github.com/exact84/RS-Clone/commit/e8bccc30e7afcc8e515aef6b09c6ec8f91b784e5))
+* implement withComponentInputBinding() for person-card page ([f12ebf8](https://github.com/exact84/RS-Clone/commit/f12ebf8984d27251f1c0ea55add327e648164eb2))
+* implement withComponentInputBinding() on not-found page ([0732f54](https://github.com/exact84/RS-Clone/commit/0732f5445b4ff46eaa5db92c72cfb0e07e24e814))
+
+## [1.14.0](https://github.com/exact84/RS-Clone/compare/v1.13.1...v1.14.0) (2025-09-23)
+
+### Features
+
+* add hover to all cards ([597e61a](https://github.com/exact84/RS-Clone/commit/597e61a1597d15dbf9fb335b037a7b7119140a02))
+
+### Bug Fixes
+
+* fix viewTransition for person-card ([ab32636](https://github.com/exact84/RS-Clone/commit/ab32636cdcaa832dc21d9f4276f9a4c870123e40))
+* route in casted-in slider ([f4c83f6](https://github.com/exact84/RS-Clone/commit/f4c83f68a91a74b501b8587d53e3fcc64633446f))
+
+## [1.13.1](https://github.com/exact84/RS-Clone/compare/v1.13.0...v1.13.1) (2025-09-23)
+
+### Refactoring
+
+* add error message for loading lists ([c95b7f8](https://github.com/exact84/RS-Clone/commit/c95b7f85d8d5de680aa8dfae1d8badaaf83945d4))
+* add loading indicator, delete unused styles ([170a086](https://github.com/exact84/RS-Clone/commit/170a086c844b86d0fc869595db0e1bf7b5009534))
+* add toggle for favourites lists ([5c058af](https://github.com/exact84/RS-Clone/commit/5c058af1ee02568bcb934c7caf97761fee78022f))
+* add typing for computed signal ([1d72a6a](https://github.com/exact84/RS-Clone/commit/1d72a6a2690236f23e32d967084d27cdf2d225e8))
+* delete separated button for deleting item from favourites ([2b95ea7](https://github.com/exact84/RS-Clone/commit/2b95ea7bc055c8fbcd18a50ae749091b552cd82d))
+* update store reducers ([c93ed10](https://github.com/exact84/RS-Clone/commit/c93ed105ee71d2c065dc5a0225cfa81b74516501))
+
+## [1.13.0](https://github.com/exact84/RS-Clone/compare/v1.12.0...v1.13.0) (2025-09-22)
+
+### Features
+
+* add popular-movies component with tabs ([983de05](https://github.com/exact84/RS-Clone/commit/983de05f88380a9dc7983c947a42170abe184e4a))
+
 ## [1.12.0](https://github.com/exact84/RS-Clone/compare/v1.11.0...v1.12.0) (2025-09-22)
 
 ### Features

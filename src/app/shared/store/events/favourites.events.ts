@@ -15,6 +15,7 @@ export const favouritesEvents = eventGroup({
       id: string;
       data: ContentCard[];
     }>(),
+    loadListItemError: type<string>(),
     createNewList: type<string>(),
     createNewListSuccess: type<FavouritesInterface>(),
     addToFavourites: type<{

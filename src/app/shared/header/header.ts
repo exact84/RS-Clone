@@ -8,10 +8,11 @@ import { AuthIcon } from '../ui/auth-icon/auth-icon';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { AuthService } from '../../pages/auth/services/auth.service';
 import { FavouritesStore } from '../store/states/favourites.state';
+import { Burger } from './menu/burger/burger';
 
 @Component({
   selector: 'app-header',
-  imports: [Menu, RouterLink, AuthIcon],
+  imports: [Menu, RouterLink, AuthIcon, Burger],
   templateUrl: './header.html',
   styleUrl: './header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
