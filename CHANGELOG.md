@@ -1,3 +1,21 @@
+## [1.15.0](https://github.com/exact84/RS-Clone/compare/v1.14.1...v1.15.0) (2025-09-24)
+
+### Features
+
+* implement burger menu ([eb67184](https://github.com/exact84/RS-Clone/commit/eb67184e274e44731649660edfe3e87d32da5ce1))
+* implement spinner ([799f944](https://github.com/exact84/RS-Clone/commit/799f94419d494b8952e8df4ba9ed7eaecf476f80))
+
+### Bug Fixes
+
+* fix changing burger classes on menu interaction ([783a9c9](https://github.com/exact84/RS-Clone/commit/783a9c9af92f89fbdf006986e64d9774a0387169))
+
+### Refactoring
+
+* add spinner on loading status ([533a358](https://github.com/exact84/RS-Clone/commit/533a358523bec3dc5ea40e923d909c93798ddd13))
+* change errors messages ([b91ced8](https://github.com/exact84/RS-Clone/commit/b91ced88be66be706d4b849063cbe8d15e221381))
+* fix auth styles ([43d3626](https://github.com/exact84/RS-Clone/commit/43d3626033e6712ae7aeec8924bd536d8c76f346))
+* update styles ([2400167](https://github.com/exact84/RS-Clone/commit/24001670381f246db00730f21318cf909941252c))
+
 ## [1.14.1](https://github.com/exact84/RS-Clone/compare/v1.14.0...v1.14.1) (2025-09-24)
 
 ### Refactoring
