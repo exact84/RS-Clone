@@ -21,6 +21,10 @@
     gap: 10px;
   }
 
+  input[type='text'] {
+    margin-top: 10px;
+  }
+
   input[type='text'],
   input[type='number'],
   select {
@@ -32,10 +36,43 @@
     font-size: 14px;
   }
 
+  input:focus-visible,
+  button:focus-visible {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+  }
+
   .genres-list {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    transform-origin: top;
+  }
+
+  @keyframes fadeInCheckbox {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .checkbox-enter {
+    animation: fadeInCheckbox 200ms ease-out forwards;
+  }
+
+  .genres-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .genres-list label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .rating {
@@ -76,6 +113,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
+  width: 100%;
 
   .movie-card {
     padding: 10px;
@@ -100,6 +138,14 @@
       margin: 2px 0;
       color: #555;
     }
+  }
+
+  .empty-state {
+    width: 100%;
+    text-align: center;
+    margin: 40px 0;
+    color: #555;
+    font-size: 24px;
   }
 }
 
