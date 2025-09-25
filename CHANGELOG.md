@@ -1,3 +1,13 @@
+## [1.17.0](https://github.com/exact84/RS-Clone/compare/v1.16.0...v1.17.0) (2025-09-25)
+
+### Features
+
+* apply auth guards ([ab3b5f7](https://github.com/exact84/RS-Clone/commit/ab3b5f77e45b82e527d7619c6872a29335a2e1d1))
+
+### Bug Fixes
+
+* fix async validator ([94d07b5](https://github.com/exact84/RS-Clone/commit/94d07b5dc3f839c1c72136fa043dc324c16af81e))
+
 ## [1.16.0](https://github.com/exact84/RS-Clone/compare/v1.15.0...v1.16.0) (2025-09-25)
 
 ### Features
