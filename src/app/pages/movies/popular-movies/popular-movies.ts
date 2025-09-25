@@ -120,6 +120,7 @@ export class PopularMovies {
       this.currentPage.set(1);
       this.movies.set([]);
       this.allPagesLoaded.set(false);
+      this.lazyScrollEnabled.set(false);
     }
 
     this.selectedGenre.set(genreId);
