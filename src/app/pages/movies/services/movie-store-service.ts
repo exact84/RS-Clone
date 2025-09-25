@@ -1,5 +1,5 @@
 import { Injectable, inject, signal, computed, untracked } from '@angular/core';
-import { catchError, EMPTY, of, retry, Subscription, switchMap } from 'rxjs';
+import { catchError, EMPTY, forkJoin, of, retry, Subscription, switchMap } from 'rxjs';
 import { MovieService } from '../services/movie-service';
 import { MovieBase } from '../../models/movie-base';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -103,10 +103,15 @@ export class MovieStore {
     const filtersObject = this.buildFiltersObject(f);
     const search = f.search?.trim();
 
-    const source$ = search
-      ? this.movieService.getKeywords(search).pipe(
+    const source$ = search?.trim()
+      ? forkJoin(
+          search
+            .trim()
+            .split(/\s+/)
+            .map((word) => this.movieService.getKeywords(word)),
+        ).pipe(
           switchMap((kwResp) => {
-            const keywordIds = kwResp.results.map((k) => k.id);
+            const keywordIds = kwResp.flatMap((r) => r.results.map((k) => k.id));
             if (keywordIds.length === 0) {
               this.movies.set([]);
               this.totalPages.set(0);

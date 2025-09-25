@@ -1,16 +1,15 @@
 <div class="container">
-  <div class="movie-search-filter">
-    <form
-      (ngSubmit)="store.setSearch(searchControl.value ?? ''); store.setPage(1); store.fetchMovies()"
-    >
+  <aside class="movie-search-filter">
+    <form (ngSubmit)="submitSearch()">
       <label for="search">
-        Search:
+        Search by Keywords:
         <input
           #searchInput
           id="search"
           name="search"
           type="text"
-          [formControl]="searchControl"
+          [(ngModel)]="store.filters().search"
+          (ngModelChange)="setSearch($event)"
           placeholder="Search..."
           autocomplete="on"
         />
@@ -18,13 +17,13 @@
 
       <div class="genres-list">
         <span>Genres:</span>
-        @for (g of store.genres(); track g.id) {
+        @for (g of genres(); track g.id) {
           <label animate.enter="checkbox-enter" [style.animationDelay]="$index * 50 + 'ms'">
             <input
               type="checkbox"
               id="genre-{{ g.id }}"
-              [checked]="store.filters().genres.includes(g.id)"
-              (change)="store.toggleGenre(g.id, $event.target.checked)"
+              [checked]="filters().genres.includes(g.id)"
+              (change)="toggleGenre(g.id, $event.target.checked)"
             />
             {{ g.name }}
           </label>
@@ -39,8 +38,8 @@
           type="number"
           placeholder="Year"
           autocomplete="on"
-          [ngModel]="store.filters().year"
-          (ngModelChange)="store.setYear($event)"
+          [ngModel]="filters().year"
+          (ngModelChange)="setYear($event)"
         />
       </label>
 
@@ -50,11 +49,11 @@
           id="language"
           name="language"
           autocomplete="on"
-          [ngModel]="store.filters().language"
-          (ngModelChange)="store.setLanguage($event)"
+          [ngModel]="filters().language"
+          (ngModelChange)="setLanguage($event)"
         >
           <option [ngValue]="null">All</option>
-          @for (lang of store.languages(); track lang.iso_639_1) {
+          @for (lang of languages(); track lang.iso_639_1) {
             <option [ngValue]="lang.iso_639_1">{{ lang.english_name }}</option>
           }
         </select>
@@ -66,11 +65,11 @@
           id="country"
           name="country"
           autocomplete="on"
-          [ngModel]="store.filters().country"
-          (ngModelChange)="store.setCountry($event)"
+          [ngModel]="filters().country"
+          (ngModelChange)="setCountry($event)"
         >
           <option [ngValue]="null">All</option>
-          @for (country of store.countries(); track country.iso_3166_1) {
+          @for (country of countries(); track country.iso_3166_1) {
             <option [value]="country.iso_3166_1">{{ country.english_name }}</option>
           }
         </select>
@@ -88,8 +87,8 @@
             max="10"
             step="0.1"
             placeholder="0–10"
-            [ngModel]="store.filters().ratingMin"
-            (ngModelChange)="store.setRatingMin($event)"
+            [ngModel]="filters().ratingMin"
+            (ngModelChange)="setRatingMin($event)"
           />
         </label>
 
@@ -103,51 +102,55 @@
             max="10"
             step="0.1"
             placeholder="0–10"
-            [ngModel]="store.filters().ratingMax"
-            (ngModelChange)="store.setRatingMax($event)"
+            [ngModel]="filters().ratingMax"
+            (ngModelChange)="setRatingMax($event)"
           />
         </label>
       </div>
 
-      <button type="submit" [disabled]="!store.canSearch()">Search</button>
-      <button [disabled]="!store.canSearch()" (click)="store.resetFilters()">Reset</button>
+      <button type="submit" [disabled]="!canSearch()">Search</button>
+      <button [disabled]="!canSearch()" (click)="resetFilters()">Reset</button>
     </form>
-  </div>
+  </aside>
 
   <section class="movie-list">
-    @if (store.loading()) {
-      <!-- <app-spinner></app-spinner> -->
-    } @else if (store.error()) {
-      <div class="error">{{ store.error() }}</div>
-    } @else if (store.movies().length === 0) {
+    @if (loading()) {
+      <div class="loader-wrapper">
+        <app-spinner></app-spinner>
+      </div>
+    } @else if (error()) {
+      <div class="error">{{ error() }}</div>
+    }
+    @for (movie of movies(); track $index) {
+      <app-slider-card [data]="movie" class="movie-card"></app-slider-card>
+    } @empty {
       <div class="empty-state">
         <p>No movies found for your search/filter combination.</p>
         <p>Try changing your filters or search query.</p>
       </div>
-    } @else {
-      @for (movie of store.movies(); track $index) {
-        <app-slider-card [data]="movie" class="movie-card"></app-slider-card>
-      }
     }
   </section>
 </div>
 
-@if (store.totalPages() > 1) {
+@if (totalPages() > 1) {
   <div class="pagination">
-    <button
-      [disabled]="!store.canGoBack()"
-      (click)="store.setPage(store.page() - 1); store.fetchMovies()"
-    >
-      ← Back
-    </button>
+    <button [disabled]="!canGoBack()" (click)="prevPage()">← Back</button>
 
-    <span>Page {{ store.page() }} из {{ store.totalPages() }}</span>
-
-    <button
-      [disabled]="!store.canPaginate()"
-      (click)="store.setPage(store.page() + 1); store.fetchMovies()"
+    <span>
+      <div>
+        Page
+        <input
+          class="current-page"
+          type="number"
+          name="page"
+          [ngModel]="page()"
+          (ngModelChange)="setPage($event)"
+          (keyup.enter)="goToPage()"
+        />
+        of {{ totalPages() }}
+      </div></span
     >
-      Forward →
-    </button>
+
+    <button [disabled]="!canPaginate()" (click)="nextPage()">Forward →</button>
   </div>
 }
