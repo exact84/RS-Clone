@@ -21,15 +21,14 @@ export const routes: Routes = [
               import('./pages/movies/popular-movies/popular-movies').then((c) => c.PopularMovies),
             data: { category: 'popular' },
           },
+          {
+            path: 'movies',
+            loadComponent: () =>
+              import('./pages/movies/movie-search-filter/movie-search-filter').then(
+                (c) => c.MovieSearchFilter,
+              ),
+          },
         ],
-      },
-      {
-        path: 'top-rated',
-        loadComponent: () =>
-          import('./pages/movies/movie-search-filter/movie-search-filter').then(
-            (c) => c.MovieSearchFilter,
-          ),
-        data: { category: 'top-rated' },
       },
       {
         path: 'people/person',
