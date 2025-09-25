@@ -1,3 +1,17 @@
+## [1.16.0](https://github.com/exact84/RS-Clone/compare/v1.15.0...v1.16.0) (2025-09-25)
+
+### Features
+
+* add button component ([797a4c4](https://github.com/exact84/RS-Clone/commit/797a4c4d0db284d2af9a769efcadc19b525a7043))
+* add loading more data ([d81c099](https://github.com/exact84/RS-Clone/commit/d81c0991ac80c4f60929859ffd18e0f1ef5aa52c))
+
+### Refactoring
+
+* add scroll loading ([4ddbbb0](https://github.com/exact84/RS-Clone/commit/4ddbbb090374667d9810ce67206acb3169725662))
+* change color to more contrast ([0716416](https://github.com/exact84/RS-Clone/commit/07164167224e36fb0ba732b24ef877ca8f763853))
+* disable lazy scroll on change genre ([2f7d978](https://github.com/exact84/RS-Clone/commit/2f7d9780ceb0b59840d8e6a2fc704a54ba47fb69))
+* update styles ([8bd3378](https://github.com/exact84/RS-Clone/commit/8bd3378b3eea6781e024c8aa954edc11ad635a51))
+
 ## [1.15.0](https://github.com/exact84/RS-Clone/compare/v1.14.1...v1.15.0) (2025-09-24)
 
 ### Features
