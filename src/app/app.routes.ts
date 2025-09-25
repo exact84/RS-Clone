@@ -46,6 +46,7 @@ export const routes: Routes = [
       {
         path: 'favourites',
         loadComponent: () => import('./pages/favourites/favourites').then((c) => c.Favourites),
+        canMatch: [authGuard],
       },
     ],
   },
