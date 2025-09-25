@@ -7,7 +7,7 @@
 
 .layout-container {
   padding-top: 76px;
-  padding-bottom: 52px;
+  padding-bottom: 64px;
   flex: 1;
 
   &.page-wrapper {
@@ -17,6 +17,6 @@
 
 @media (max-width: 604px) {
   .layout-container {
-    padding-bottom: 70px;
+    padding-bottom: 82px;
   }
 }
