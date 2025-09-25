@@ -6,7 +6,9 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import { PASSWORD_MIN_LENGTH, REQUEST_DELAY_MS } from '../constants/constants';
-import { EMPTY, map, Observable, of, switchMap, timer } from 'rxjs';
+import { map, Observable, switchMap, timer } from 'rxjs';
+import { inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 export function isMatchPasswords(firstFieldName: string, secondFieldName: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -37,20 +39,20 @@ export const hasLetter: ValidatorFn = (control: AbstractControl): ValidationErro
     : { hasLetter: { message: 'at least one letter' } };
 };
 
-export const isTakenLogin: AsyncValidatorFn = (
-  control: AbstractControl,
-): Observable<ValidationErrors | null> => {
-  return timer(REQUEST_DELAY_MS).pipe(
-    switchMap(() =>
-      EMPTY.pipe(
-        map(() => {
-          console.log(control.value);
-          return of(null);
-        }),
+export function isTakenLogin(): AsyncValidatorFn {
+  const http = inject(HttpClient);
+  return (control: AbstractControl): Observable<ValidationErrors | null> => {
+    return timer(REQUEST_DELAY_MS).pipe(
+      switchMap(() =>
+        http.post<{ isTaken: boolean }>('/user/check', { login: control.value }).pipe(
+          map(({ isTaken }) => {
+            return isTaken ? { isTakenLogin: { message: 'This login is exist' } } : null;
+          }),
+        ),
       ),
-    ),
-  );
-};
+    );
+  };
+}
 
 export const generateFieldValidationErrors = (field: FormControl<string>, message: string) => {
   const { errors } = field;
