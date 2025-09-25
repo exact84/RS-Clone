@@ -39,7 +39,7 @@ export class SignupForm implements OnDestroy {
 
   signupForm: FormGroup<SignupFormInterface> = this.fb.nonNullable.group(
     {
-      login: ['', [Validators.required, Validators.minLength(5)], [isTakenLogin]],
+      login: ['', [Validators.required, Validators.minLength(5)], [isTakenLogin()]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       password: ['', [Validators.required, isPasswordToShort, hasLetter, hasDigit]],

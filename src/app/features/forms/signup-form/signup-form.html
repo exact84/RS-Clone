@@ -11,6 +11,9 @@
         @if (login.hasError('minlength')) {
           <span class="validation-error">Login should be at least 5 letters</span>
         }
+        @if (login.hasError('isTakenLogin')) {
+          <span class="validation-error">{{ login.getError('isTakenLogin').message }}</span>
+        }
       }
     </ng-container>
   </app-form-field>
