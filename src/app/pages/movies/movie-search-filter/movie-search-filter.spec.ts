@@ -132,6 +132,5 @@ describe('MovieSearchFilter', () => {
     spyOn(store, 'resetFilters');
     component.resetFilters();
     expect(store.resetFilters).toHaveBeenCalled();
-    expect(component.focusSearch()).toBeTrue();
   });
 });

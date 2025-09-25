@@ -1,23 +1,22 @@
-import { Component, ElementRef, inject, signal, ViewChild, effect, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { Component, effect, ElementRef, inject, ViewChild } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MovieStore } from '../services/movie-store-service';
 import { SliderCard } from '../../home/slider-card/slider-card';
-import { cardTrailerURL, FALLBACK_POSTER } from '../../../shared/constants/constants';
+import { FALLBACK_POSTER } from '../../../shared/constants/constants';
+import { Spinner } from '../../../shared/ui/spinner/spinner';
 
 @Component({
   selector: 'app-movie-search-filter',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, SliderCard],
+  imports: [FormsModule, ReactiveFormsModule, SliderCard, Spinner],
   templateUrl: './movie-search-filter.html',
   styleUrls: ['./movie-search-filter.scss'],
 })
-export class MovieSearchFilter implements OnInit {
+export class MovieSearchFilter {
   store = inject(MovieStore);
 
   readonly searchControl = new FormControl('');
-  readonly focusSearch = signal<boolean>(false);
 
-  cardURL = cardTrailerURL;
   fallback_poster = FALLBACK_POSTER;
 
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef<HTMLInputElement>;
@@ -34,16 +33,24 @@ export class MovieSearchFilter implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.focusSearch.set(true);
-  }
-
   submitSearch() {
     this.store.setSearch(this.searchControl.value ?? '');
     this.store.setPage(1);
     this.store.fetchMovies();
-    this.focusSearch.set(true);
   }
+
+  canPaginate = this.store.canPaginate;
+  canGoBack = this.store.canGoBack;
+  canSearch = this.store.canSearch;
+  page = this.store.page;
+  totalPages = this.store.totalPages;
+  error = this.store.error;
+  loading = this.store.loading;
+  movies = this.store.movies;
+  genres = this.store.genres;
+  filters = this.store.filters;
+  languages = this.store.languages;
+  countries = this.store.countries;
 
   toggleGenre(id: number, checked: boolean) {
     this.store.toggleGenre(id, checked);
@@ -66,7 +73,14 @@ export class MovieSearchFilter implements OnInit {
 
   resetFilters() {
     this.store.resetFilters();
-    this.focusSearch.set(true);
+  }
+
+  goToPage() {
+    this.store.fetchMovies();
+  }
+
+  setPage(page: number) {
+    if (page >= 1 && page < this.totalPages()) this.store.setPage(page);
   }
 
   prevPage() {

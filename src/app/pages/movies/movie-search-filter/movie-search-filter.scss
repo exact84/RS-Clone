@@ -161,3 +161,22 @@
     font-size: 14px;
   }
 }
+
+.spinner-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.current-page {
+  width: 50px;
+  padding: 0 5px;
+  text-align: right;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    display: none;
+  }
+}
