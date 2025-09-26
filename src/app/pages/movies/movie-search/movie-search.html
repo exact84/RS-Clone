@@ -1,0 +1,19 @@
+<div class="container">
+  <section class="movie-list">
+    @if (loadingState()) {
+      <div class="loader-wrapper">
+        <app-spinner></app-spinner>
+      </div>
+    } @else if (errorState()) {
+      <div class="error">{{ errorState() }}</div>
+    }
+    @for (movie of movies(); track $index) {
+      <app-slider-card [data]="movie" class="movie-card"></app-slider-card>
+    } @empty {
+      <div class="empty-state">
+        <p>No movies found for your search/filter combination.</p>
+        <p>Try changing your filters or search query.</p>
+      </div>
+    }
+  </section>
+</div>
