@@ -96,4 +96,24 @@ export class MovieSearchFilter {
   setPage(page: number) {
     if (page >= 1 && page < this.totalPages()) this.store.setPage(page);
   }
+
+  handleKeydown(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'Escape': {
+        this.resetFilters();
+        event.preventDefault();
+        break;
+      }
+      case 'ArrowLeft': {
+        this.prevPage();
+        event.preventDefault();
+        break;
+      }
+      case 'ArrowRight': {
+        this.nextPage();
+        event.preventDefault();
+        break;
+      }
+    }
+  }
 }
