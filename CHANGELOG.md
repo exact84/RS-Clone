@@ -1,3 +1,12 @@
+## [1.17.1](https://github.com/exact84/RS-Clone/compare/v1.17.0...v1.17.1) (2025-09-26)
+
+### Refactoring
+
+* add spinner, fix styles ([bf1076c](https://github.com/exact84/RS-Clone/commit/bf1076c174aaccfafced550153effe1beb44e5bf))
+* delete toggle for change password ([9e44e98](https://github.com/exact84/RS-Clone/commit/9e44e9867703a63bb95339e16d3892c5232d4fdd))
+* update layout ([aaafe78](https://github.com/exact84/RS-Clone/commit/aaafe784e31bf5e98947f3c90aa28ab33b601bde))
+* update styles ([a6c6d1e](https://github.com/exact84/RS-Clone/commit/a6c6d1e8767f8e80302b4fc0b3fc16b34618dbaa))
+
 ## [1.17.0](https://github.com/exact84/RS-Clone/compare/v1.16.0...v1.17.0) (2025-09-25)
 
 ### Features
