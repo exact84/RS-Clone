@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,8 +7,13 @@ import { Router } from '@angular/router';
   templateUrl: './movie-search.html',
   styleUrl: './movie-search.scss',
 })
-export class MovieSearch {
+export class MovieSearch implements AfterViewInit {
   router = inject(Router);
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+
+  ngAfterViewInit() {
+    this.searchInput.nativeElement.focus();
+  }
   submitSearch(query: string) {
     query = query.trim();
     if (query) {

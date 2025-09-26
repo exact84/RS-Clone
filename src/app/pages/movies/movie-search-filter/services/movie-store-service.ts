@@ -155,7 +155,7 @@ export class MovieStore {
   private buildFiltersObject(f: Filters): Record<string, string> {
     return untracked(() => {
       const base: Record<string, string> = {};
-      if (f.genres.length > 0) base['with_genres'] = f.genres.join(',');
+      if (f.genres.length > 0) base['with_genres'] = f.genres.join('|');
       if (f.year) base['primary_release_year'] = String(f.year);
       if (f.language) base['with_original_language'] = f.language;
       if (f.country) base['with_origin_country'] = f.country;

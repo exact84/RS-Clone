@@ -91,6 +91,11 @@
     gap: 4px;
   }
 
+  fieldset {
+    border: none;
+    min-inline-size: 0;
+  }
+
   .rating {
     display: flex;
     flex-direction: row;
@@ -171,9 +176,9 @@
   .loader-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: end;
     width: 100%;
-    height: 75%;
+    height: 400px;
   }
 }
 

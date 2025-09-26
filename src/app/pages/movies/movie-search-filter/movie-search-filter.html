@@ -1,5 +1,5 @@
-<div class="container">
-  <aside class="movie-search-filter">
+<div class="container" (keydown)="handleKeydown($event)" tabindex="0">
+  <aside class="movie-search-filter" role="search" aria-label="Movie search form">
     <form (ngSubmit)="submitSearch()">
       <label for="search">
         Search by Keywords:
@@ -14,21 +14,24 @@
           autocomplete="on"
         />
       </label>
+      <small id="search-help">Type keywords and press Enter to search</small>
 
-      <div class="genres-list">
-        <span>Genres:</span>
-        @for (g of genres(); track g.id) {
-          <label animate.enter="checkbox-enter" [style.animationDelay]="$index * 50 + 'ms'">
-            <input
-              type="checkbox"
-              id="genre-{{ g.id }}"
-              [checked]="filters().genres.includes(g.id)"
-              (change)="toggleGenre(g.id, $event.target.checked)"
-            />
-            {{ g.name }}
-          </label>
-        }
-      </div>
+      <fieldset>
+        <legend>Genres:</legend>
+        <div class="genres-list">
+          @for (g of genres(); track g.id) {
+            <label animate.enter="checkbox-enter" [style.animationDelay]="$index * 50 + 'ms'">
+              <input
+                type="checkbox"
+                id="genre-{{ g.id }}"
+                [checked]="filters().genres.includes(g.id)"
+                (change)="toggleGenre(g.id, $event.target.checked)"
+              />
+              {{ g.name }}
+            </label>
+          }
+        </div>
+      </fieldset>
 
       <label for="year">
         Year (1800-2025):
@@ -108,38 +111,43 @@
         </label>
       </div>
 
-      <button type="submit" [disabled]="!canSearch()">Search</button>
-      <button [disabled]="!canSearch()" (click)="resetFilters()">Reset</button>
+      <button type="submit" [disabled]="!canSearch()" aria-label="Search movies">Search</button>
+      <button [disabled]="!canSearch()" (click)="resetFilters()" aria-label="Reset filters">
+        Reset
+      </button>
     </form>
   </aside>
 
-  <section class="movie-list">
+  <section class="movie-list" role="list" [attr.aria-busy]="loading()">
     @if (loading()) {
-      <div class="loader-wrapper">
+      <div class="loader-wrapper" role="status" aria-live="polite">
         <app-spinner></app-spinner>
       </div>
     } @else if (error()) {
-      <div class="error">{{ error() }}</div>
-    }
-    @for (movie of movies(); track $index) {
-      <app-slider-card [data]="movie" class="movie-card"></app-slider-card>
-    } @empty {
-      <div class="empty-state">
-        <p>No movies found for your search/filter combination.</p>
-        <p>Try changing your filters or search query.</p>
-      </div>
+      <div class="error" role="alert">{{ error() }}</div>
+    } @else {
+      @for (movie of movies(); track $index) {
+        <app-slider-card [data]="movie" class="movie-card" role="listitem"></app-slider-card>
+      } @empty {
+        <div class="empty-state">
+          <p>No movies found for your search/filter combination.</p>
+          <p>Try changing your filters or search query.</p>
+        </div>
+      }
     }
   </section>
 </div>
 
 @if (totalPages() > 1) {
-  <div class="pagination">
-    <button [disabled]="!canGoBack()" (click)="prevPage()">← Back</button>
-
+  <div class="pagination" aria-label="Movies pagination">
+    <button [disabled]="!canGoBack()" (click)="prevPage()" aria-label="Go to previous page">
+      ← Back
+    </button>
     <span>
       <div>
-        Page
+        <label for="pageInput">Page</label>
         <input
+          id="pageInput"
           class="current-page"
           type="number"
           name="page"
@@ -150,7 +158,8 @@
         of {{ totalPages() }}
       </div></span
     >
-
-    <button [disabled]="!canPaginate()" (click)="nextPage()">Forward →</button>
+    <button [disabled]="!canPaginate()" (click)="nextPage()" aria-label="Go to next page">
+      Forward →
+    </button>
   </div>
 }
