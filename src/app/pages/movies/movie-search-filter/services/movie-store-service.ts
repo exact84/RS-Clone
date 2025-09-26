@@ -1,7 +1,7 @@
 import { Injectable, inject, signal, computed, untracked } from '@angular/core';
 import { catchError, EMPTY, forkJoin, of, retry, Subscription, switchMap } from 'rxjs';
-import { MovieService } from '../services/movie-service';
-import { MovieBase } from '../../models/movie-base';
+import { MovieService } from './movie-service';
+import { MovieBase } from '../../../models/movie-base';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 type MovieCard = MovieBase & { media_type: 'movie' };

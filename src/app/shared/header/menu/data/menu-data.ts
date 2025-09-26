@@ -5,7 +5,6 @@ export const MenuItems: MenuItem[] = [
     text: 'Movies',
     route: '/movies',
     submenu: [
-      { text: 'Filter', route: '/movies', submenu: undefined },
       { text: 'Popular', route: '/popular', submenu: undefined },
       { text: 'Now Playing', route: '/now-playing', submenu: undefined },
       { text: 'Upcoming', route: '/upcoming', submenu: undefined },
@@ -13,4 +12,9 @@ export const MenuItems: MenuItem[] = [
     ],
   },
   { text: 'People', route: '/people', submenu: [{ text: 'People', route: '/person' }] },
+  {
+    text: 'Filter',
+    route: '',
+    submenu: [{ text: 'Filter', route: '/movies/filter' }],
+  },
 ];
