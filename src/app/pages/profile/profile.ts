@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { UpdatePasswordForm } from '../../features/forms/update-password-form/update-password-form';
@@ -25,11 +25,5 @@ export class Profile {
 
   constructor() {
     this.dispatcher.dispatch(profileEvents.loadProfile());
-  }
-
-  changePassword = signal(false);
-
-  toggleChangePassword() {
-    this.changePassword.update((value) => !value);
   }
 }

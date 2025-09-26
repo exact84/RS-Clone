@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, output, signal } from '@angular/core';
+import { Component, inject, OnDestroy, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   generateFieldValidationErrors,
@@ -25,8 +25,6 @@ export class UpdatePasswordForm implements OnDestroy {
   private readonly profileService = inject(ProfileService);
 
   private subscription!: Subscription;
-
-  closeChangePassword = output();
 
   showOldPassword = signal(false);
   showNewPassword = signal(false);
@@ -82,7 +80,6 @@ export class UpdatePasswordForm implements OnDestroy {
           this.changePasswordSuccessful.set(true);
           setTimeout(() => {
             this.changePasswordSuccessful.set(false);
-            this.closeChangePassword.emit();
             this.isPendingRequest.set(false);
             this.updatePasswordForm.reset();
           }, 2500);
