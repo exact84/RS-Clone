@@ -7,7 +7,7 @@
   justify-content: flex-start;
   gap: 24px;
   padding: 20px;
-  height: 100vh;
+  height: 100%;
   background: colors.$page-background;
   color: colors.$page-color;
 }
@@ -51,61 +51,13 @@
     }
   }
 
-  &__control {
+  &__password {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 10px;
-    font-size: 20px;
 
-    &-toggle {
-      position: relative;
-      display: flex;
-      align-items: center;
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-
-      input {
-        position: absolute;
-        width: 0;
-        height: 0;
-        appearance: none;
-        border: none;
-      }
-
-      &::before,
-      &::after {
-        position: absolute;
-        content: '';
-        cursor: pointer;
-      }
-
-      &::before {
-        display: block;
-        height: 6px;
-        width: 24px;
-        border: 1px solid white;
-        background-color: rgb(3, 37, 65);
-        border-radius: 2px;
-        box-sizing: border-box;
-      }
-
-      &::after {
-        display: block;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: colors.$page-title-background;
-        transform: translateX(-1px);
-        transition: transform 0.3s ease-in-out;
-      }
-      &:hover::after {
-        box-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
-      }
-
-      &:has(input:checked)::after {
-        transform: translateX(calc(100% + 1px));
-      }
+    h3 {
+      font-size: 18px;
     }
   }
 }

@@ -19,14 +19,9 @@
         </ul>
       </div>
     </div>
-    <div class="user__control">
-      <label for="change-password" class="user__control-title">Change password</label>
-      <button class="user__control-toggle" (click)="toggleChangePassword()">
-        <input type="checkbox" id="change-password" [checked]="changePassword()" />
-      </button>
+    <div class="user__password">
+      <h3>Change password</h3>
+      <app-update-password-form />
     </div>
   </div>
-  @if (changePassword()) {
-    <app-update-password-form (closeChangePassword)="toggleChangePassword()" />
-  }
 }
