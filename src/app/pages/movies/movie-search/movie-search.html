@@ -1,16 +1,26 @@
+<form
+  class="search-form"
+  (submit)="$event.preventDefault()"
+  role="search"
+  aria-label="Search movies"
+>
+  <input #searchInput type="text" aria-label="Movie title" placeholder="Search for a movie......" />
+  <button (click)="submitSearch(searchInput.value)" aria-label="Submit search">Search</button>
+</form>
+
 <div class="container">
-  <section class="movie-list">
+  <section class="movie-list" aria-label="Search results">
     @if (loadingState()) {
-      <div class="loader-wrapper">
+      <div class="loader-wrapper" role="status" aria-live="polite">
         <app-spinner></app-spinner>
       </div>
     } @else if (errorState()) {
-      <div class="error">{{ errorState() }}</div>
+      <div class="error" role="alert">{{ errorState() }}</div>
     }
     @for (movie of movies(); track $index) {
       <app-slider-card [data]="movie" class="movie-card"></app-slider-card>
     } @empty {
-      <div class="empty-state">
+      <div class="empty-state" role="status">
         <p>No movies found for your search/filter combination.</p>
         <p>Try changing your filters or search query.</p>
       </div>
