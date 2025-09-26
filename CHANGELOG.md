@@ -1,3 +1,15 @@
+## [1.18.0](https://github.com/exact84/RS-Clone/compare/v1.17.1...v1.18.0) (2025-09-26)
+
+### Features
+
+* add favourites.state.spec.ts ([f680c46](https://github.com/exact84/RS-Clone/commit/f680c46b7dc8bc9324c65c79e5cb7bd0474a5535))
+* add mock-data and test-conditions for movie-details and person-details services ([cc068d1](https://github.com/exact84/RS-Clone/commit/cc068d1e6bce3f6d9582381783e0f165d0cc6681))
+* add mock-data for testing services in home page ([dfe04ff](https://github.com/exact84/RS-Clone/commit/dfe04ffb8c4ada1da99c00e7d7829326b38bccaf))
+* add profile.state.spec.ts ([2d3b89d](https://github.com/exact84/RS-Clone/commit/2d3b89d4872a4ab22b07e3548176d3e7b47e2157))
+* add tests to api-error-service.spec.ts ([d4a0812](https://github.com/exact84/RS-Clone/commit/d4a0812f8b98fc5d575a0045ea402a5c74a417a2))
+* add tests to headers-interseptor.spec.ts ([4213dea](https://github.com/exact84/RS-Clone/commit/4213dea9686d9e760dd27dba4c1cbedce68cb84c))
+* add tests to http-interceptor.spec.ts ([c854a4f](https://github.com/exact84/RS-Clone/commit/c854a4fdd3da8dc07bd1f6338e2aa8f70195a69f))
+
 ## [1.17.1](https://github.com/exact84/RS-Clone/compare/v1.17.0...v1.17.1) (2025-09-26)
 
 ### Refactoring
