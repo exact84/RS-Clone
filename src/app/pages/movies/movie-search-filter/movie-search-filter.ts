@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, signal, ViewChild, effect, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild, effect } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MovieStore } from './services/movie-store-service';
 import { SliderCard } from '../../home/slider-card/slider-card';
@@ -11,10 +11,8 @@ import { Spinner } from '../../../shared/ui/spinner/spinner';
   templateUrl: './movie-search-filter.html',
   styleUrls: ['./movie-search-filter.scss'],
 })
-export class MovieSearchFilter implements OnInit {
+export class MovieSearchFilter {
   store = inject(MovieStore);
-
-  readonly focusSearch = signal<boolean>(false);
 
   canPaginate = this.store.canPaginate;
   canGoBack = this.store.canGoBack;
@@ -43,13 +41,10 @@ export class MovieSearchFilter implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.focusSearch.set(true);
-  }
-
   submitSearch() {
     this.store.setPage(1);
     this.store.fetchMovies();
+    this.searchInput.nativeElement.focus();
   }
 
   setSearch(value: string) {
@@ -77,6 +72,7 @@ export class MovieSearchFilter implements OnInit {
 
   resetFilters() {
     this.store.resetFilters();
+    this.searchInput.nativeElement.focus();
   }
 
   prevPage() {
