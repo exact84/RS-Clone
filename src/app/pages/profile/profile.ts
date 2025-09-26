@@ -5,10 +5,11 @@ import { UpdatePasswordForm } from '../../features/forms/update-password-form/up
 import { ProfileStore } from '../../shared/store/states/profile.state';
 import { Dispatcher } from '@ngrx/signals/events';
 import { profileEvents } from '../../shared/store/events/profile.events';
+import { Spinner } from '../../shared/ui/spinner/spinner';
 
 @Component({
   selector: 'app-profile',
-  imports: [UpdatePasswordForm, ReactiveFormsModule],
+  imports: [UpdatePasswordForm, ReactiveFormsModule, Spinner],
   providers: [ProfileStore],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
@@ -22,6 +23,7 @@ export class Profile {
 
   userInitials = this.profileStore.userInitials;
   favouritesInfo = this.profileStore.summaryInfo;
+  isLoading = this.profileStore.isLoading;
 
   constructor() {
     this.dispatcher.dispatch(profileEvents.loadProfile());

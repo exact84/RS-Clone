@@ -1,27 +1,33 @@
-@if (user(); as user) {
-  <div class="user">
-    <span class="user__avatar">{{ userInitials() }}</span>
-    <div class="user__info">
-      <div class="user__info-row">
-        <span class="user__info-title">First name:</span>
-        <span class="user__info-value">{{ user.firstName }}</span>
-      </div>
-      <div class="user__info-row">
-        <span class="user__info-title">Last name:</span>
-        <span class="user__info-value">{{ user.lastName }}</span>
-      </div>
-      <div class="user__info-row favourites">
-        <h3 class="favourites__title">Favourites lists:</h3>
-        <ul class="favourites__list">
-          @for (favourite of favouritesInfo(); track favourite.label) {
-            <li class="favourites__list-item">{{ favourite.label }} ({{ favourite.count }})</li>
-          }
-        </ul>
+@if (isLoading()) {
+  <div class="spinner-wrapper">
+    <app-spinner />
+  </div>
+} @else {
+  @if (user(); as user) {
+    <div class="user">
+      <span class="user__avatar">{{ userInitials() }}</span>
+      <div class="user__info">
+        <div class="user__info-row">
+          <span class="user__info-title">First name:</span>
+          <span class="user__info-value">{{ user.firstName }}</span>
+        </div>
+        <div class="user__info-row">
+          <span class="user__info-title">Last name:</span>
+          <span class="user__info-value">{{ user.lastName }}</span>
+        </div>
+        <div class="user__info-row favourites">
+          <h3 class="favourites__title">Favourites lists:</h3>
+          <ul class="favourites__list">
+            @for (favourite of favouritesInfo(); track favourite.label) {
+              <li class="favourites__list-item">{{ favourite.label }} ({{ favourite.count }})</li>
+            }
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="password">
-    <h3>Change password</h3>
-    <app-update-password-form />
-  </div>
+    <div class="password">
+      <h3>Change password</h3>
+      <app-update-password-form />
+    </div>
+  }
 }
