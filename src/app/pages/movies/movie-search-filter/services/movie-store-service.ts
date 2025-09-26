@@ -1,5 +1,5 @@
 import { Injectable, inject, signal, computed, untracked } from '@angular/core';
-import { catchError, EMPTY, forkJoin, of, retry, Subscription, switchMap } from 'rxjs';
+import { catchError, EMPTY, finalize, forkJoin, of, retry, Subscription, switchMap } from 'rxjs';
 import { MovieService } from './movie-service';
 import { MovieBase } from '../../../models/movie-base';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -115,7 +115,6 @@ export class MovieStore {
             if (keywordIds.length === 0) {
               this.movies.set([]);
               this.totalPages.set(0);
-              this.loading.set(false);
               return EMPTY;
             }
             return this.movieService
@@ -124,11 +123,11 @@ export class MovieStore {
                 retry({ count: 2, delay: 400 }),
                 catchError(() => {
                   this.error.set('Failed to load movies. Please try again.');
-                  this.loading.set(false);
                   return of({ results: [], total_pages: 0 });
                 }),
               );
           }),
+          finalize(() => this.loading.set(false)),
         )
       : this.movieService.getFilteredMovies(filtersObject, p).pipe(
           retry({ count: 2, delay: 400 }),
@@ -137,6 +136,7 @@ export class MovieStore {
             this.loading.set(false);
             return of({ results: [], total_pages: 0 });
           }),
+          finalize(() => this.loading.set(false)),
         );
 
     this.currentReqSub = source$.subscribe({
