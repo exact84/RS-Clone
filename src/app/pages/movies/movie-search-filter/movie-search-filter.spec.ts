@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MovieSearchFilter } from './movie-search-filter';
-import { MovieStore } from '../services/movie-store-service';
-import { MovieService } from '../services/movie-service';
+import { MovieStore } from './services/movie-store-service';
+import { MovieService } from './services/movie-service';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { setupZonelessTestEnvironment } from '../../../../test-setup';
 import { of } from 'rxjs';

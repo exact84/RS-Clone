@@ -3,7 +3,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { MovieService } from './movie-service';
 import { provideZonelessChangeDetection } from '@angular/core';
-import { setupZonelessTestEnvironment } from '../../../../test-setup';
+import { setupZonelessTestEnvironment } from '../../../../../test-setup';
 
 describe('MovieService (standalone)', () => {
   let service: MovieService;
@@ -118,26 +118,6 @@ describe('MovieService (standalone)', () => {
     request.flush({ results: [], page, total_pages: 0, total_results: 0 });
   });
 
-  it('should fetch searched movies', () => {
-    const query = 'Inception';
-    const page = 1;
-
-    service.getSearchedMovies(query, page).subscribe((response) => {
-      expect(response.results).toEqual([]);
-      expect(response.page).toBe(page);
-    });
-
-    const request = httpMock.expectOne(
-      (r) =>
-        r.url === '/search/movie' &&
-        r.params.get('query') === query &&
-        r.params.get('page') === String(page) &&
-        r.params.get('language') === 'en-US',
-    );
-    expect(request.request.method).toBe('GET');
-    request.flush({ results: [], page, total_pages: 0, total_results: 0 });
-  });
-
   it('should fetch movies with empty keywordIds', () => {
     const filters = { year: '2020' };
     service.getMoviesByKeywordAndFilters([], filters).subscribe((response) => {
@@ -181,23 +161,5 @@ describe('MovieService (standalone)', () => {
       (r) => r.url === '/genre/movie/list' && r.params.get('language') === 'en-US',
     );
     request.flush('Server error', { status: 500, statusText: 'Internal Server Error' });
-  });
-
-  it('should handle 404 when searching movies', () => {
-    service.getSearchedMovies('unknown', 1).subscribe({
-      next: () => fail('Expected error, but got success'),
-      error: (error) => {
-        expect(error.status).toBe(404);
-      },
-    });
-
-    const request = httpMock.expectOne(
-      (r) =>
-        r.url === '/search/movie' &&
-        r.params.get('query') === 'unknown' &&
-        r.params.get('page') === '1' &&
-        r.params.get('language') === 'en-US',
-    );
-    request.flush('Not found', { status: 404, statusText: 'Not Found' });
   });
 });

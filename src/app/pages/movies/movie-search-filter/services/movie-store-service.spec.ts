@@ -3,7 +3,7 @@ import { MovieStore } from './movie-store-service';
 import { MovieService } from './movie-service';
 import { of, throwError } from 'rxjs';
 import { provideZonelessChangeDetection } from '@angular/core';
-import { setupZonelessTestEnvironment } from '../../../../test-setup';
+import { setupZonelessTestEnvironment } from '../../../../../test-setup';
 
 describe('MovieStore', () => {
   let store: MovieStore;

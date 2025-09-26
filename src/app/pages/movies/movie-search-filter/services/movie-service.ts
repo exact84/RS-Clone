@@ -1,14 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MovieBase } from '../../models/movie-base';
-
-export interface ApiResponse<T> {
-  page: number;
-  results: T[];
-  total_pages: number;
-  total_results: number;
-}
+import { MovieResponse } from '../../../models/movie-response';
 
 @Injectable({ providedIn: 'root' })
 export class MovieService {
@@ -42,7 +35,7 @@ export class MovieService {
     keywordIds: number[],
     filters: Record<string, string>,
     page = 1,
-  ): Observable<ApiResponse<MovieBase>> {
+  ): Observable<MovieResponse> {
     const base = {
       page: String(page),
       language: 'en-US',
@@ -50,25 +43,12 @@ export class MovieService {
       ...filters,
     };
     const parameters = new HttpParams({ fromObject: base });
-    return this.http.get<ApiResponse<MovieBase>>('/discover/movie', { params: parameters });
+    return this.http.get<MovieResponse>('/discover/movie', { params: parameters });
   }
 
-  getFilteredMovies(filters: Record<string, string>, page = 1): Observable<ApiResponse<MovieBase>> {
+  getFilteredMovies(filters: Record<string, string>, page = 1): Observable<MovieResponse> {
     const base = { page: String(page), language: 'en-US', ...filters };
     const parameters = new HttpParams({ fromObject: base });
-    return this.http.get<ApiResponse<MovieBase>>(`/discover/movie`, { params: parameters });
-  }
-
-  getSearchedMovies(query: string, page: number): Observable<ApiResponse<MovieBase>> {
-    const parameters = new HttpParams({
-      fromObject: {
-        query,
-        page: String(page),
-        language: 'en-US',
-      },
-    });
-    return this.http.get<ApiResponse<MovieBase>>('/search/movie', {
-      params: parameters,
-    });
+    return this.http.get<MovieResponse>(`/discover/movie`, { params: parameters });
   }
 }

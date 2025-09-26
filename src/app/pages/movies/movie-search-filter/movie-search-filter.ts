@@ -1,6 +1,6 @@
 import { Component, ElementRef, inject, signal, ViewChild, effect, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MovieStore } from '../services/movie-store-service';
+import { MovieStore } from './services/movie-store-service';
 import { SliderCard } from '../../home/slider-card/slider-card';
 import { Spinner } from '../../../shared/ui/spinner/spinner';
 
