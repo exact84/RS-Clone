@@ -31,6 +31,7 @@ export const ProfileStore = signalStore(
   withReducer(
     on(profileEvents.loadProfile, () => ({ isLoading: true })),
     on(profileEvents.loadProfileSuccess, ({ payload: user }) => ({ user, isLoading: false })),
+    on(profileEvents.loadProfileError, () => ({ isLoading: false })),
     on(profileEvents.logout, () => ({ ...initialState })),
   ),
   withEffects((store, events = inject(Events), profileService = inject(ProfileService)) => ({
