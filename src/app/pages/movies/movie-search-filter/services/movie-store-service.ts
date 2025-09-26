@@ -158,7 +158,7 @@ export class MovieStore {
       if (f.genres.length > 0) base['with_genres'] = f.genres.join(',');
       if (f.year) base['primary_release_year'] = String(f.year);
       if (f.language) base['with_original_language'] = f.language;
-      if (f.country) base['with_original_country'] = f.country;
+      if (f.country) base['with_origin_country'] = f.country;
       if (f.ratingMin != null) base['vote_average.gte'] = String(f.ratingMin);
       if (f.ratingMax != null) base['vote_average.lte'] = String(f.ratingMax);
       return base;
