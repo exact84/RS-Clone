@@ -1,3 +1,9 @@
+## [1.21.0](https://github.com/exact84/RS-Clone/compare/v1.20.0...v1.21.0) (2025-09-27)
+
+### Features
+
+* add Sentry for error monitoring, logging and tracing ([7e182b6](https://github.com/exact84/RS-Clone/commit/7e182b632db0a5e225f6280475a41cf76e6a92be))
+
 ## [1.20.0](https://github.com/exact84/RS-Clone/compare/v1.19.1...v1.20.0) (2025-09-27)
 
 ### Features
