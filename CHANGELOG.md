@@ -1,3 +1,9 @@
+## [1.19.1](https://github.com/exact84/RS-Clone/compare/v1.19.0...v1.19.1) (2025-09-27)
+
+### Refactoring
+
+* implement horizontal-slider for hope-page components ([8b82fad](https://github.com/exact84/RS-Clone/commit/8b82fad7718b175d76e97a6d971c29f6ce5a2054))
+
 ## [1.19.0](https://github.com/exact84/RS-Clone/compare/v1.18.0...v1.19.0) (2025-09-27)
 
 ### Features
