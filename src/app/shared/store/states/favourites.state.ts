@@ -7,7 +7,7 @@ import { Events, on, withEffects, withReducer } from '@ngrx/signals/events';
 import { computed, inject } from '@angular/core';
 import { FavouritesService } from '../../../pages/favourites/api/favourites.service';
 import { favouritesEvents } from '../events/favourites.events';
-import { EMPTY, from, map, mergeMap, scan, switchMap } from 'rxjs';
+import { EMPTY, from, map, mergeMap, of, scan, switchMap } from 'rxjs';
 import { mapResponse } from '@ngrx/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MediaType } from '../../../features/movie-details/types/media-type';
@@ -120,28 +120,33 @@ export const FavouritesStore = signalStore(
     loadListsItems$: events
       .on(favouritesEvents.loadFavouritesSuccessWithItems, favouritesEvents.loadListItem)
       .pipe(
-        map(() => store.favouritesLists()),
+        map(() => {
+          return store.favouritesLists();
+        }),
         switchMap((favourites) =>
           from(favourites).pipe(
-            mergeMap((favourite) =>
-              from(favourite.ids).pipe(
-                mergeMap((id) => {
-                  const [type, itemId] = id.split('/');
-                  return favouritesService.getContent(Number(itemId), type as MediaType);
-                }),
-                scan((accumulator, value) => [...accumulator, value], [] as ContentCard[]),
-                mapResponse({
-                  next: (data) => favouritesEvents.loadListItemSuccess({ id: favourite.id, data }),
-                  error: (error) => {
-                    favouritesEvents.loadListItemError(
-                      error instanceof HttpErrorResponse
-                        ? error.error.message
-                        : 'Failed to fetch data',
-                    );
-                  },
-                }),
-              ),
-            ),
+            mergeMap((favourite) => {
+              return favourite.ids.length === 0
+                ? of(favouritesEvents.loadListItemSuccess({ id: favourite.id, data: [] }))
+                : from(favourite.ids).pipe(
+                    mergeMap((id) => {
+                      const [type, itemId] = id.split('/');
+                      return favouritesService.getContent(Number(itemId), type as MediaType);
+                    }),
+                    scan((accumulator, value) => [...accumulator, value], [] as ContentCard[]),
+                    mapResponse({
+                      next: (data) =>
+                        favouritesEvents.loadListItemSuccess({ id: favourite.id, data }),
+                      error: (error) => {
+                        return favouritesEvents.loadListItemError(
+                          error instanceof HttpErrorResponse
+                            ? error.error.message
+                            : 'Failed to fetch data',
+                        );
+                      },
+                    }),
+                  );
+            }),
           ),
         ),
       ),
