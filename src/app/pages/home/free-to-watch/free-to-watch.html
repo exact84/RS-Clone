@@ -10,21 +10,19 @@
     </div>
   </div>
 
-  <div class="slider">
-    <div class="slider-track">
-      @if (loadingState()) {
-        <div class="spinner-wrapper">
-          <app-spinner />
-        </div>
-      } @else if (errorState()) {
-        <div class="error-message">Failed to load trailers. Please try again later.</div>
-      } @else if (selectedMovies().length === 0) {
-        <div class="empty-message">There are no trailers for this category.</div>
-      } @else {
-        @for (item of selectedMovies(); track $index) {
-          <app-slider-card [data]="item" />
-        }
+  <app-horizontal-slider>
+    @if (loadingState()) {
+      <div class="spinner-wrapper">
+        <app-spinner />
+      </div>
+    } @else if (errorState()) {
+      <div class="error-message">Failed to load trailers. Please try again later.</div>
+    } @else if (selectedMovies().length === 0) {
+      <div class="empty-message">There are no trailers for this category.</div>
+    } @else {
+      @for (item of selectedMovies(); track $index) {
+        <app-slider-card [data]="item" />
       }
-    </div>
-  </div>
+    }
+  </app-horizontal-slider>
 </section>

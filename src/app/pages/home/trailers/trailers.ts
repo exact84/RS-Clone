@@ -13,10 +13,11 @@ import { TrailerItem } from '../../types/trailer-item';
 import { CATEGORY_TRAILERS, posterURL, youtubeWatchUrl } from '../../../shared/constants/constants';
 import { HomeTabs } from '../home-tabs/home-tabs';
 import { Spinner } from '../../../shared/ui/spinner/spinner';
+import { HorizontalSlider } from '../../../shared/ui/horizontal-slider/horizontal-slider';
 
 @Component({
   selector: 'app-trailers',
-  imports: [TrailerCard, HomeTabs, Spinner],
+  imports: [TrailerCard, HomeTabs, Spinner, HorizontalSlider],
   templateUrl: './trailers.html',
   styleUrls: ['./trailers.scss', '../home.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
