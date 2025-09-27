@@ -1,12 +1,10 @@
 <a [routerLink]="['/details', data().media_type, data().id]" (click)="scrollToTop()">
   <div class="recommendation__card" [class]="size()">
-    <img [src]="getPosterUrl" [alt]="data().title" />
+    <img [src]="getPosterUrl" [alt]="getTitle(data())" />
     <div class="recommendation__info">
-      <h3 class="card__title">{{ data().title }}</h3>
+      <h3 class="card__title">{{ getTitle(data()) }}</h3>
       <p class="vote">{{ data().vote_average | votePercentPipe }}</p>
     </div>
-    <div class="release-date">
-      {{ data().release_date | date: 'MMM dd, yyyy' }}
-    </div>
+    <div class="release-date">{{ getReleaseDate(data()) }}</div>
   </div>
 </a>
