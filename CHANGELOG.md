@@ -1,3 +1,14 @@
+## [1.20.0](https://github.com/exact84/RS-Clone/compare/v1.19.1...v1.20.0) (2025-09-27)
+
+### Features
+
+* implement creation of new list ([8e011c3](https://github.com/exact84/RS-Clone/commit/8e011c33acbf9f0c1b1f16d6c12e7361830a984d))
+
+### Bug Fixes
+
+* fix input width ([195d62f](https://github.com/exact84/RS-Clone/commit/195d62f00ec1fd714afb39ea507018273c76d426))
+* fix loading from empty ids array ([e402088](https://github.com/exact84/RS-Clone/commit/e40208870627d3d53215c0f74ee23cd827766ac5))
+
 ## [1.19.1](https://github.com/exact84/RS-Clone/compare/v1.19.0...v1.19.1) (2025-09-27)
 
 ### Refactoring
