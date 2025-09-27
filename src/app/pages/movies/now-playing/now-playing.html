@@ -1,0 +1,55 @@
+<section class="page__wrapper">
+  <div class="content__wrapper">
+    @if (hasGenresError()) {
+      <p>Failed to load genres</p>
+    }
+
+    @if (!isGenresLoading() && !hasGenresError()) {
+      <app-genres-tabs
+        [tabs]="genres()"
+        class="genres__list"
+        [tabSelected]="selectedGenre()"
+        (genreSelected)="genreSelected($event)"
+      />
+
+      @if (hasMoviesError()) {
+        <p>Failed to load movies</p>
+      } @else {
+        <div class="cards__wrapper">
+          <div class="cards__list">
+            <cdk-virtual-scroll-viewport
+              #scrollAnchor
+              itemSize="200"
+              class="viewport"
+              (scrolledIndexChange)="onScrolledIndexChange($event)"
+            ></cdk-virtual-scroll-viewport>
+
+            @for (movie of movies(); track movie.id) {
+              <app-slider-card [data]="movie" />
+            }
+          </div>
+
+          @if (isMoviesLoading()) {
+            <div class="spinner-wrapper">
+              <app-spinner />
+            </div>
+          } @else {
+            @if (!lazyScrollEnabled()) {
+              <button
+                app-button
+                class="cards__load-more"
+                (click)="enableLazyScroll()"
+                type="button"
+              >
+                Load More
+              </button>
+            }
+          }
+          @if (lazyScrollEnabled()) {
+            <div #scrollAnchor style="height: 1px; scroll-margin-top: 500px"></div>
+          }
+        </div>
+      }
+    }
+  </div>
+</section>

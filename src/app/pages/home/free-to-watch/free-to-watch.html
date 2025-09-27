@@ -17,12 +17,13 @@
       </div>
     } @else if (errorState()) {
       <div class="error-message">Failed to load trailers. Please try again later.</div>
-    } @else if (selectedMovies().length === 0) {
-      <div class="empty-message">There are no trailers for this category.</div>
-    } @else {
+    }  @else {
       @for (item of selectedMovies(); track $index) {
         <app-slider-card [data]="item" />
+      }@empty {
+        <div class="empty-message">There are no trailers for this category.</div>
       }
     }
   </app-horizontal-slider>
+  
 </section>
