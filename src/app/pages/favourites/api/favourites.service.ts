@@ -1,15 +1,17 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FavouritesInterface } from '../models/favourites';
 import { MediaType } from '../../../features/movie-details/types/media-type';
 import { ContentCard } from '../../types/content-card';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FavouritesService {
   private readonly http = inject(HttpClient);
+
+  newListCreated = signal(false);
 
   getContent(id: number, type: MediaType) {
     return this.http
@@ -32,11 +34,13 @@ export class FavouritesService {
   }
 
   createNewList(label: string) {
-    return this.http.post<FavouritesInterface>(
-      '/favourites/new',
-      { label },
-      { observe: 'response' },
-    );
+    return this.http
+      .post<FavouritesInterface>('/favourites/new', { label }, { observe: 'response' })
+      .pipe(
+        tap((response) => {
+          if (response.ok) this.newListCreated.set(true);
+        }),
+      );
   }
 
   addToFavourites(id: string, contentId: string) {

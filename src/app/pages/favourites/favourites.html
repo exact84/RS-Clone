@@ -22,6 +22,52 @@
             </div>
           </div>
         }
+        @if (!addNewList()) {
+          <button app-button class="favourites-new" (click)="addNewList.set(true)">
+            + Add new list
+          </button>
+        } @else {
+          <form [formGroup]="newListForm" class="favourites-new form" (ngSubmit)="addList()">
+            <app-form-field inputId="new-list" label="List name">
+              <ng-container slot="input">
+                <input
+                  class="favourites-new__input"
+                  type="text"
+                  id="new-list"
+                  formControlName="label"
+                />
+              </ng-container>
+              <ng-container slot="validation-errors">
+                @if (label.dirty && label.invalid) {
+                  @if (label.hasError('required')) {
+                    <span class="validation-error">Please enter list name</span>
+                  }
+                  @if (label.hasError('minlength')) {
+                    <span class="validation-error">Min length is 3 letters</span>
+                  }
+                  @if (label.hasError('isTakenListName')) {
+                    <span class="validation-error">{{
+                      label.getError('isTakenListName').message
+                    }}</span>
+                  }
+                }
+              </ng-container>
+            </app-form-field>
+            <div class="form-controls">
+              <button class="form-controls__close" app-button type="button" (click)="closeForm()">
+                Close
+              </button>
+              <button
+                class="form-controls__add"
+                app-button
+                type="submit"
+                [disabled]="newListForm.invalid"
+              >
+                Add
+              </button>
+            </div>
+          </form>
+        }
       </section>
     }
   }
