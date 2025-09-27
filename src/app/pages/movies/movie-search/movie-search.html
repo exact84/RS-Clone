@@ -4,7 +4,13 @@
   role="search"
   aria-label="Search movies"
 >
-  <input #searchInput type="text" aria-label="Movie title" placeholder="Search for a movie......" />
+  <input
+    id="search"
+    #searchInput
+    type="text"
+    aria-label="Movie title"
+    placeholder="Search for a movie......"
+  />
   <button (click)="submitSearch(searchInput.value)" aria-label="Submit search">Search</button>
 </form>
 

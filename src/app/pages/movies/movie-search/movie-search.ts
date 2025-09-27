@@ -43,7 +43,7 @@ export class MovieSearch implements OnInit, AfterViewInit {
 
       this.searchService.getSearchedMovies(query).subscribe({
         next: (response) => {
-          this.movies.set(response.results);
+          this.movies.set(response.results.map((m) => ({ ...m, media_type: 'movie' })));
           this.loadingState.set(false);
         },
         error: (error) => {
