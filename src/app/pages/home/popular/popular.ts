@@ -5,10 +5,11 @@ import { HomeTabs } from '../home-tabs/home-tabs';
 import { SliderCard } from '../slider-card/slider-card';
 import { CATEGORY_POPULAR } from '../../../shared/constants/constants';
 import { Spinner } from '../../../shared/ui/spinner/spinner';
+import { HorizontalSlider } from '../../../shared/ui/horizontal-slider/horizontal-slider';
 
 @Component({
   selector: 'app-popular',
-  imports: [HomeTabs, SliderCard, Spinner],
+  imports: [HomeTabs, SliderCard, Spinner, HorizontalSlider],
   templateUrl: './popular.html',
   styleUrls: ['./popular.scss', '../home.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

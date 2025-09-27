@@ -5,10 +5,11 @@ import { ContentCard } from '../../types/content-card';
 import { HomeTabs } from '../home-tabs/home-tabs';
 import { SliderCard } from '../slider-card/slider-card';
 import { Spinner } from '../../../shared/ui/spinner/spinner';
+import { HorizontalSlider } from '../../../shared/ui/horizontal-slider/horizontal-slider';
 
 @Component({
   selector: 'app-free-to-watch',
-  imports: [HomeTabs, SliderCard, Spinner],
+  imports: [HomeTabs, SliderCard, Spinner, HorizontalSlider],
   templateUrl: './free-to-watch.html',
   styleUrls: ['./free-to-watch.scss', '../home.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
