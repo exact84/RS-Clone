@@ -7,8 +7,9 @@ import {
 } from '@angular/forms';
 import { PASSWORD_MIN_LENGTH, REQUEST_DELAY_MS } from '../constants/constants';
 import { map, Observable, switchMap, timer } from 'rxjs';
-import { inject } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FavouritesStore } from '../store/states/favourites.state';
 
 export function isMatchPasswords(firstFieldName: string, secondFieldName: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -51,6 +52,17 @@ export function isTakenLogin(): AsyncValidatorFn {
         ),
       ),
     );
+  };
+}
+
+export function isTakenListName(): ValidatorFn {
+  const favouritesStore = inject(FavouritesStore);
+  const lists = favouritesStore.favouritesLists;
+  const labels = computed(() => lists().map(({ label }) => label));
+  return (control: AbstractControl): ValidationErrors | null => {
+    return labels().includes(control.value)
+      ? { isTakenListName: { message: `List with name ${control.value} is exist` } }
+      : null;
   };
 }
 
