@@ -1,3 +1,26 @@
+## [1.19.0](https://github.com/exact84/RS-Clone/compare/v1.18.0...v1.19.0) (2025-09-27)
+
+### Features
+
+* add ARIA & Keyboard navigation for seach and filter ([dfb3309](https://github.com/exact84/RS-Clone/commit/dfb330948fc1e78130bc9e07050c88650a8761c3))
+* add input for search result page ([224fffb](https://github.com/exact84/RS-Clone/commit/224fffb96feae8c6fbbb87ff881c08a1b3be031c))
+* add movie-filters ([1c67c8f](https://github.com/exact84/RS-Clone/commit/1c67c8f041c3bde183796291fa55054176677d3c))
+* add route for movie-search-filter, add tests for movie-search-filter and services. ([04c0b82](https://github.com/exact84/RS-Clone/commit/04c0b823095af31e47485e22360ae56befa530c1))
+* add search section into home and add search page. ([68c2d45](https://github.com/exact84/RS-Clone/commit/68c2d45ca285fd66293569788f782091125e76a5))
+* add tests for movie-search ([f3dd2f3](https://github.com/exact84/RS-Clone/commit/f3dd2f3ba4c2e7718e54fd778d77d7fd933610b2))
+
+### Bug Fixes
+
+* add finalize loading.set(false) ([6754ec3](https://github.com/exact84/RS-Clone/commit/6754ec3804f0cbe200f9611bb6f244015f965c49))
+* keywords search and pagination in movie-search-filter ([6888b71](https://github.com/exact84/RS-Clone/commit/6888b718d383b4e0d14f3d298a3fc935efbfad5d))
+* minor fix country filter ([d96aa54](https://github.com/exact84/RS-Clone/commit/d96aa54640f6bc5b3e457f9a79c7b8789a0ca594))
+* set focus after search and reset ([2af009b](https://github.com/exact84/RS-Clone/commit/2af009b041643bac4928c97a683a06f31f705e30))
+
+### Refactoring
+
+* move into separate menu movie-search-filter and refactor it ([545bb3f](https://github.com/exact84/RS-Clone/commit/545bb3f34d4fa8192899e4e3faccbffb3b85e6b8))
+* movie-searh-filter & movie-service for meeting the criteria list ([441738d](https://github.com/exact84/RS-Clone/commit/441738dbb1a306df3424ee991130e815a79809cd))
+
 ## [1.18.0](https://github.com/exact84/RS-Clone/compare/v1.17.1...v1.18.0) (2025-09-26)
 
 ### Features
