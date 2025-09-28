@@ -118,7 +118,7 @@
     </form>
   </aside>
 
-  <section class="movie-list" role="list" [attr.aria-busy]="loading()">
+  <section class="movie-list" [attr.aria-busy]="loading()">
     @if (loading()) {
       <div class="loader-wrapper" role="status" aria-live="polite">
         <app-spinner></app-spinner>
@@ -127,7 +127,7 @@
       <div class="error" role="alert">{{ error() }}</div>
     } @else {
       @for (movie of movies(); track $index) {
-        <app-slider-card [data]="movie" class="movie-card" role="listitem"></app-slider-card>
+        <app-slider-card [data]="movie" class="movie-card"></app-slider-card>
       } @empty {
         <div class="empty-state">
           <p>No movies found for your search/filter combination.</p>

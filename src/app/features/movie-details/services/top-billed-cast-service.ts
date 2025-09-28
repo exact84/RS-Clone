@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { map, Observable } from 'rxjs';
-// import { CastPerson } from '../../../pages/models/people/cast-person';
 import { ApiErrorService } from '../../../core/services/api-error-service';
 import { Person } from '../../../pages/models/people/person.interface';
 

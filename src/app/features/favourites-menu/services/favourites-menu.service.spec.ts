@@ -18,7 +18,6 @@ describe('FavouritesMenuService', () => {
       providers: [
         { provide: Dispatcher, useValue: dispatcherSpy },
         { provide: FavouritesStore, useValue: mockFavouritesStore },
-        // FavouritesMenuService,
       ],
     });
     service = TestBed.inject(FavouritesMenuService);

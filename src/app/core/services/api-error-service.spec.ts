@@ -15,7 +15,6 @@ describe('ApiErrorService', () => {
       providers: [provideHttpClient(), provideHttpClientTesting()],
     });
     service = TestBed.inject(ApiErrorService);
-    // service = new ApiErrorService();
     errorSignal = signal<string | null>(null);
   });
 

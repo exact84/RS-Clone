@@ -145,6 +145,21 @@ Computed и untracked помогают избежать лишних перес�
 
 > > in README + measured Lighthouse gains. (20 pts)
 
-```
+### Lighthouse Scores
+Before optimization:
 
-```
+| Category       | Before | After |
+|----------------|--------|-------|
+| Performance    | 42     | 53    |
+| Accessibility  | 92     | 100   |
+| Best Practices | 96     | 100   |
+| SEO            | 91     | 100   |
+
+
+| Performance Metric           | Before | After | Gain   |
+|------------------------------|--------|-------|--------|
+| First Contentful Paint (FCP) | 12.5 s |  12.4 | 0.1    |
+| Largest Contentful Paint(LCP)| 23.2 s |  22.2 | 1.0    |
+| Total Blocking Time (TBT)    | 510 ms |  170  | 330    |
+| Cumulative Layout Shift (CLS)| 0      |  0    | 0      |
+| Speed Index                  | 13.0 s |  12.4 | 0.6    |

@@ -7,6 +7,10 @@
 html,
 body {
   height: 100%;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 ::view-transition-old(page),
@@ -15,17 +19,14 @@ body {
   animation-timing-function: ease-in-out;
 }
 
-/* Исчезновение старого компонента */
 ::view-transition-old(page) {
   animation-name: fade-out;
 }
 
-/* Появление нового компонента */
 ::view-transition-new(page) {
   animation-name: fade-in;
 }
 
-/* Кадры анимации */
 @keyframes fade-out {
   to {
     opacity: 0;

@@ -53,7 +53,7 @@ describe('FavouritesStore (reducer only)', () => {
 
     dispatcher.dispatch(favouritesEvents.loadFavouritesError(error));
 
-    expect(store.hasFavourites()).toBeFalse(); // ничего не загружено
+    expect(store.hasFavourites()).toBeFalse();
     expect(store.favouritesLists().length).toBe(0);
     expect(store.error()).toBe(error);
     expect(store.loading()).toBeFalse();
