@@ -13,7 +13,7 @@ export const routes: Routes = [
         path: 'home',
         component: Home,
         data: { title: 'RS Clone  MovieDB' },
-        title: 'RS Clone  MovieDB'
+        title: 'RS Clone  MovieDB',
       },
       {
         path: 'movies',
