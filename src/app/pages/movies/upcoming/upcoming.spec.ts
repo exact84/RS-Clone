@@ -16,6 +16,7 @@ describe('Upcoming', () => {
 
     fixture = TestBed.createComponent(Upcoming);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('title', 'Upcoming');
     fixture.detectChanges();
   });
 

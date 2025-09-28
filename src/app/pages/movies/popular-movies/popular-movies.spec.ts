@@ -16,6 +16,7 @@ describe('PopularMovies', () => {
 
     fixture = TestBed.createComponent(PopularMovies);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('title', 'Popular');
     fixture.detectChanges();
   });
 
