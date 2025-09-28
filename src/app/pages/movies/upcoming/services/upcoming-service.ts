@@ -17,12 +17,20 @@ export class UpcomingService {
   readonly total_pages = signal(1);
 
   getUpcomingByGenre(genreId: number, page = 1): Observable<ContentCard[]> {
-    const url = '/movie/upcoming';
+    const url = '/discover/movie';
+    const today = new Date();
+    const threeMonthsLater = new Date();
+    threeMonthsLater.setMonth(today.getMonth() + 3);
+
+    const format = (date: Date) => date.toISOString().split('T')[0];
+
     const parameters = new HttpParams()
       .set('sort_by', 'popularity.desc')
       .set('language', 'en-US')
       .set('page', page)
-      .set('with_genres', genreId);
+      .set('with_genres', genreId)
+      .set('release_date.gte', format(today))
+      .set('release_date.lte', format(threeMonthsLater));
 
     return this.http
       .get<{ results: ContentCard[]; total_pages: number }>(url, { params: parameters })

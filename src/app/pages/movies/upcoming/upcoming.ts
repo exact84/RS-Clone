@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  ElementRef,
+  inject,
+  viewChild,
+} from '@angular/core';
 import { BaseMovieListComponent } from '../base-movie-component';
 
 import { UpcomingService } from './services/upcoming-service';
@@ -22,7 +29,10 @@ export class Upcoming extends BaseMovieListComponent {
 
   constructor() {
     super();
-    this.setScrollAnchorSignal(this.scrollAnchor);
+    effect(() => {
+      if (this.isMoviesLoading()) return;
+      this.scrollAnchor()?.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    });
   }
 
   protected fetchMovies(genreId: number, page: number): Observable<ContentCard[]> {

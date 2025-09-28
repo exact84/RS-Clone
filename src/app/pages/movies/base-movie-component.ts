@@ -107,19 +107,19 @@ export abstract class BaseMovieListComponent {
   }
 
   genreSelected(genreId: number) {
-    if (genreId !== this.selectedGenre()) {
+    const previousGenre = this.selectedGenre();
+
+    if (genreId !== previousGenre) {
       this.currentPage.set(1);
       this.movies.set([]);
       this.allPagesLoaded.set(false);
       this.lazyScrollEnabled.set(false);
+      this.selectedGenre.set(genreId);
     }
-
-    this.selectedGenre.set(genreId);
   }
 
   loadNextPage() {
     if (!this.lazyScrollEnabled() || this.isMoviesLoading() || this.allPagesLoaded()) return;
-    this.isMoviesLoading.set(true);
     this.currentPage.update((p) => p + 1);
   }
 
