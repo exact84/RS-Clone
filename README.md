@@ -131,35 +131,52 @@ flowchart TD
     M --> N[Push changes and tags back to repository]
 ```
 
-## Short rationale:
+## Why Signals, short rationale:
 
-> > in README (5–7 lines) explain where you chose signals vs RxJS and why (clarity, perf, simplicity). (10 pts)
-### Why Signals
-Page Movies:  
-Основное состояние (фильтры, список фильмов, страница, загрузка, ошибки) хранится в сигнале для единого источника правды.
-RxJS используется только для HTTP-запросов и конвертируется в сигналы через toSignal, чтобы шаблон мог реагировать напрямую.
-Computed и untracked помогают избежать лишних пересчётов и дублирования.
-Такой подход упрощает код компонентов, улучшает производительность и делает логику предсказуемой.
+Signals vs RxJS in Our Zoneless Angular App
+ Where We Use Signals
+•     UI state management: loading, error, selected category, filters
+•     Route data binding: via  input.required() and withComponentInputBinding()
+•     Component inputs: declarative and type-safe with input()
+•     Template reactivity: direct signal() access in templates without subscriptions
+Why Signals?
+Signals give us transparent reactivity without zone.js. They’re synchronous, predictable, and ideal for local UI state. We avoid ngOnInit and subscribe and manual cleanup — everything flows declaratively.
+
+Where We Use RxJS
+•     API calls: HTTPClient returns Observable , so we use switchMap, catchError , etc.
+•     Shared services: for cross-component communication (e.g. auth, global events)
+•     Pagination streams: scroll-based triggers, debounce, throttle
+•     Complex async workflows: when chaining multiple async steps
+Why RxJS?
+RxJS is still the best tool for handling external async data. Signals don’t replace Observables for APIs, especially when we need operators, cancellation, or multicasting.
+
+Integration Strategy
+•     We convert Observable → to signal using  toSignal() when needed in components
+•     We avoid  changeDetectionRef — everything is signal-driven
+•     We keep RxJS in services, and Signals in components
+
+As example:
+Page MovieSearchFilter. The main state (filters, movie list, page, loading, errors) is stored in a signal for a single source of truth.
+RxJS is used only for HTTP requests and is converted to signals via toSignal so that the template can respond directly. Computed and untracked help avoid unnecessary recalculations and duplication.
+This approach simplifies component code, improves performance, and makes logic predictable.
 
 ## Performance budget
-
-> > in README + measured Lighthouse gains. (20 pts)
 
 ### Lighthouse Scores
 Before optimization:
 
 | Category       | Before | After |
 |----------------|--------|-------|
-| Performance    | 42     | 53    |
+| Performance    | 53     |  85   |
 | Accessibility  | 92     | 100   |
-| Best Practices | 96     | 100   |
-| SEO            | 91     | 100   |
+| Best Practices | 93     |  96   |
+| SEO            | 58     | 100   |
 
 
-| Performance Metric           | Before | After | Gain   |
-|------------------------------|--------|-------|--------|
-| First Contentful Paint (FCP) | 12.5 s |  12.4 | 0.1    |
-| Largest Contentful Paint(LCP)| 23.2 s |  22.2 | 1.0    |
-| Total Blocking Time (TBT)    | 510 ms |  170  | 330    |
-| Cumulative Layout Shift (CLS)| 0      |  0    | 0      |
-| Speed Index                  | 13.0 s |  12.4 | 0.6    |
+| Performance Metric           | Before | After | Gain |
+|------------------------------|--------|-------|------|
+| First Contentful Paint (FCP) | 3.5 s  |   2.2 | 1.3  |
+| Largest Contentful Paint(LCP)| 5.9 s  |   3.5 | 2.4  |
+| Total Blocking Time (TBT)    | 610 ms |   140 | 460  |
+| Cumulative Layout Shift (CLS)|   0    |     0 |   0  |
+| Speed Index                  | 4.9 s  |   4.3 | 0.6  |
