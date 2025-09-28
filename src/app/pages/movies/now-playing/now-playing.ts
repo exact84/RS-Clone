@@ -5,12 +5,12 @@ import { Observable } from 'rxjs';
 import { Spinner } from '../../../shared/ui/spinner/spinner';
 import { SliderCard } from '../../home/slider-card/slider-card';
 import { GenresTabs } from '../genres/genres-tabs/genres-tabs';
-import { CdkFixedSizeVirtualScroll, ScrollingModule } from '@angular/cdk/scrolling';
 import { BaseMovieListComponent } from '../base-movie-component';
+import { Button } from '../../../shared/ui/button/button';
 
 @Component({
   selector: 'app-now-playing',
-  imports: [Spinner, SliderCard, GenresTabs, ScrollingModule, CdkFixedSizeVirtualScroll],
+  imports: [Spinner, SliderCard, GenresTabs, Button],
   templateUrl: './now-playing.html',
   styleUrls: ['./now-playing.scss', '../movies.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -6,13 +6,12 @@
 .content__wrapper {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  padding-left: 150px;
+  padding-left: 200px;
 
   .cards__list {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    justify-content: space-evenly;
     padding-inline: 1rem;
   }
 
@@ -20,15 +19,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .cards__list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    padding-inline: 1rem;
-    overflow-anchor: auto;
   }
 
   .load-more-btn,

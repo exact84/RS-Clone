@@ -7,10 +7,11 @@ import { ContentCard } from '../../types/content-card';
 import { GenresTabs } from '../genres/genres-tabs/genres-tabs';
 import { SliderCard } from '../../home/slider-card/slider-card';
 import { Spinner } from '../../../shared/ui/spinner/spinner';
+import { Button } from '../../../shared/ui/button/button';
 
 @Component({
   selector: 'app-upcoming',
-  imports: [GenresTabs, SliderCard, Spinner],
+  imports: [GenresTabs, SliderCard, Spinner, Button],
   templateUrl: './upcoming.html',
   styleUrls: ['./upcoming.scss', '../movies.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -28,7 +28,6 @@ export class PopularMoviesService {
       .pipe(
         map((response) => {
           this.total_pages.set(response.total_pages);
-          console.log(this.total_pages());
 
           return response.results.map(
             (item) =>
