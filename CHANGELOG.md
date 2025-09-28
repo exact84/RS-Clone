@@ -1,3 +1,9 @@
+## [1.23.0](https://github.com/exact84/RS-Clone/compare/v1.22.0...v1.23.0) (2025-09-28)
+
+### Features
+
+* implement top-rated page with common service and injectionToken ([e7144ff](https://github.com/exact84/RS-Clone/commit/e7144ff59d6cfbe46954feb3d22d859a2ff8dedb))
+
 ## [1.22.0](https://github.com/exact84/RS-Clone/compare/v1.21.0...v1.22.0) (2025-09-28)
 
 ### Features
