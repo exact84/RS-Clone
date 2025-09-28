@@ -6,7 +6,7 @@
   role="button"
 >
   <div class="movie-card__poster">
-    <img [src]="posterUrl" [alt]="title" loading="lazy" />
+    <img [src]="posterUrl" [alt]="title" loading="lazy" fetchpriority="high" />
     <div class="vote-average__wrapper">
       <app-rating-badge [voteAverage]="vote_average" />
     </div>
