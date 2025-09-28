@@ -7,6 +7,7 @@ import {
   AfterViewInit,
   ViewChild,
   ElementRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { MovieSearchService } from './services/movie-search-service';
 import { MovieCard } from '../../models/movie-card';
@@ -18,6 +19,7 @@ import { Spinner } from '../../../shared/ui/spinner/spinner';
   imports: [SliderCard, Spinner],
   templateUrl: './movie-search.html',
   styleUrl: './movie-search.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieSearch implements OnInit, AfterViewInit {
   searchService = inject(MovieSearchService);

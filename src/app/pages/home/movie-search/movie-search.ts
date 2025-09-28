@@ -1,4 +1,11 @@
-import { Component, ElementRef, inject, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  ViewChild,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,6 +13,7 @@ import { Router } from '@angular/router';
   imports: [],
   templateUrl: './movie-search.html',
   styleUrl: './movie-search.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieSearch implements AfterViewInit {
   router = inject(Router);

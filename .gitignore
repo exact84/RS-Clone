@@ -42,3 +42,5 @@ testem.log
 Thumbs.db
 src/app/core/constants/key.ts
 
+*.report.html
+build.log

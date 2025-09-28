@@ -2,7 +2,7 @@
 <article class="movie-details" [style.backgroundImage]="'url(' + data.poster_path + ')'">
   <section class="hero">
     <div class="hero__poster">
-      <img [src]="data.poster_path" [alt]="data.title" />
+      <img [src]="data.poster_path" [alt]="data.title" loading="eager" fetchpriority="high" />
     </div>
 
     <div class="hero__info">

@@ -6,12 +6,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
-import {
-  provideRouter,
-  Router,
-  withComponentInputBinding,
-  withViewTransitions,
-} from '@angular/router';
+import { provideRouter, Router, withComponentInputBinding } from '@angular/router';
 import * as Sentry from '@sentry/angular';
 
 import { routes } from './app.routes';
@@ -24,7 +19,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes, withComponentInputBinding(), withViewTransitions()),
+    provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withFetch(), withInterceptors([headersInterceptor, httpInterceptor])),
     {
       provide: ErrorHandler,

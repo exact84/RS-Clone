@@ -1,6 +1,6 @@
 <div class="movie-card">
   <div class="movie-card__poster">
-    <img [src]="posterUrl" [alt]="title" />
+    <img [src]="posterUrl" [alt]="title" loading="lazy" />
 
     <button class="play-btn" (click)="emitTrailerClick()">
       <img src="icon-play.png" alt="play" class="play-btn__icon" />
