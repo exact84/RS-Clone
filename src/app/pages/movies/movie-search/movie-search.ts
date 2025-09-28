@@ -9,8 +9,6 @@ import {
   ElementRef,
   ChangeDetectionStrategy,
   viewChild,
-  ChangeDetectionStrategy,
-  viewChild,
 } from '@angular/core';
 import { MovieSearchService } from './services/movie-search-service';
 import { SliderCard } from '../../home/slider-card/slider-card';
