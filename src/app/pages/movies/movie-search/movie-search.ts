@@ -69,6 +69,7 @@ export class MovieSearch extends BaseMovieListComponent implements OnInit, After
           console.error(error);
           this.errorState.set('Failed to load movies. Please try again.');
           this.loadingState.set(false);
+          this.lazyScrollEnabled.set(false);
         },
       });
     }
