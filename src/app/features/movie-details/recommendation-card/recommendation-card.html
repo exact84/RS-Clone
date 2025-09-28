@@ -5,6 +5,6 @@
       <h3 class="card__title">{{ getTitle(data()) }}</h3>
       <p class="vote">{{ data().vote_average | votePercentPipe }}</p>
     </div>
-    <div class="release-date">{{ getReleaseDate(data()) }}</div>
+    <div class="release-date">{{ getReleaseDate(data()) | date: 'longDate' }}</div>
   </div>
 </a>
