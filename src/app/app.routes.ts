@@ -28,6 +28,13 @@ export const routes: Routes = [
             data: { category: 'popular' },
           },
           {
+            path: 'top-rated',
+            loadComponent: () =>
+              import('./pages/movies/top-rated/top-rated').then((c) => c.TopRated),
+            data: { category: 'popular' },
+            title: 'Top Rated',
+          },
+          {
             path: 'upcoming',
             loadComponent: () => import('./pages/movies/upcoming/upcoming').then((c) => c.Upcoming),
             data: { category: 'popular' },
