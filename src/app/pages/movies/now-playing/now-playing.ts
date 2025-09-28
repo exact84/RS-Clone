@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
   ElementRef,
   inject,
   input,
@@ -41,11 +40,7 @@ export class NowPlaying extends BaseMovieListComponent {
 
   constructor() {
     super();
-
-    effect(() => {
-      if (this.isMoviesLoading()) return;
-      this.scrollAnchor()?.nativeElement.scrollIntoView({ behavior: 'smooth' });
-    });
+    this.setScrollAnchorSignal(this.scrollAnchor);
   }
 
   protected fetchMovies(genreId: number, page: number): Observable<ContentCard[]> {

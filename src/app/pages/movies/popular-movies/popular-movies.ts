@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
   ElementRef,
   inject,
   input,
@@ -15,6 +14,7 @@ import { Spinner } from '../../../shared/ui/spinner/spinner';
 import { Button } from '../../../shared/ui/button/button';
 import { BaseMovieListComponent } from '../base-movie-component';
 import { MovieService } from '../services/movie-service';
+import { PARAMS_TOKEN } from '../services/parameters-token';
 
 @Component({
   selector: 'app-popular-movies',
@@ -22,7 +22,7 @@ import { MovieService } from '../services/movie-service';
   templateUrl: './popular-movies.html',
   styleUrls: ['./popular-movies.scss', '../movies.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [MovieService],
+  providers: [MovieService, { provide: PARAMS_TOKEN, useValue: { 'vote_count.gte': 500 } }],
 })
 export class PopularMovies extends BaseMovieListComponent {
   private movieService = inject(MovieService);
@@ -31,10 +31,7 @@ export class PopularMovies extends BaseMovieListComponent {
 
   constructor() {
     super();
-    effect(() => {
-      if (this.isMoviesLoading()) return;
-      this.scrollAnchor()?.nativeElement.scrollIntoView({ behavior: 'smooth' });
-    });
+    this.setScrollAnchorSignal(this.scrollAnchor);
   }
 
   protected fetchMovies(genreId: number, page: number): Observable<ContentCard[]> {
