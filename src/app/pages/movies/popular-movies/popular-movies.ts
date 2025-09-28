@@ -7,7 +7,6 @@ import {
   input,
   viewChild,
 } from '@angular/core';
-import { PopularMoviesService } from './services/popular-movies-service';
 import { GenresTabs } from '../genres/genres-tabs/genres-tabs';
 import { ContentCard } from '../../types/content-card';
 import { SliderCard } from '../../home/slider-card/slider-card';
@@ -15,6 +14,7 @@ import { Observable } from 'rxjs';
 import { Spinner } from '../../../shared/ui/spinner/spinner';
 import { Button } from '../../../shared/ui/button/button';
 import { BaseMovieListComponent } from '../base-movie-component';
+import { MovieService } from '../services/movie-service';
 
 @Component({
   selector: 'app-popular-movies',
@@ -22,9 +22,10 @@ import { BaseMovieListComponent } from '../base-movie-component';
   templateUrl: './popular-movies.html',
   styleUrls: ['./popular-movies.scss', '../movies.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [MovieService],
 })
 export class PopularMovies extends BaseMovieListComponent {
-  private popularMoviesService = inject(PopularMoviesService);
+  private movieService = inject(MovieService);
   readonly scrollAnchor = viewChild('scrollAnchor', { read: ElementRef });
   readonly title = input.required<string>();
 
@@ -37,7 +38,7 @@ export class PopularMovies extends BaseMovieListComponent {
   }
 
   protected fetchMovies(genreId: number, page: number): Observable<ContentCard[]> {
-    return this.popularMoviesService.getMoviesByGenre(genreId, page);
+    return this.movieService.getMoviesByGenre(genreId, page);
   }
 
   override genreSelected(genreId: number) {
