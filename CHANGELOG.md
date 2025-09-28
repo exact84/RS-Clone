@@ -1,3 +1,18 @@
+## [1.24.4](https://github.com/exact84/RS-Clone/compare/v1.24.3...v1.24.4) (2025-09-28)
+
+### Bug Fixes
+
+* add title to Home ([196baa8](https://github.com/exact84/RS-Clone/commit/196baa8b5228085df1b6e0a69f79cdf13a956689))
+* delete duplicated imports ([d675e20](https://github.com/exact84/RS-Clone/commit/d675e2083eb7b67e99928bbaec77c94e6a5f8c63))
+* fix hided button ([be9338b](https://github.com/exact84/RS-Clone/commit/be9338b72a77ea7b52d6d321f557d279a82aa2dc))
+* fix hided button ([e7ccbcf](https://github.com/exact84/RS-Clone/commit/e7ccbcf5cb0cc027fdfc09e7f1c5d45c78d1435b))
+
+### Refactoring
+
+* add scroll loading ([16bcaa2](https://github.com/exact84/RS-Clone/commit/16bcaa2dd44597cce97bfed254dbc8ff9c7bf323))
+* add scroll loading ([48858d1](https://github.com/exact84/RS-Clone/commit/48858d197f1379713743d756ace363ed8417c89b))
+* cleaning and performancing ([e9ba76e](https://github.com/exact84/RS-Clone/commit/e9ba76e8a227369ded960b4e9e652dfa9a463243))
+
 ## [1.24.3](https://github.com/exact84/RS-Clone/compare/v1.24.2...v1.24.3) (2025-09-28)
 
 ### Bug Fixes
