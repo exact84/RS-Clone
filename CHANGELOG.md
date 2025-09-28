@@ -1,3 +1,13 @@
+## [1.24.5](https://github.com/exact84/RS-Clone/compare/v1.24.4...v1.24.5) (2025-09-28)
+
+### Bug Fixes
+
+* add withViewTransitions ([45fdc62](https://github.com/exact84/RS-Clone/commit/45fdc6296b76fb6f7f3e57d886bc9b26e2a35bea))
+
+### Chores
+
+* add robots.txt for netlify ([f9aac01](https://github.com/exact84/RS-Clone/commit/f9aac0127e4a7039393551c9f11451ff700ea9b7))
+
 ## [1.24.4](https://github.com/exact84/RS-Clone/compare/v1.24.3...v1.24.4) (2025-09-28)
 
 ### Bug Fixes
