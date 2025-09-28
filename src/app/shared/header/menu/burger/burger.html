@@ -3,6 +3,7 @@
   class="burger"
   [class]="burgerClass()"
   (click)="toggleBurger()"
+  (keydown)="handleKeydown($event)"
   tabindex="0"
   aria-label="Open menu"
 >

@@ -9,7 +9,7 @@ export const routes: Routes = [
     component: MainLayout,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: Home, data: { title: 'RS Clone' } },
+      { path: 'home', component: Home, data: { title: 'RS Clone  MovieDB' } },
       {
         path: 'movies',
         loadComponent: () => import('./pages/movies/movies').then((c) => c.Movies),
