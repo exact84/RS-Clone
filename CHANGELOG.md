@@ -1,3 +1,13 @@
+## [1.24.0](https://github.com/exact84/RS-Clone/compare/v1.23.0...v1.24.0) (2025-09-28)
+
+### Features
+
+* add inputs to tests ([d97deae](https://github.com/exact84/RS-Clone/commit/d97deae793fd6007cdc24d4e16d9f35e57102796))
+
+### Refactoring
+
+* implement base class in movies/popular, implement withComponentInputBinding() for movies children ([0d3ecf1](https://github.com/exact84/RS-Clone/commit/0d3ecf19dbee4cd78be5d665ea1edca85dae926b))
+
 ## [1.23.0](https://github.com/exact84/RS-Clone/compare/v1.22.0...v1.23.0) (2025-09-28)
 
 ### Features
