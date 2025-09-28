@@ -1,3 +1,15 @@
+## [1.24.2](https://github.com/exact84/RS-Clone/compare/v1.24.1...v1.24.2) (2025-09-28)
+
+### Bug Fixes
+
+* add comment about untracked() ([f810f35](https://github.com/exact84/RS-Clone/commit/f810f359c97e28bc36bc95e6acf07a2f5e3ec7bc))
+* add fetchpriority ([d7d31f2](https://github.com/exact84/RS-Clone/commit/d7d31f220358c30d22de278abf7c97dfab1c10b2))
+* add title to Home ([775151a](https://github.com/exact84/RS-Clone/commit/775151aecd7be448b66d7d7235867e0e6d815b17))
+
+### Refactoring
+
+* cleaning and performancing ([8de1acb](https://github.com/exact84/RS-Clone/commit/8de1acb129eb86a557db6688189391556f3784f5))
+
 ## [1.24.1](https://github.com/exact84/RS-Clone/compare/v1.24.0...v1.24.1) (2025-09-28)
 
 ### Refactoring
