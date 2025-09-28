@@ -133,37 +133,41 @@ flowchart TD
 
 ## Why Signals, short rationale:
 
-Signals vs RxJS in Our Zoneless Angular App
+Signals vs RxJS in Our Zoneless Angular App  
  Where We Use Signals
-•     UI state management: loading, error, selected category, filters
-•     Route data binding: via  input.required() and withComponentInputBinding()
-•     Component inputs: declarative and type-safe with input()
-•     Template reactivity: direct signal() access in templates without subscriptions
-Why Signals?
+
+ - UI state management: loading, error, selected category, filters
+ - Route data binding: via  input.required() and withComponentInputBinding()
+ - Component inputs: declarative and type-safe with input()
+ - Template reactivity: direct signal() access in templates without subscriptions
+
+Why Signals?  
 Signals give us transparent reactivity without zone.js. They’re synchronous, predictable, and ideal for local UI state. We avoid ngOnInit and subscribe and manual cleanup — everything flows declaratively.
 
 Where We Use RxJS
-•     API calls: HTTPClient returns Observable , so we use switchMap, catchError , etc.
-•     Shared services: for cross-component communication (e.g. auth, global events)
-•     Pagination streams: scroll-based triggers, debounce, throttle
-•     Complex async workflows: when chaining multiple async steps
-Why RxJS?
+
+- API calls: HTTPClient returns Observable , so we use switchMap, catchError , etc.
+- Shared services: for cross-component communication (e.g. auth, global events)
+- Pagination streams: scroll-based triggers, debounce, throttle
+- Complex async workflows: when chaining multiple async steps
+
+Why RxJS?  
 RxJS is still the best tool for handling external async data. Signals don’t replace Observables for APIs, especially when we need operators, cancellation, or multicasting.
 
 Integration Strategy
-•     We convert Observable → to signal using  toSignal() when needed in components
-•     We avoid  changeDetectionRef — everything is signal-driven
-•     We keep RxJS in services, and Signals in components
 
-As example:
-Page MovieSearchFilter. The main state (filters, movie list, page, loading, errors) is stored in a signal for a single source of truth.
-RxJS is used only for HTTP requests and is converted to signals via toSignal so that the template can respond directly. Computed and untracked help avoid unnecessary recalculations and duplication.
-This approach simplifies component code, improves performance, and makes logic predictable.
+- We convert Observable → to signal using  toSignal() when needed in components
+- We avoid  changeDetectionRef — everything is signal-driven
+- We keep RxJS in services, and Signals in components
+
+As example:  
+Page MovieSearchFilter. The main state (filters, movie list, page, loading, errors) is stored in a signal for a single source of truth.  
+RxJS is used only for HTTP requests and is converted to signals via toSignal so that the template can respond directly. Computed and untracked help avoid unnecessary recalculations and duplication.  
+This approach simplifies component code, improves performance, and makes logic predictable.  
 
 ## Performance budget
 
 ### Lighthouse Scores
-Before optimization:
 
 | Category       | Before | After |
 |----------------|--------|-------|
