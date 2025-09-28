@@ -16,6 +16,7 @@ describe('NowPlaying', () => {
 
     fixture = TestBed.createComponent(NowPlaying);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('title', 'Now Playing');
     fixture.detectChanges();
   });
 

@@ -16,6 +16,7 @@ describe('TopRated', () => {
 
     fixture = TestBed.createComponent(TopRated);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('title', 'Top Rated');
     fixture.detectChanges();
   });
 
