@@ -1,3 +1,11 @@
+## [1.24.1](https://github.com/exact84/RS-Clone/compare/v1.24.0...v1.24.1) (2025-09-28)
+
+### Refactoring
+
+* add titles ([e5de890](https://github.com/exact84/RS-Clone/commit/e5de8909902775654747139aaf6a10df021554a6))
+* replace service to common movie service ([08ea8f8](https://github.com/exact84/RS-Clone/commit/08ea8f881e80cbd68a6f0c82d2d1c5ab01e47dd0))
+* replace service to common movie service ([d55cf6d](https://github.com/exact84/RS-Clone/commit/d55cf6de74aa4b592103edab1cfc6713ee9c2036))
+
 ## [1.24.0](https://github.com/exact84/RS-Clone/compare/v1.23.0...v1.24.0) (2025-09-28)
 
 ### Features
