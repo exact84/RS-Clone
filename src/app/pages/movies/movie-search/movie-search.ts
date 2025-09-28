@@ -63,6 +63,7 @@ export class MovieSearch extends BaseMovieListComponent implements OnInit, After
         next: (response) => {
           this.movies.set(response.results.map((m) => ({ ...m, media_type: 'movie' })));
           this.loadingState.set(false);
+          this.lazyScrollEnabled.set(false);
         },
         error: (error) => {
           console.error(error);
