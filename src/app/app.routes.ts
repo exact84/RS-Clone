@@ -40,6 +40,7 @@ export const routes: Routes = [
             path: 'upcoming',
             loadComponent: () => import('./pages/movies/upcoming/upcoming').then((c) => c.Upcoming),
             data: { title: 'Upcoming' },
+            title: 'Upcoming',
           },
           {
             path: 'filter',
@@ -47,37 +48,44 @@ export const routes: Routes = [
               import('./pages/movies/movie-search-filter/movie-search-filter').then(
                 (c) => c.MovieSearchFilter,
               ),
+            title: 'Filter',
           },
           {
             path: 'search',
             loadComponent: () =>
               import('./pages/movies/movie-search/movie-search').then((c) => c.MovieSearch),
+            title: 'Search',
           },
         ],
       },
       {
         path: 'people/person',
         loadComponent: () => import('./pages/people/people').then((c) => c.People),
+        title: 'Persons',
       },
       {
         path: 'person/:id',
         loadComponent: () =>
           import('./features/person-details/person-details').then((c) => c.PersonDetails),
+        title: 'Person',
       },
       {
         path: 'details/:type/:id',
         loadComponent: () =>
           import('./features/movie-details/movie-details').then((c) => c.MovieDetails),
+        title: 'Movie',
       },
       {
         path: 'profile',
         loadComponent: () => import('./pages/profile/profile').then((c) => c.Profile),
         canMatch: [authGuard],
+        title: 'Profile',
       },
       {
         path: 'favourites',
         loadComponent: () => import('./pages/favourites/favourites').then((c) => c.Favourites),
         canMatch: [authGuard],
+        title: 'Favourites',
       },
     ],
   },
@@ -91,11 +99,13 @@ export const routes: Routes = [
         path: 'signup',
         loadComponent: () =>
           import('./features/forms/signup-form/signup-form').then((c) => c.SignupForm),
+        title: 'Sign Up',
       },
       {
         path: 'login',
         loadComponent: () =>
           import('./features/forms/login-form/login-form').then((c) => c.LoginForm),
+        title: 'Log In',
       },
     ],
   },
@@ -103,5 +113,6 @@ export const routes: Routes = [
     path: '**',
     loadComponent: () => import('./pages/not-found/not-found').then((c) => c.NotFound),
     data: { fallback: true },
+    title: 'Page not found',
   },
 ];
