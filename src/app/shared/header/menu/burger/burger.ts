@@ -22,4 +22,11 @@ export class Burger {
   deleteClass() {
     this.burgerClass.update((value) => (value === 'close' ? '' : value));
   }
+
+  handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.toggleBurger();
+    }
+  }
 }
