@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  ElementRef,
+  inject,
+  viewChild,
+} from '@angular/core';
 import { ContentCard } from '../../types/content-card';
 import { NowPlayingService } from './services/now-playing-service';
 import { Observable } from 'rxjs';
@@ -22,7 +29,11 @@ export class NowPlaying extends BaseMovieListComponent {
 
   constructor() {
     super();
-    this.setScrollAnchorSignal(this.scrollAnchor);
+
+    effect(() => {
+      if (this.isMoviesLoading()) return;
+      this.scrollAnchor()?.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    });
   }
 
   protected fetchMovies(genreId: number, page: number): Observable<ContentCard[]> {

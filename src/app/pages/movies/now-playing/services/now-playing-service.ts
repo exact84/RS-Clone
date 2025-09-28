@@ -17,19 +17,22 @@ export class NowPlayingService {
   readonly total_pages = signal(1);
 
   getNowPlayingByGenre(genreId: number, page = 1): Observable<ContentCard[]> {
-    const url = '/movie/now_playing';
+    const url = '/discover/movie';
+    const today = new Date().toISOString().split('T')[0];
+
     const parameters = new HttpParams()
       .set('sort_by', 'popularity.desc')
       .set('language', 'en-US')
       .set('page', page)
-      .set('with_genres', genreId);
+      .set('with_genres', genreId)
+      .set('with_release_type', '2|3')
+      .set('release_date.lte', today);
 
     return this.http
       .get<{ results: ContentCard[]; total_pages: number }>(url, { params: parameters })
       .pipe(
         map((response) => {
           this.total_pages.set(response.total_pages);
-          console.log(this.total_pages());
           return response.results.map(
             (item) =>
               ({
