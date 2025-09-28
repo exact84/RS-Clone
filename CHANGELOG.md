@@ -1,3 +1,9 @@
+## [1.24.3](https://github.com/exact84/RS-Clone/compare/v1.24.2...v1.24.3) (2025-09-28)
+
+### Bug Fixes
+
+* fix scroll, params for popular ([0a7898c](https://github.com/exact84/RS-Clone/commit/0a7898c04f78c7e77b2275a6cde801f1567e7a54))
+
 ## [1.24.2](https://github.com/exact84/RS-Clone/compare/v1.24.1...v1.24.2) (2025-09-28)
 
 ### Bug Fixes
