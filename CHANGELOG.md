@@ -1,3 +1,16 @@
+## [1.22.0](https://github.com/exact84/RS-Clone/compare/v1.21.0...v1.22.0) (2025-09-28)
+
+### Features
+
+* add abstract movie-class, upcoming and now-playing ([028f7d6](https://github.com/exact84/RS-Clone/commit/028f7d63b7234b057e208c9b892787db0cf19d09))
+* add now-plaing movies component ([0bcd1c0](https://github.com/exact84/RS-Clone/commit/0bcd1c0f1f4511512dcfee5ab7c85b096fad2b79))
+
+### Bug Fixes
+
+* change endpoints in services ([61c2d4d](https://github.com/exact84/RS-Clone/commit/61c2d4d7c94ed7057deb1ff374281ab91e61860d))
+* fix styles, remove redundant code ([786739c](https://github.com/exact84/RS-Clone/commit/786739c1f35c9511ab8dbed170bded2a8d31e61e))
+* now-playing-service.spec.ts ([143eeaa](https://github.com/exact84/RS-Clone/commit/143eeaa511990aa6857d07f9d4c0305961520cac))
+
 ## [1.21.0](https://github.com/exact84/RS-Clone/compare/v1.20.0...v1.21.0) (2025-09-27)
 
 ### Features
