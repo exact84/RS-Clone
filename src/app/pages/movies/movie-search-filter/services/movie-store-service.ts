@@ -154,6 +154,7 @@ export class MovieStore {
 
   private buildFiltersObject(f: Filters): Record<string, string> {
     return untracked(() => {
+      // reading signals would create unnecessary dependencies, and Angular would automatically re-invoke the effect whenever the signal changes
       const base: Record<string, string> = {};
       if (f.genres.length > 0) base['with_genres'] = f.genres.join('|');
       if (f.year) base['primary_release_year'] = String(f.year);
