@@ -1,13 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { ContentCard } from '../../../types/content-card';
+import { Observable, map } from 'rxjs';
 import { ApiErrorService } from '../../../../core/services/api-error-service';
+import { ContentCard } from '../../../types/content-card';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NowPlayingService {
+export class UpcomingService {
   http = inject(HttpClient);
 
   private readonly apiError = inject(ApiErrorService);
@@ -16,8 +16,8 @@ export class NowPlayingService {
   readonly selectedGenre = signal<number | null>(null);
   readonly total_pages = signal(1);
 
-  getNowPlayingByGenre(genreId: number, page = 1): Observable<ContentCard[]> {
-    const url = '/movie/now_playing';
+  getUpcomingByGenre(genreId: number, page = 1): Observable<ContentCard[]> {
+    const url = '/movie/upcoming';
     const parameters = new HttpParams()
       .set('sort_by', 'popularity.desc')
       .set('language', 'en-US')
@@ -29,7 +29,6 @@ export class NowPlayingService {
       .pipe(
         map((response) => {
           this.total_pages.set(response.total_pages);
-          console.log(this.total_pages());
           return response.results.map(
             (item) =>
               ({

@@ -24,7 +24,12 @@ export const routes: Routes = [
           {
             path: 'now-playing',
             loadComponent: () =>
-              import('./pages/movies/popular-movies/popular-movies').then((c) => c.PopularMovies),
+              import('./pages/movies/now-playing/now-playing').then((c) => c.NowPlaying),
+            data: { category: 'popular' },
+          },
+          {
+            path: 'upcoming',
+            loadComponent: () => import('./pages/movies/upcoming/upcoming').then((c) => c.Upcoming),
             data: { category: 'popular' },
           },
           {
