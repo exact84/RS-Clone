@@ -5,6 +5,8 @@ import { provideZonelessChangeDetection } from '@angular/core';
 import { of, throwError } from 'rxjs';
 import { ElementRef } from '@angular/core';
 import { MovieResponse } from '../../models/movie-response';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('MovieSearch', () => {
   let fixture: ComponentFixture<MovieSearch>;
@@ -16,6 +18,8 @@ describe('MovieSearch', () => {
 
     TestBed.configureTestingModule({
       providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
         provideZonelessChangeDetection(),
         { provide: MovieSearchService, useValue: mockService },
       ],
