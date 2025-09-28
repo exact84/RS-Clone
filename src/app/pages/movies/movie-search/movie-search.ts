@@ -7,6 +7,7 @@ import {
   AfterViewInit,
   ViewChild,
   ElementRef,
+  ChangeDetectionStrategy,
   viewChild,
   ChangeDetectionStrategy,
   viewChild,
