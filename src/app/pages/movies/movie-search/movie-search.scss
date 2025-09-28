@@ -42,9 +42,16 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  width: 100%;
-  height: fit-content;
+
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+  }
 
   .movie-card {
     padding: 10px;
