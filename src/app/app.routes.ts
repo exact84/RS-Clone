@@ -19,25 +19,27 @@ export const routes: Routes = [
             path: 'popular',
             loadComponent: () =>
               import('./pages/movies/popular-movies/popular-movies').then((c) => c.PopularMovies),
-            data: { category: 'popular' },
+            data: { title: 'Popular' },
+            title: 'Popular',
           },
           {
             path: 'now-playing',
             loadComponent: () =>
               import('./pages/movies/now-playing/now-playing').then((c) => c.NowPlaying),
-            data: { category: 'popular' },
+            data: { title: 'Now playing' },
+            title: 'Now Playing',
           },
           {
             path: 'top-rated',
             loadComponent: () =>
               import('./pages/movies/top-rated/top-rated').then((c) => c.TopRated),
-            data: { category: 'popular' },
+            data: { title: 'Top Rated' },
             title: 'Top Rated',
           },
           {
             path: 'upcoming',
             loadComponent: () => import('./pages/movies/upcoming/upcoming').then((c) => c.Upcoming),
-            data: { category: 'popular' },
+            data: { title: 'Upcoming' },
           },
           {
             path: 'filter',

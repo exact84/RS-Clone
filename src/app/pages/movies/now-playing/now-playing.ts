@@ -4,6 +4,7 @@ import {
   effect,
   ElementRef,
   inject,
+  input,
   viewChild,
 } from '@angular/core';
 import { ContentCard } from '../../types/content-card';
@@ -24,7 +25,7 @@ import { Button } from '../../../shared/ui/button/button';
 })
 export class NowPlaying extends BaseMovieListComponent {
   readonly nowPlayingService = inject(NowPlayingService);
-
+  readonly title = input.required<string>();
   readonly scrollAnchor = viewChild('scrollAnchor', { read: ElementRef });
 
   constructor() {

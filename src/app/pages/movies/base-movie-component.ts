@@ -8,6 +8,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export abstract class BaseMovieListComponent {
   protected destroyRef = inject(DestroyRef);
   protected genresService = inject(GenresService);
+
   readonly genres = signal<Genres[]>([]);
   readonly selectedGenre = signal<number>(0);
   readonly isGenresLoading = signal<boolean>(false);

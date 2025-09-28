@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, input, viewChild } from '@angular/core';
 import { BaseMovieListComponent } from '../base-movie-component';
 import { Button } from '../../../shared/ui/button/button';
 import { Spinner } from '../../../shared/ui/spinner/spinner';
@@ -18,6 +18,7 @@ import { MovieService } from '../services/movie-service';
 })
 export class TopRated extends BaseMovieListComponent {
   private movieService = inject(MovieService);
+  readonly title = input.required<string>();
 
   readonly scrollAnchor = viewChild('scrollAnchor', { read: ElementRef });
 
