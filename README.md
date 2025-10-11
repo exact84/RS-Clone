@@ -76,12 +76,13 @@ User DB — authorizaion, users data, custom movie lists
 
 ```mermaid
 flowchart TD
-    B[Frontend]
+    A[User]
+    A -->B[Frontend]
     B -->|Request| C[TMDb API]
     C -->|Response| B
     B <-->|Autorization| D[Backend]
     D <-->|Read/Write| E[User DB]
-    B <-->|Users data| D
+    B <-->|Profile & Movie Lists| D
 ```
 
 ## CI/CD
