@@ -1,3 +1,9 @@
+## [1.24.6](https://github.com/exact84/RS-Clone/compare/v1.24.5...v1.24.6) (2025-10-14)
+
+### Bug Fixes
+
+* add paddings and margins for UX ([b1edec9](https://github.com/exact84/RS-Clone/commit/b1edec9dce548928cafb1f5b26fd1df89bcd6bbb))
+
 ## [1.24.5](https://github.com/exact84/RS-Clone/compare/v1.24.4...v1.24.5) (2025-09-28)
 
 ### Bug Fixes
