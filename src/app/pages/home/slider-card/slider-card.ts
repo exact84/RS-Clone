@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { RatingBadge } from '../../../shared/ui/rating-badge/rating-badge';
 import { Router } from '@angular/router';
 import { FavouritesMenu } from '../../../features/favourites-menu/favourites-menu';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-slider-card',
@@ -21,7 +22,10 @@ import { FavouritesMenu } from '../../../features/favourites-menu/favourites-men
 })
 export class SliderCard {
   private router = inject(Router);
+  private authService = inject(AuthService);
   data = input.required<ContentCard>();
+
+  isAuth = this.authService.authStatus;
 
   isMovie(data: ContentCard): data is MovieCard {
     return 'title' in data;
