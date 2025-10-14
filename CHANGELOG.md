@@ -1,3 +1,9 @@
+## [1.24.7](https://github.com/exact84/RS-Clone/compare/v1.24.6...v1.24.7) (2025-10-14)
+
+### Bug Fixes
+
+* fix favourites unauthorized error ([ae69e48](https://github.com/exact84/RS-Clone/commit/ae69e4829a9c8fe0b41280813174576d5ecb80a0))
+
 ## [1.24.6](https://github.com/exact84/RS-Clone/compare/v1.24.5...v1.24.6) (2025-10-14)
 
 ### Bug Fixes
