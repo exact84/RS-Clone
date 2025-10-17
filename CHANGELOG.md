@@ -1,3 +1,9 @@
+## [1.25.0](https://github.com/exact84/RS-Clone/compare/v1.24.7...v1.25.0) (2025-10-17)
+
+### Features
+
+* add ppt, change schema ([de2e58e](https://github.com/exact84/RS-Clone/commit/de2e58e686f05f59b9783a8f06307ab6ba4fbaae))
+
 ## [1.24.7](https://github.com/exact84/RS-Clone/compare/v1.24.6...v1.24.7) (2025-10-14)
 
 ### Bug Fixes
