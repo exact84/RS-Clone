@@ -76,13 +76,30 @@ User DB — authorizaion, users data, custom movie lists
 
 ```mermaid
 flowchart TD
-    A[User]
-    A -->B[Frontend]
-    B -->|Request| C[TMDb API]
+    A[**User**]:::user
+    B[**Frontend**<br>*Angular App*]:::frontend
+    C[**The Movie Database API**]:::api
+    D[**movie-db-backend**<br>*NestJS server*]:::backend
+    E[(**User DB**)]:::db
+    F(Authorization)
+
+    A --> B
+    B -->|Request| C
     C -->|Response| B
-    B <-->|Autorization| D[Backend]
-    D <-->|Read/Write| E[User DB]
-    B <-->|Profile & Movie Lists| D
+    B --> F
+    F <-->|User<br>Profile| D
+    F --> D
+    D <-->|Read / Write| E
+    F <-->|Films<br>list| D
+
+    classDef user fill:#ffe4b5,stroke:#b8860b,stroke-width:2px,color:#222,font-weight:bold;
+    classDef frontend fill:#a1c4fd,stroke:#1e3c72,stroke-width:2px,color:#111;
+    classDef api fill:#f6d365,stroke:#d68c00,stroke-width:2px,color:#222;
+    classDef backend fill:#b8e994,stroke:#218c74,stroke-width:2px,color:#111;
+    classDef db fill:#c2e59c,stroke:#2c662d,stroke-width:2px,color:#111,font-weight:bold;
+
+    click C "https://developer.themoviedb.org/reference/intro/getting-started" "Open TMDb Docs"
+    click D "https://nestjs.com/" "Documentation NestJS"
 ```
 
 ## CI/CD
