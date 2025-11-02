@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+      - main
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm run test:ci
+
+      - name: Build with secret
+        run: |
+          echo "export const environment = { production: true, BASE_URL: \"https://api.themoviedb.org/3\", BASE_URL_BACKEND: \"https://movie-db-backend.up.railway.app/api\", API_KEY: '${{ secrets.NG_APP_TMDB_API_KEY }}' };" > src/environments/environment.production.ts
+          npm run build:prod
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rs-clone-build
+          path: dist/rs-clone/browser

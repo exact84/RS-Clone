@@ -1,0 +1,33 @@
+<section
+  class="trailers"
+  [style.--trailers-bg]="backgroundUrl() ? 'url(' + backgroundUrl() + ')' : 'none'"
+>
+  <div class="trailers__header">
+    <h2>Latest Trailers</h2>
+    <div class="category-toggle toggle-trailers">
+      <app-home-tabs
+        [categories]="categories()"
+        [selected]="selectedCategory()"
+        (categoryClick)="switchCategory($event)"
+      />
+    </div>
+  </div>
+  <app-horizontal-slider>
+    @if (loadingState()) {
+      <div class="spinner-wrapper">
+        <app-spinner />
+      </div>
+    } @else if (errorState()) {
+      <div class="error-message">Failed to load trailers. Please try again later.</div>
+    } @else if (selectedTrailers().length === 0) {
+      <div class="empty-message">There are no trailers for this category.</div>
+      <div class="debug">error: {{ errorState() }} trailers: {{ selectedTrailers().length }}</div>
+    } @else {
+      @for (movie of selectedTrailers(); track movie.id) {
+        @if (movie.trailerKey) {
+          <app-trailer-card [data]="movie" (trailerClick)="openTrailer($event)" />
+        }
+      }
+    }
+  </app-horizontal-slider>
+</section>

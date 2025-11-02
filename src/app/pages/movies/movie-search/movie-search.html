@@ -1,0 +1,47 @@
+<form
+  class="search-form"
+  (submit)="$event.preventDefault()"
+  role="search"
+  aria-label="Search movies"
+>
+  <input
+    id="search"
+    #searchInput
+    type="text"
+    aria-label="Movie title"
+    placeholder="Search for a movie......"
+  />
+  <button (click)="submitSearch(searchInput.value)" aria-label="Submit search">Search</button>
+</form>
+
+<div class="container">
+  <section class="movie-list" aria-label="Search results">
+    @if (!loadingState() && errorState()) {
+      <div class="error" role="alert">{{ errorState() }}</div>
+    }
+    <div class="cards-container">
+      @for (movie of movies(); track $index) {
+        <app-slider-card [data]="movie" class="movie-card"></app-slider-card>
+      } @empty {
+        <div class="empty-state" role="status">
+          <p>No movies found for your search/filter combination.</p>
+          <p>Try changing your filters or search query.</p>
+        </div>
+      }
+      @if (lazyScrollEnabled()) {
+        <div #scrollAnchor style="height: 1px; scroll-margin-top: 500px"></div>
+      }
+    </div>
+    @if (loadingState()) {
+      <div class="loader-wrapper" role="status" aria-live="polite">
+        <app-spinner></app-spinner>
+      </div>
+    } @else {
+      @if (!lazyScrollEnabled()) {
+        <button app-button class="cards__load-more" (click)="enableLazyScroll()" type="button">
+          Load More
+        </button>
+      }
+    }
+  </section>
+</div>

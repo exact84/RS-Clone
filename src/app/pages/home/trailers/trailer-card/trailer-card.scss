@@ -1,0 +1,79 @@
+:host {
+  display: block;
+}
+
+.movie-card {
+  width: 300px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  flex-shrink: 0;
+  color: white;
+}
+
+.movie-card__poster {
+  position: relative;
+}
+
+.movie-card__poster img:not(.play-btn__icon) {
+  width: 100%;
+  height: calc(300px / 1.78);
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgb(200, 197, 197);
+  position: relative;
+}
+
+.movie-card__info {
+  margin-top: auto;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  min-height: 6rem;
+
+  h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+
+  p {
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: auto;
+  }
+
+  h3,
+  p {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+}
+
+.play-btn {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: transparent;
+}
+
+.play-btn__icon {
+  display: block;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}

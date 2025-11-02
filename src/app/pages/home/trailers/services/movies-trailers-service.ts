@@ -1,0 +1,165 @@
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { catchError, forkJoin, map, Observable, switchMap, throwError } from 'rxjs';
+import { MovieWithTrailer } from '../../../models/movie-with-trailer';
+import { MovieCard } from '../../../models/movie-card';
+import { TVCard } from '../../../models/tv-card';
+import { TVWithTrailer } from '../../../models/tv-with-trailer';
+import { TrailerResponse } from '../../../models/trailer-response';
+import { TrailerItem } from '../../../types/trailer-item';
+import { getDateRange } from '../../../../shared/utils/date-range';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class MoviesTrailersService {
+  http = inject(HttpClient);
+
+  private getMovieTrailer(id: number): Observable<string | null> {
+    const url = `/movie/${id}/videos`;
+
+    return this.http.get<TrailerResponse>(url).pipe(
+      map((response) => {
+        const trailer = response.results.find(
+          (video) => video.type === 'Trailer' && video.site === 'YouTube',
+        );
+        return trailer?.key || null;
+      }),
+    );
+  }
+
+  private getTVTrailer(id: number): Observable<string | null> {
+    const url = `/tv/${id}/videos`;
+
+    return this.http.get<TrailerResponse>(url).pipe(
+      map((response) => {
+        const trailer = response.results.find(
+          (video) => video.type === 'Trailer' && video.site === 'YouTube',
+        );
+        return trailer?.key || null;
+      }),
+    );
+  }
+
+  getPopularTrailers(): Observable<MovieWithTrailer[]> {
+    const { from, to } = getDateRange(6);
+    const parameters = new HttpParams()
+      .set('sort_by', 'popularity.desc')
+      .set('primary_release_date.gte', from)
+      .set('primary_release_date.lte', to);
+
+    const url = `/discover/movie`;
+
+    return this.http.get<{ results: MovieCard[] }>(url, { params: parameters }).pipe(
+      switchMap((response) => {
+        const requests = response.results.map((movie) =>
+          this.getMovieTrailer(movie.id).pipe(map((trailerKey) => ({ ...movie, trailerKey }))),
+        );
+        return forkJoin(requests);
+      }),
+      map((movies) => movies.filter((m) => m.trailerKey)),
+      catchError((error) => {
+        console.error('TrailerService error:', error);
+        return throwError(() => error);
+      }),
+    );
+  }
+
+  getStreamingTrailers(): Observable<MovieWithTrailer[]> {
+    const { from, to } = getDateRange(3);
+    const parameters = new HttpParams()
+      .set('with_watch_providers', '8')
+      .set('watch_region', 'US')
+      .set('with_watch_monetization_types', 'flatrate')
+      .set('primary_release_date.gte', from)
+      .set('primary_release_date.lte', to);
+
+    const url = `/discover/movie`;
+
+    return this.http.get<{ results: MovieCard[] }>(url, { params: parameters }).pipe(
+      switchMap((response) => {
+        const requests = response.results.map((movie) =>
+          this.getMovieTrailer(movie.id).pipe(map((trailerKey) => ({ ...movie, trailerKey }))),
+        );
+        return forkJoin(requests);
+      }),
+      map((movies) => movies.filter((m) => m.trailerKey)),
+      catchError((error) => {
+        console.error('TrailerService error:', error);
+        return throwError(() => error);
+      }),
+    );
+  }
+
+  getTVTrailers(): Observable<TVWithTrailer[]> {
+    const { from, to } = getDateRange(3);
+    const parameters = new HttpParams()
+      .set('sort_by', 'popularity.desc')
+      .set('with_original_language', 'en')
+      .set('vote_count.gte', '50')
+      .set('first_air_date.gte', from)
+      .set('first_air_date.lte', to);
+
+    const url = `/discover/tv`;
+
+    return this.http.get<{ results: TVCard[] }>(url, { params: parameters }).pipe(
+      switchMap((response) => {
+        const requests = response.results.map((tv) =>
+          this.getTVTrailer(tv.id).pipe(map((trailerKey) => ({ ...tv, trailerKey }))),
+        );
+        return forkJoin(requests);
+      }),
+      map((tvShows) => tvShows.filter((tv) => tv.trailerKey)),
+      catchError((error) => {
+        console.error('TrailersService error:', error);
+        return throwError(() => error);
+      }),
+    );
+  }
+
+  getForRentTrailers(): Observable<MovieWithTrailer[]> {
+    const { from, to } = getDateRange(3);
+    const parameters = new HttpParams()
+      .set('with_watch_monetization_types', 'rent')
+      .set('watch_region', 'US')
+      .set('sort_by', 'primary_release_date.desc')
+      .set('primary_release_date.gte', from)
+      .set('primary_release_date.lte', to);
+
+    const url = `/discover/movie`;
+
+    return this.http.get<{ results: MovieCard[] }>(url, { params: parameters }).pipe(
+      switchMap((response) => {
+        const requests = response.results.map((movie) =>
+          this.getMovieTrailer(movie.id).pipe(map((trailerKey) => ({ ...movie, trailerKey }))),
+        );
+        return forkJoin(requests);
+      }),
+      map((movies) => movies.filter((m) => m.trailerKey)),
+      catchError((error) => {
+        console.error('TrailerService error:', error);
+        return throwError(() => error);
+      }),
+    );
+  }
+
+  getTrailersByCategory(category: string): Observable<TrailerItem[]> {
+    switch (category) {
+      case 'popular': {
+        return this.getPopularTrailers();
+      }
+      case 'streaming': {
+        return this.getStreamingTrailers();
+      }
+      case 'on-tv': {
+        return this.getTVTrailers();
+      }
+      case 'for-rent': {
+        return this.getForRentTrailers();
+      }
+      default: {
+        return throwError(() => new Error(`Unknown category: ${category}`));
+      }
+    }
+  }
+}

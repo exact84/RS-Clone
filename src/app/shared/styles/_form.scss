@@ -1,0 +1,75 @@
+@use 'colors' as colors;
+
+:host {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 350px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+  border-radius: 20px;
+  color: colors.$page-color;
+  box-shadow: colors.$form-box-shadow;
+}
+
+input {
+  padding: 10px;
+  border-radius: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid colors.$input-border-color;
+  background-color: colors.$input-background;
+  color: colors.$input-color;
+  transition: border-color 0.25s;
+  outline-color: colors.$input-outline-color;
+
+  &:hover {
+    border: 1px solid colors.$input-border-color-hover;
+  }
+}
+
+.password-visibility {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: colors.$input-password-icon;
+  transition: transform 0.25s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.form-submit {
+  border: none;
+  background: colors.$page-link-background;
+  border-radius: 20px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled):hover {
+    background: colors.$page-link-background-hover;
+  }
+}
+
+.validation-error.submit {
+  margin: 0 auto;
+}

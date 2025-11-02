@@ -1,0 +1,73 @@
+@use '../styles/colors' as colors;
+
+:host {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+}
+
+.header {
+  width: 100%;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: colors.$header-bg;
+  color: colors.$light-color;
+  position: relative;
+  height: 76px;
+
+  .logo {
+    width: 18rem;
+    min-width: 6rem;
+    margin-right: 2rem;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.auth {
+  margin-left: auto;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  a {
+    color: colors.$light-color;
+  }
+}
+
+.auth-control {
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: colors.$light-color;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.vertical-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100vw;
+  background-color: colors.$mobile-submenu-bg;
+  padding: 2rem 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,58 @@
+@use '../../../shared/styles/colors' as colors;
+
+.trailer-btn.active {
+  color: black;
+  background: linear-gradient(to right, #c0fecf, #1ed5a9);
+}
+
+.trailers__header h2 {
+  color: white;
+}
+
+.trailers {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  background-origin: padding-box;
+  background-clip: padding-box;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--trailers-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: colors.$trailers-background-gradient;
+    z-index: 1;
+  }
+
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.error-message,
+.empty-message {
+  color: white;
+  margin: auto;
+}
+
+.spinner-wrapper {
+  margin: auto;
+
+  .spinner {
+    width: 56px;
+    height: 56px;
+  }
+}

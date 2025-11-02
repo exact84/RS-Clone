@@ -1,3 +1,204 @@
-# RS-Clone
-Angular Final Project 2025
+# RS-Clone Movie DB
+
+Angular Final Project 2025  
 Task: https://github.com/rolling-scopes-school/tasks/tree/master/angular/modules/rsclone
+
+## Project Description
+
+**Movie DB** is a full-stack web application that allows users to manage their personal movie database.  
+Users can register or log in (via email/password or Google), search for movies through the TMDb API, view detailed movie pages, and create personal collections such as favorites, watched, or "to watch".  
+Custom lists and user libraries make it easy to organize and track everything you watch.
+
+## Technology Stack
+
+Angular 20,  
+RxJS, Signals,  
+TypeScript,  
+Netlify (CD),  
+GitHub Actions (CI),  
+ESLint, Prettier, Husky.
+
+## Environment Variables
+
+Create an environments/environment.ts file in the project root:
+
+```
+export const environment = {
+  production: false,
+  BASE_URL: 'https://api.themoviedb.org/3',
+  BASE_URL_BACKEND: 'http://localhost:4000/api',
+  API_KEY: '',
+};
+```
+BASE_URL - URL to the TMDb API.  
+BASE_URL_BACKEND - URL to the backend API.  
+In API_KEY you need to enter your TMDb API key.  
+
+## Installation & Run
+
+Instructions for setting up the backend and API structure can be found in the README.md file of the backend repository.  
+https://github.com/NMakarevich/movie-db-backend/blob/develop/README.md
+
+You can also use the deployed backend: https://movie-db-backend.up.railway.app/doc
+
+```bash
+git clone https://github.com/exact84/RS-Clone.git
+npm install
+npm start
+```
+
+Open http://localhost:4200 in the browser.
+
+## Available Scripts
+
+npm start - start local dev server at http://localhost:4200  
+npm run build - development build  
+npm run build:prod - production build  
+npm run lint - run ESLint  
+npm run lint:fix - lint with auto-fix  
+npm run prettier - format code with Prettier  
+npm run prepare - install husky,  
+npm run release - run semantic-release for changing version  
+npm run test - run unit tests  
+npm run test:ci - run unit tests in headless mode (for CI)  
+npm run watch - rebuild in watch mode
+
+## Architecture
+
+#### Main components:
+
+Frontend (Angular) — SPA client  
+TMDb API — external movie database  
+Backend (NestJS) — API for authentication and users data  
+User DB — authorizaion, users data, custom movie lists  
+
+#### Architecture diagram:
+
+```mermaid
+flowchart TD
+    A[**User**]:::user
+    B[**Frontend**<br>*Angular App*]:::frontend
+    C[**The Movie Database API**]:::api
+    D[**movie-db-backend**<br>*NestJS server*]:::backend
+    E[(**User DB**)]:::db
+    F(Authorization)
+
+    A --> B
+    B -->|Request| C
+    C -->|Response| B
+    B --> F
+    F <-->|User<br>Profile| D
+    F --> D
+    D <-->|Read / Write| E
+    F <-->|Films<br>list| D
+
+    classDef user fill:#ffe4b5,stroke:#b8860b,stroke-width:2px,color:#222,font-weight:bold;
+    classDef frontend fill:#a1c4fd,stroke:#1e3c72,stroke-width:2px,color:#111;
+    classDef api fill:#f6d365,stroke:#d68c00,stroke-width:2px,color:#222;
+    classDef backend fill:#b8e994,stroke:#218c74,stroke-width:2px,color:#111;
+    classDef db fill:#c2e59c,stroke:#2c662d,stroke-width:2px,color:#111,font-weight:bold;
+
+    click C "https://developer.themoviedb.org/reference/intro/getting-started" "Open TMDb Docs"
+    click D "https://nestjs.com/" "Documentation NestJS"
+```
+
+## CI/CD
+
+### GitHub:
+
+- GitHub Actions run lint, unit tests (test:ci), and production build (build:prod) on each push and pull request into dev or main branches.
+```mermaid
+graph TD;
+    A[Pull Request to dev/main] --> B[Checkout]
+    B --> C[Setup Node.js 20]
+    C --> D[Install deps: npm ci]
+    D --> E[Lint]
+    E --> F[Unit tests]
+    F --> G[Build production]
+```
+
+### Netlify:
+
+For Netlify deployment, the API_KEY is stored securely in Netlify Environment Variables (secrets).
+It is accessed inside Netlify Functions, which handle requests on the server side, so the key is never exposed in the client-side code.
+- Netlify automatically deploys the latest `dev` branch to the production environment.
+- For each Pull Request, Netlify creates a **Deploy Preview** — a temporary live environment to test changes before merging.
+
+### Changelog pipeline
+
+The workflow updates the changelog, version in package.json and git tag
+based on commit messages and previous tag.
+
+In the repository settings, you need to enable the parameter:
+Settings → Actions → General → Workflow permissions → “Read and write permissions”
+Add the token to GitHub Secrets as `NPM_TOKEN`.
+
+```mermaid
+flowchart TD
+    A[Commit to dev or main] --> B[Push to GitHub]
+    B --> C[GitHub Actions workflow triggers]
+    C --> D[Checkout repository with fetch-depth 0]
+    D --> E[Install Node.js and dependencies - npm ci]
+    E --> F[Run semantic-release via npm run release]
+    
+    F --> G[Analyze commits and determine release type: patch / minor / major]
+    G --> I[Generate release notes]
+    I --> J[Update CHANGELOG.md and package.json]
+    J --> L[Commit changes to package.json and CHANGELOG.md]
+    L --> M[Create Git version tag]
+    M --> N[Push changes and tags back to repository]
+```
+
+## Why Signals, short rationale:
+
+Signals vs RxJS in Our Zoneless Angular App  
+ Where We Use Signals
+
+ - UI state management: loading, error, selected category, filters
+ - Route data binding: via  input.required() and withComponentInputBinding()
+ - Component inputs: declarative and type-safe with input()
+ - Template reactivity: direct signal() access in templates without subscriptions
+
+Why Signals?  
+Signals give us transparent reactivity without zone.js. They’re synchronous, predictable, and ideal for local UI state. We avoid ngOnInit and subscribe and manual cleanup — everything flows declaratively.
+
+Where We Use RxJS
+
+- API calls: HTTPClient returns Observable , so we use switchMap, catchError , etc.
+- Shared services: for cross-component communication (e.g. auth, global events)
+- Pagination streams: scroll-based triggers, debounce, throttle
+- Complex async workflows: when chaining multiple async steps
+
+Why RxJS?  
+RxJS is still the best tool for handling external async data. Signals don’t replace Observables for APIs, especially when we need operators, cancellation, or multicasting.
+
+Integration Strategy
+
+- We convert Observable → to signal using  toSignal() when needed in components
+- We avoid  changeDetectionRef — everything is signal-driven
+- We keep RxJS in services, and Signals in components
+
+As example:  
+Page MovieSearchFilter. The main state (filters, movie list, page, loading, errors) is stored in a signal for a single source of truth.  
+RxJS is used only for HTTP requests and is converted to signals via toSignal so that the template can respond directly. Computed and untracked help avoid unnecessary recalculations and duplication.  
+This approach simplifies component code, improves performance, and makes logic predictable.  
+
+## Performance budget
+
+### Lighthouse Scores
+
+| Category       | Before | After |
+|----------------|--------|-------|
+| Performance    | 53     |  85   |
+| Accessibility  | 92     | 100   |
+| Best Practices | 93     |  96   |
+| SEO            | 58     | 100   |
+
+
+| Performance Metric           | Before | After | Gain |
+|------------------------------|--------|-------|------|
+| First Contentful Paint (FCP) | 3.5 s  |   2.2 | 1.3  |
+| Largest Contentful Paint(LCP)| 5.9 s  |   3.5 | 2.4  |
+| Total Blocking Time (TBT)    | 610 ms |   140 | 460  |
+| Cumulative Layout Shift (CLS)|   0    |     0 |   0  |
+| Speed Index                  | 4.9 s  |   4.3 | 0.6  |

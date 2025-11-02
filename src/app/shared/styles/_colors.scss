@@ -1,0 +1,58 @@
+//form
+$form-box-shadow: 0 0 2px 1px rgba(255, 255, 255, 0.75);
+$input-color: #fff;
+$input-border-color: #fff;
+$input-border-color-hover: rgba($input-border-color, 0.5);
+$input-background: rgba(255, 255, 255, 0.1);
+$input-outline-color: rgba($input-border-color, 0.75);
+$input-password-icon: #fff;
+$submit-button-background-color: skyblue;
+$submit-button-background-color-disabled: rgba($submit-button-background-color, 0.3);
+$submit-button-background-color-hover: rgba($submit-button-background-color, 0.8);
+$validation-error-color: #b3261e;
+$validation-successful-color: #33c238;
+
+//auth-links
+$link-color: #01b4e4;
+$link-color-hover: rgba($link-color, 0.8);
+$link-color-active: #90cea1;
+
+// header
+
+$header-bg: rgba(3, 37, 65, 1);
+$mobile-submenu-bg: rgba(3, 37, 65, 0.95);
+
+// home
+
+$dark-color: #000;
+$dark-grey-color: #444;
+$light-color: #fff;
+$middle-grey-color: #878686;
+$light-grey-color: #f1f1f1;
+$extra-light-grey-color: #fff9f9;
+$toggle-trailers-border-color: #1ed5a9;
+$accent-gradient: linear-gradient(to right, #c0fecf, #1ed5a9);
+$trailers-background-gradient: linear-gradient(
+  to right,
+  rgba(9, 57, 96, 0.75) 0%,
+  rgba(1, 22, 39, 0.75) 100%
+);
+
+//feature/movie-details
+$watch-trailer-btn-bg: #0077ff;
+$watch-trailer-btn-hover-bg: #005ec9;
+$card-bg: #f5f5f5;
+
+//common
+$page-background: linear-gradient(to right, #1c1c1c, #2c2c2c);
+$page-color: #fff;
+$page-title-background: linear-gradient(to right, #01b4e4, #90cea1);
+$page-link-color: #fff;
+$page-link-background: #01b4e4;
+$page-link-background-hover: #90cea1;
+
+// people
+$pagination-btn-bg: #eee;
+$pagination-btn-active: #333;
+$pagination-btn-hover: #ccc;
+$pagination-dots: #888;

@@ -1,0 +1,39 @@
+@let data = displayData();
+<article class="movie-details" [style.backgroundImage]="'url(' + data.poster_path + ')'">
+  <section class="hero">
+    <div class="hero__poster">
+      <img [src]="data.poster_path" [alt]="data.title" loading="eager" fetchpriority="high" />
+    </div>
+
+    <div class="hero__info">
+      <div class="movie__title">
+        {{ data.title }}
+      </div>
+
+      <div class="hero__actions">
+        <app-rating-badge [voteAverage]="data.vote_average" />
+        <p>User Score</p>
+        @if (contentCard()) {
+          <app-favourites-menu [contentCard]="contentCard()!" />
+        }
+      </div>
+
+      <p class="movie-tagline">{{ data.tagline }}</p>
+
+      <h3>Overview</h3>
+
+      <p class="hero__overview">{{ data.overview }}</p>
+
+      <div class="movie-actions">
+        <button
+          class="btn"
+          (click)="openTrailer()"
+          [disabled]="!data.trailerKey"
+          [title]="data.trailerKey ? 'Watch trailer' : 'Trailer is unavailable'"
+        >
+          Watch Trailer
+        </button>
+      </div>
+    </div>
+  </section>
+</article>

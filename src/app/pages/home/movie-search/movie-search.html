@@ -1,0 +1,21 @@
+<section class="hero">
+  <div class="hero-content">
+    <h1>Welcome.</h1>
+    <p>Millions of movies to discover. Explore now.</p>
+    <form
+      class="search-form"
+      (submit)="$event.preventDefault()"
+      role="search"
+      aria-label="Search movies"
+    >
+      <input
+        id="search"
+        #searchInput
+        type="text"
+        aria-label="Movie title"
+        placeholder="Search for a movie......"
+      />
+      <button (click)="submitSearch(searchInput.value)" aria-label="Submit search">Search</button>
+    </form>
+  </div>
+</section>

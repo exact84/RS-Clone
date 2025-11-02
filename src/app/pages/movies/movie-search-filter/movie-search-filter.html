@@ -1,0 +1,165 @@
+<div class="container" (keydown)="handleKeydown($event)" tabindex="0">
+  <aside class="movie-search-filter" role="search" aria-label="Movie search form">
+    <form (ngSubmit)="submitSearch()">
+      <label for="search">
+        Search by Keywords:
+        <input
+          #searchInput
+          id="search"
+          name="search"
+          type="text"
+          [ngModel]="filters().search"
+          (ngModelChange)="setSearch($event)"
+          placeholder="Search..."
+          autocomplete="on"
+        />
+      </label>
+      <small id="search-help">Type keywords and press Enter to search</small>
+
+      <fieldset>
+        <legend>Genres:</legend>
+        <div class="genres-list">
+          @for (g of genres(); track g.id) {
+            <label animate.enter="checkbox-enter" [style.animationDelay]="$index * 50 + 'ms'">
+              <input
+                type="checkbox"
+                id="genre-{{ g.id }}"
+                [checked]="filters().genres.includes(g.id)"
+                (change)="toggleGenre(g.id, $event.target.checked)"
+              />
+              {{ g.name }}
+            </label>
+          }
+        </div>
+      </fieldset>
+
+      <label for="year">
+        Year (1800-2025):
+        <input
+          id="year"
+          name="year"
+          type="number"
+          placeholder="Year"
+          autocomplete="on"
+          [ngModel]="filters().year"
+          (ngModelChange)="setYear($event)"
+        />
+      </label>
+
+      <label for="language">
+        Language:
+        <select
+          id="language"
+          name="language"
+          autocomplete="on"
+          [ngModel]="filters().language"
+          (ngModelChange)="setLanguage($event)"
+        >
+          <option [ngValue]="null">All</option>
+          @for (lang of languages(); track lang.iso_639_1) {
+            <option [ngValue]="lang.iso_639_1">{{ lang.english_name }}</option>
+          }
+        </select>
+      </label>
+
+      <label for="country">
+        Country:
+        <select
+          id="country"
+          name="country"
+          autocomplete="on"
+          [ngModel]="filters().country"
+          (ngModelChange)="setCountry($event)"
+        >
+          <option [ngValue]="null">All</option>
+          @for (country of countries(); track country.iso_3166_1) {
+            <option [value]="country.iso_3166_1">{{ country.english_name }}</option>
+          }
+        </select>
+      </label>
+
+      <div>Rating</div>
+      <div class="rating">
+        <label for="ratingMin">
+          Min:
+          <input
+            id="ratingMin"
+            name="ratingMin"
+            type="number"
+            min="0"
+            max="10"
+            step="0.1"
+            placeholder="0–10"
+            [ngModel]="filters().ratingMin"
+            (ngModelChange)="setRatingMin($event)"
+          />
+        </label>
+
+        <label for="ratingMax">
+          Max:
+          <input
+            id="ratingMax"
+            name="ratingMax"
+            type="number"
+            min="0"
+            max="10"
+            step="0.1"
+            placeholder="0–10"
+            [ngModel]="filters().ratingMax"
+            (ngModelChange)="setRatingMax($event)"
+          />
+        </label>
+      </div>
+
+      <button type="submit" [disabled]="!canSearch()" aria-label="Search movies">Search</button>
+      <button [disabled]="!canSearch()" (click)="resetFilters()" aria-label="Reset filters">
+        Reset
+      </button>
+    </form>
+  </aside>
+
+  <section class="movie-list" [attr.aria-busy]="loading()">
+    @if (loading()) {
+      <div class="loader-wrapper" role="status" aria-live="polite">
+        <app-spinner></app-spinner>
+      </div>
+    } @else if (error()) {
+      <div class="error" role="alert">{{ error() }}</div>
+    } @else {
+      @for (movie of movies(); track $index) {
+        <app-slider-card [data]="movie" class="movie-card"></app-slider-card>
+      } @empty {
+        <div class="empty-state">
+          <p>No movies found for your search/filter combination.</p>
+          <p>Try changing your filters or search query.</p>
+        </div>
+      }
+    }
+  </section>
+</div>
+
+@if (totalPages() > 1) {
+  <div class="pagination" aria-label="Movies pagination">
+    <button [disabled]="!canGoBack()" (click)="prevPage()" aria-label="Go to previous page">
+      ← Back
+    </button>
+    <span>
+      <div>
+        <label for="pageInput">Page</label>
+        <input
+          id="pageInput"
+          class="current-page"
+          type="number"
+          name="page"
+          [ngModel]="page()"
+          (ngModelChange)="setPage($event)"
+          (keyup.enter)="goToPage()"
+        />
+        of {{ totalPages() }}
+      </div></span
+    >
+    <button [disabled]="!canPaginate()" (click)="nextPage()" aria-label="Go to next page">
+      Forward →
+    </button>
+  </div>
+}

@@ -1,0 +1,11 @@
+@for (category of categories(); track category.value) {
+  <button
+    class="trailer-btn"
+    [class.active]="selected() === category.value"
+    (click)="onClick(category.value)"
+  >
+    <span class="gradient-text">{{ category.label | titlecase }}</span>
+  </button>
+} @empty {
+  <div class="category-toggle toggle-trailers">There is no categories</div>
+}

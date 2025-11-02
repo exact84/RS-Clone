@@ -1,0 +1,97 @@
+@use 'app/shared/styles/colors';
+
+:host {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 20px;
+  height: 100%;
+  background: colors.$page-background;
+  color: colors.$page-color;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 300px;
+  width: 100%;
+
+  &__avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    background: colors.$page-title-background;
+    font-size: 64px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 200px;
+    font-size: 20px;
+
+    &-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    &-title {
+      color: gray;
+    }
+  }
+}
+
+.password {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 300px;
+  width: 100%;
+
+  h3 {
+    font-size: 18px;
+  }
+}
+
+.favourites {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+
+  &__title {
+    font-size: 18px;
+    color: gray;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+  }
+}
+
+@media (max-width: 576px) {
+  :host {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.spinner-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}

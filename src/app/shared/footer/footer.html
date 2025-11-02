@@ -1,0 +1,32 @@
+<footer class="footer">
+  <div class="footer-container">
+    <div class="github-links">
+      @for (developer of developers; track $index) {
+        <a
+          href="https://github.com/{{ developer }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="github-link"
+        >
+          {{ developer }}
+        </a>
+      }
+    </div>
+  </div>
+  <div class="footer-container">
+    <div class="footer-copy">
+      <span>© {{ year }} RS Clone MovieDB</span>
+    </div>
+
+    <div>
+      <a
+        href="https://rs.school/courses/angular"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="course-link"
+      >
+        <img src="/rss-logo.svg" alt="Course Logo" width="40" height="40" class="course-logo" />
+      </a>
+    </div>
+  </div>
+</footer>

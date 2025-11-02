@@ -1,0 +1,47 @@
+<ng-container>
+  @if (cardDetailsError()) {
+    <div class="error">Error - {{ cardDetailsError() }}</div>
+  } @else if (cardDetailsLoading()) {
+    <div class="loader-wrapper">
+      <app-spinner />
+    </div>
+  } @else {
+    <app-movie-details-card [data]="cardDetails()" />
+  }
+</ng-container>
+
+<ng-container>
+  <app-horizontal-slider title="Top Billed Cast">
+    @if (castError()) {
+      <div class="error">Error - {{ castError() }}</div>
+    } @else if (castLoading()) {
+      <div class="loader-wrapper">
+        <app-spinner />
+      </div>
+    } @else if (cast().length > 0) {
+      @for (person of cast(); track person.id) {
+        <app-person-card [data]="person" [variant]="'compact'" [size]="'sm'" />
+      }
+    } @else {
+      <p>No cast information available.</p>
+    }
+  </app-horizontal-slider>
+</ng-container>
+
+<ng-container>
+  <app-horizontal-slider title="Recommendations">
+    @if (recommendationsError()) {
+      <div class="error">Error - {{ recommendationsError() }}</div>
+    } @else if (recommendationsLoading()) {
+      <div class="loader-wrapper">
+        <app-spinner />
+      </div>
+    } @else if (recommendations().length > 0) {
+      @for (movie of recommendations(); track $index) {
+        <app-recommendation-card [data]="movie" size="sm" />
+      }
+    } @else {
+      <p>No recommendations available.</p>
+    }
+  </app-horizontal-slider>
+</ng-container>

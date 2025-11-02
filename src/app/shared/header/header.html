@@ -1,0 +1,56 @@
+<header class="header">
+  <div class="logo">
+    <a routerLink="/home">
+      <img src="logo.svg" alt="move-app-logo" />
+    </a>
+  </div>
+
+  @if (isMobile()) {
+    <app-burger />
+    @if (menuService.showVerticalMenu()) {
+      <app-menu class="vertical-menu" />
+    }
+  } @else {
+    <app-menu />
+  }
+
+  <div class="auth">
+    @if (!isAuth()) {
+      <a class="auth-control" routerLink="/auth/signup">
+        @if (isMobile()) {
+          <app-auth-icon icon="signup" title="Sign Up" />
+        } @else {
+          Register
+        }
+      </a>
+      <a class="auth-control" routerLink="/auth/login">
+        @if (isMobile()) {
+          <app-auth-icon icon="login" title="Log In" />
+        } @else {
+          Log In
+        }
+      </a>
+    } @else {
+      <a class="auth-control" routerLink="/favourites">
+        <app-auth-icon
+          [icon]="hasFavourites() ? 'favourites_filled' : 'favourites'"
+          title="Favourites"
+        />
+      </a>
+      <a class="auth-control" routerLink="/profile">
+        @if (isMobile()) {
+          <app-auth-icon icon="profile" title="Profile" />
+        } @else {
+          Profile
+        }
+      </a>
+      <button class="auth-control" type="button" (click)="logout()">
+        @if (isMobile()) {
+          <app-auth-icon icon="logout" title="Log Out" />
+        } @else {
+          Log Out
+        }
+      </button>
+    }
+  </div>
+</header>

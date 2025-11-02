@@ -1,0 +1,106 @@
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" (change)="onChange()">
+  <app-form-field inputId="login" label="Login">
+    <ng-container slot="input">
+      <input type="text" id="login" formControlName="login" />
+    </ng-container>
+    <ng-container slot="validation-errors">
+      @if (login.dirty && login.invalid) {
+        @if (login.hasError('required')) {
+          <span class="validation-error">Please enter login</span>
+        }
+        @if (login.hasError('minlength')) {
+          <span class="validation-error">Login should be at least 5 letters</span>
+        }
+        @if (login.hasError('isTakenLogin')) {
+          <span class="validation-error">{{ login.getError('isTakenLogin').message }}</span>
+        }
+      }
+    </ng-container>
+  </app-form-field>
+  <app-form-field inputId="first-name" label="First name">
+    <ng-container slot="input">
+      <input type="text" id="first-name" formControlName="firstName" />
+    </ng-container>
+    <ng-container slot="validation-errors">
+      @if (firstName.dirty && firstName.invalid) {
+        @if (firstName.hasError('required')) {
+          <span class="validation-error">Please enter first name</span>
+        }
+      }
+    </ng-container>
+  </app-form-field>
+  <app-form-field inputId="last-name" label="Last name">
+    <ng-container slot="input">
+      <input type="text" id="last-name" formControlName="lastName" />
+    </ng-container>
+    <ng-container slot="validation-errors">
+      @if (lastName.dirty && lastName.invalid) {
+        @if (lastName.hasError('required')) {
+          <span class="validation-error">Please enter last name</span>
+        }
+      }
+    </ng-container>
+  </app-form-field>
+  <app-form-field inputId="password" label="Password">
+    <ng-container slot="input">
+      <input
+        [type]="showPassword() ? 'text' : 'password'"
+        id="password"
+        formControlName="password"
+        autocomplete="off"
+      />
+    </ng-container>
+    <button slot="input-icon" type="button" (click)="togglePassword()" class="password-visibility">
+      <app-password-icon [showPassword]="showPassword()" />
+    </button>
+    <ng-container slot="validation-errors">
+      @if (password.dirty && password.invalid) {
+        @if (password.hasError('required')) {
+          <span class="validation-error">Please enter password</span>
+        } @else {
+          {{ generatePasswordValidationErrors() }}
+        }
+      }
+    </ng-container>
+  </app-form-field>
+  <app-form-field inputId="confirm-password" label="Confirm password">
+    <ng-container slot="input">
+      <input
+        [type]="showConfirmPassword() ? 'text' : 'password'"
+        id="confirm-password"
+        formControlName="confirmPassword"
+        autocomplete="off"
+      />
+    </ng-container>
+    <button
+      slot="input-icon"
+      type="button"
+      (click)="toggleConfirmPassword()"
+      class="password-visibility"
+    >
+      <app-password-icon [showPassword]="showConfirmPassword()" />
+    </button>
+    <ng-container slot="validation-errors">
+      @if (confirmPassword.dirty && confirmPassword.invalid) {
+        @if (confirmPassword.hasError('required')) {
+          <span class="validation-error">Please confirm password</span>
+        }
+      }
+      @if (confirmPassword.dirty && signupForm.invalid && signupForm.hasError('isMatchPasswords')) {
+        <span class="validation-error">{{ signupForm.getError('isMatchPasswords').message }}</span>
+      }
+    </ng-container>
+  </app-form-field>
+  <button class="form-submit" type="submit" [disabled]="signupForm.invalid || isPendingRequest()">
+    Sign Up
+  </button>
+  <app-form-field inputId="submit-error">
+    <ng-container slot="validation-errors">
+      @if (signupForm.invalid && signupForm.hasError('signUpError')) {
+        <span class="validation-error submit">{{
+          signupForm.getError('signUpError').message
+        }}</span>
+      }
+    </ng-container>
+  </app-form-field>
+</form>

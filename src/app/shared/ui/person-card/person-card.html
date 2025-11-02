@@ -1,0 +1,29 @@
+<div class="card__wrapper">
+  <div>
+    @if (size()) {
+      <div
+        class="person__card"
+        [class]="size()"
+        (click)="goToDetails()"
+        (keydown.enter)="goToDetails()"
+        tabindex="0"
+        role="button"
+      >
+        <img [src]="getProfileImage()" alt="" />
+        <div class="person__info">
+          <h3>
+            {{ data().name }}
+          </h3>
+          @if (variant() === 'compact') {
+            <p>{{ data().character }}</p>
+          }
+          @if (variant() === 'default') {
+            @for (item of data().known_for; track $index) {
+              <span>{{ item.name || item.title }}, </span>
+            }
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
